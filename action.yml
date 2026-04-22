@@ -105,7 +105,7 @@ runs:
           --image "${{ inputs.image }}"
           --severities "${{ inputs.severities }}"
           --report-dir "${{ inputs.report-dir }}"
-          --patched-suffix "${{ inputs.patched-suffix }}"
+          --patched-suffix="${{ inputs.patched-suffix }}"
           --dh-user-env DOCKERHUB_USERNAME
           --dh-password-env DOCKERHUB_PASSWORD
         )
