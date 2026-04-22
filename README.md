@@ -284,6 +284,13 @@ Generated artifacts:
 - Provide `dh-user` and `dh-password` from secrets.
 - Keep `non-interactive` enabled for deterministic CI behavior.
 
+## Marketplace Compliance Documents
+
+- EULA: `EULA.md`
+- Privacy Policy: `PRIVACY.md`
+- Support Policy: `SUPPORT.md`
+- Security Policy: `SECURITY.md`
+
 ## License
 
 MIT
