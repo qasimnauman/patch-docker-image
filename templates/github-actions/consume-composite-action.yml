@@ -1,0 +1,48 @@
+name: Patch Docker Image With Reusable Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: Image reference to patch
+        required: true
+        type: string
+      push:
+        description: Push verified patched image
+        required: true
+        default: false
+        type: boolean
+      dry_run:
+        description: Skip build/verify/push and generate artifacts only
+        required: true
+        default: false
+        type: boolean
+      severities:
+        description: Comma-separated severities to patch
+        required: true
+        default: CRITICAL,HIGH,MEDIUM,LOW
+        type: string
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Patch image using reusable composite action
+        id: patch
+        uses: your-org/docker-vuln-patcher/.github/actions/patch-docker-image@v0.1.0
+        with:
+          image: ${{ inputs.image }}
+          push: ${{ inputs.push }}
+          dry-run: ${{ inputs.dry_run }}
+          severities: ${{ inputs.severities }}
+          non-interactive: "true"
+          dh-user: ${{ secrets.DOCKERHUB_USERNAME }}
+          dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Print output image tag
+        run: 'echo "Patched image: ${{ steps.patch.outputs.patched_image }}"'

@@ -1,0 +1,4653 @@
+{
+  "version": "15.0.6",
+  "vulnerabilities": [
+    {
+      "id": "43256619553f09f5d4b96c43672dc2bc9cbc1cdc667fdc77d6ebb6753d0386e1",
+      "category": "container_scanning",
+      "message": "CVE-2026-32281 on stdlib@1.14.4",
+      "description": "Validating certificate chains which use policies is unexpectedly inefficient when certificates in the chain contain a very large number of policy mappings, possibly causing denial of service.\n\nThis only affects validation of otherwise trusted certificate chains, issued by a root CA in the VerifyOptions.Roots CertPool, or in the system certificate pool.",
+      "cve": "CVE-2026-32281",
+      "severity": "Unknown",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-32281",
+          "value": "CVE-2026-32281",
+          "url": "https://scout.docker.com/v/CVE-2026-32281?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-32281?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ]
+    },
+    {
+      "id": "15d2ab3c93468267d332c6910c6565acaa764797bc8b642247b6336daca0f219",
+      "category": "container_scanning",
+      "message": "CVE-2026-32282 on stdlib@1.14.4",
+      "description": "On Linux, if the target of Root.Chmod is replaced with a symlink while the chmod operation is in progress, Chmod can operate on the target of the symlink, even when the target lies outside the root.\n\nThe Linux fchmodat syscall silently ignores the AT_SYMLINK_NOFOLLOW flag, which Root.Chmod uses to avoid symlink traversal. Root.Chmod checks its target before acting and returns an error if the target is a symlink lying outside the root, so the impact is limited to cases where the target is replaced with a symlink between the check and operation.",
+      "cve": "CVE-2026-32282",
+      "severity": "Unknown",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-32282",
+          "value": "CVE-2026-32282",
+          "url": "https://scout.docker.com/v/CVE-2026-32282?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-32282?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ]
+    },
+    {
+      "id": "4273776939e5aa2a7b429f862094d0bf5bf6fb2357765f4993ac46bd09f3e0ea",
+      "category": "container_scanning",
+      "message": "CVE-2026-32283 on stdlib@1.14.4",
+      "description": "If one side of the TLS connection sends multiple key update messages post-handshake in a single record, the connection can deadlock, causing uncontrolled consumption of resources. This can lead to a denial of service.\n\nThis only affects TLS 1.3.",
+      "cve": "CVE-2026-32283",
+      "severity": "Unknown",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-32283",
+          "value": "CVE-2026-32283",
+          "url": "https://scout.docker.com/v/CVE-2026-32283?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-32283?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ]
+    },
+    {
+      "id": "5ff63eb51bebbb6e47754f184e82f2fdd4a7cb985f6f11bb9b0269ecab22fbf6",
+      "category": "container_scanning",
+      "message": "CVE-2026-32288 on stdlib@1.14.4",
+      "description": "tar.Reader can allocate an unbounded amount of memory when reading a maliciously-crafted archive containing a large number of sparse regions encoded in the \"old GNU sparse map\" format.",
+      "cve": "CVE-2026-32288",
+      "severity": "Unknown",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-32288",
+          "value": "CVE-2026-32288",
+          "url": "https://scout.docker.com/v/CVE-2026-32288?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-32288?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ]
+    },
+    {
+      "id": "9f5f82645a523b9f29e0092d0e7b15525bfe985467e1d1a06badc52b7f3062cc",
+      "category": "container_scanning",
+      "message": "CVE-2026-32289 on stdlib@1.14.4",
+      "description": "Context was not properly tracked across template branches for JS template literals, leading to possibly incorrect escaping of content when branches were used. Additionally template actions within JS template literals did not properly track the brace depth, leading to incorrect escaping being applied.\n\nThese issues could cause actions within JS template literals to be incorrectly or improperly escaped, leading to XSS vulnerabilities.",
+      "cve": "CVE-2026-32289",
+      "severity": "Unknown",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-32289",
+          "value": "CVE-2026-32289",
+          "url": "https://scout.docker.com/v/CVE-2026-32289?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-32289?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ]
+    },
+    {
+      "id": "2e864e4563a997d39bfd55f1dee472f6de70c16c9cbcb24266440e5f095fae36",
+      "category": "container_scanning",
+      "message": "CVE-2026-27139 on stdlib@1.14.4",
+      "description": "On Unix platforms, when listing the contents of a directory using File.ReadDir or File.Readdir the returned FileInfo could reference a file outside of the Root in which the File was opened.\n\nThe impact of this escape is limited to reading metadata provided by lstat from arbitrary locations on the filesystem without permitting reading or writing files outside the root.",
+      "cve": "CVE-2026-27139",
+      "severity": "Low",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-27139",
+          "value": "CVE-2026-27139",
+          "url": "https://scout.docker.com/v/CVE-2026-27139?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-27139?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        }
+      ]
+    },
+    {
+      "id": "3b66ee8e3719538f92b7f1bc663b85230edeabd9e35f7c5a625d63cc2f467ccb",
+      "category": "container_scanning",
+      "message": "CVE-2022-30629 on stdlib@1.14.4",
+      "description": "An attacker can correlate a resumed TLS session with a previous connection.\n\nSession tickets generated by crypto/tls do not contain a randomly generated ticket_age_add, which allows an attacker that can observe TLS handshakes to correlate successive connections by comparing ticket ages during session resumption.",
+      "cve": "CVE-2022-30629",
+      "severity": "Low",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-30629",
+          "value": "CVE-2022-30629",
+          "url": "https://scout.docker.com/v/CVE-2022-30629?s=golang&n=stdlib&t=golang&vr=%3C1.17.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-30629?s=golang&n=stdlib&t=golang&vr=%3C1.17.11"
+        }
+      ]
+    },
+    {
+      "id": "a1fd315f9d1c4fd31559571c8dfba98570b3ea03e35c741288b74371eca973c6",
+      "category": "container_scanning",
+      "message": "CVE-2023-26112 on configobj@5.0.6",
+      "description": "All versions of the package configobj are vulnerable to Regular Expression Denial of Service (ReDoS) via the validate function, using (.+?)\\((.*)\\). **Note:** This is only exploitable in the case of a developer, putting the offending value in a server side configuration file.",
+      "cve": "CVE-2023-26112",
+      "severity": "Low",
+      "confidence": "Unknown",
+      "solution": "Upgrade configobj@5.0.6 to 5.0.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/configobj@5.0.6"
+          },
+          "version": "5.0.6"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-26112",
+          "value": "CVE-2023-26112",
+          "url": "https://scout.docker.com/v/CVE-2023-26112?s=github&n=configobj&t=pypi&vr=%3C5.0.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-26112?s=github&n=configobj&t=pypi&vr=%3C5.0.9"
+        }
+      ]
+    },
+    {
+      "id": "503d100092dc97cb99f9445ec8b8aec926628520dbae479c9d8b350106494adb",
+      "category": "container_scanning",
+      "message": "CVE-2025-22873 on stdlib@1.14.4",
+      "description": "It was possible to improperly access the parent directory of an os.Root by opening a filename ending in \"../\". For example, Root.Open(\"../\") would open the parent directory of the Root. This escape only permits opening the parent directory itself, not ancestors of the parent or files contained within the parent.",
+      "cve": "CVE-2025-22873",
+      "severity": "Low",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.23.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-22873",
+          "value": "CVE-2025-22873",
+          "url": "https://scout.docker.com/v/CVE-2025-22873?s=golang&n=stdlib&t=golang&vr=%3C1.23.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-22873?s=golang&n=stdlib&t=golang&vr=%3C1.23.9"
+        }
+      ]
+    },
+    {
+      "id": "d8ebf6cea799e0aeb90badacd2a59c2ccf70d8bebfeac75a7e4b398e982bd5b3",
+      "category": "container_scanning",
+      "message": "CVE-2025-22866 on stdlib@1.14.4",
+      "description": "Due to the usage of a variable time instruction in the assembly implementation of an internal function, a small number of bits of secret scalars are leaked on the ppc64le architecture. Due to the way this function is used, we do not believe this leakage is enough to allow recovery of the private key when P-256 is used in any well known protocols.",
+      "cve": "CVE-2025-22866",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.22.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-22866",
+          "value": "CVE-2025-22866",
+          "url": "https://scout.docker.com/v/CVE-2025-22866?s=golang&n=stdlib&t=golang&vr=%3C1.22.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-22866?s=golang&n=stdlib&t=golang&vr=%3C1.22.12"
+        }
+      ]
+    },
+    {
+      "id": "510c4ac7cdef91638a03fe3a3ffc9e349f5390605d7860556091164a51cc0574",
+      "category": "container_scanning",
+      "message": "CVE-2023-45289 on stdlib@1.14.4",
+      "description": "When following an HTTP redirect to a domain which is not a subdomain match or exact match of the initial domain, an http.Client does not forward sensitive headers such as \"Authorization\" or \"Cookie\". For example, a redirect from foo.com to www.foo.com will forward the Authorization header, but a redirect to bar.com will not.\n\nA maliciously crafted HTTP redirect could cause sensitive headers to be unexpectedly forwarded.",
+      "cve": "CVE-2023-45289",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-45289",
+          "value": "CVE-2023-45289",
+          "url": "https://scout.docker.com/v/CVE-2023-45289?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-45289?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ]
+    },
+    {
+      "id": "1b9a943fca9cf419058a20ff8c3de3cb23fb3dc21d225eea09c6eb72be003fbe",
+      "category": "container_scanning",
+      "message": "CVE-2024-34155 on stdlib@1.14.4",
+      "description": "Calling any of the Parse functions on Go source code which contains deeply nested literals can cause a panic due to stack exhaustion.",
+      "cve": "CVE-2024-34155",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.22.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-34155",
+          "value": "CVE-2024-34155",
+          "url": "https://scout.docker.com/v/CVE-2024-34155?s=golang&n=stdlib&t=golang&vr=%3C1.22.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-34155?s=golang&n=stdlib&t=golang&vr=%3C1.22.7"
+        }
+      ]
+    },
+    {
+      "id": "0bbfe0433e823a1fa57d726d1c85c952ea05530e3c1b9910154d7bd88ad91afc",
+      "category": "container_scanning",
+      "message": "CVE-2025-58183 on stdlib@1.14.4",
+      "description": "tar.Reader does not set a maximum size on the number of sparse region data blocks in GNU tar pax 1.0 sparse files. A maliciously-crafted archive containing a large number of sparse regions can cause a Reader to read an unbounded amount of data from the archive into memory. When reading from a compressed source, a small compressed input can result in large allocations.",
+      "cve": "CVE-2025-58183",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-58183",
+          "value": "CVE-2025-58183",
+          "url": "https://scout.docker.com/v/CVE-2025-58183?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-58183?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "5b16887ac70f05d6a032cd583b2ebcdc554b5c73d59a1ed816d11ff7883208ae",
+      "category": "container_scanning",
+      "message": "CVE-2021-44717 on stdlib@1.14.4",
+      "description": "When a Go program running on a Unix system is out of file descriptors and calls syscall.ForkExec (including indirectly by using the os/exec package), syscall.ForkExec can close file descriptor 0 as it fails. If this happens (or can be provoked) repeatedly, it can result in misdirected I/O such as writing network traffic intended for one connection to a different connection, or content intended for one file to a different one.\n\nFor users who cannot immediately update to the new release, the bug can be mitigated by raising the per-process file descriptor limit.",
+      "cve": "CVE-2021-44717",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.16.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-44717",
+          "value": "CVE-2021-44717",
+          "url": "https://scout.docker.com/v/CVE-2021-44717?s=golang&n=stdlib&t=golang&vr=%3C1.16.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-44717?s=golang&n=stdlib&t=golang&vr=%3C1.16.12"
+        }
+      ]
+    },
+    {
+      "id": "93746852c19116ba7df5217b1e0e945a1cfa46a32c9c3df9d77e231ce85fcb78",
+      "category": "container_scanning",
+      "message": "CVE-2020-14039 on stdlib@1.14.4",
+      "description": "On Windows, if VerifyOptions.Roots is nil, Certificate.Verify does not check the EKU requirements specified in VerifyOptions.KeyUsages. This may allow a certificate to be used for an unintended purpose.",
+      "cve": "CVE-2020-14039",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.14.5",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2020-14039",
+          "value": "CVE-2020-14039",
+          "url": "https://scout.docker.com/v/CVE-2020-14039?s=golang&n=stdlib&t=golang&vr=%3E%3D1.14.0-0%2C%3C1.14.5"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2020-14039?s=golang&n=stdlib&t=golang&vr=%3E%3D1.14.0-0%2C%3C1.14.5"
+        }
+      ]
+    },
+    {
+      "id": "c65f12175a49ceade80e94bb7bb3057cd15f0e187285e2c57eb817b6fb3909e3",
+      "category": "container_scanning",
+      "message": "CVE-2021-33197 on stdlib@1.14.4",
+      "description": "ReverseProxy can be made to forward certain hop-by-hop headers, including Connection. If the target of the ReverseProxy is itself a reverse proxy, this lets an attacker drop arbitrary headers, including those set by the ReverseProxy.Director.",
+      "cve": "CVE-2021-33197",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.15.13",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-33197",
+          "value": "CVE-2021-33197",
+          "url": "https://scout.docker.com/v/CVE-2021-33197?s=golang&n=stdlib&t=golang&vr=%3C1.15.13"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-33197?s=golang&n=stdlib&t=golang&vr=%3C1.15.13"
+        }
+      ]
+    },
+    {
+      "id": "addd6d1fe3e781a95cc14101569ac38ec3eacbf9a0b5b9aceee3aabd28015a73",
+      "category": "container_scanning",
+      "message": "CVE-2022-29526 on stdlib@1.14.4",
+      "description": "When called with a non-zero flags parameter, the Faccessat function can incorrectly report that a file is accessible.",
+      "cve": "CVE-2022-29526",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-29526",
+          "value": "CVE-2022-29526",
+          "url": "https://scout.docker.com/v/CVE-2022-29526?s=golang&n=stdlib&t=golang&vr=%3C1.17.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-29526?s=golang&n=stdlib&t=golang&vr=%3C1.17.10"
+        }
+      ]
+    },
+    {
+      "id": "a015f9c6f3567eaf736cb5f4a54d1d91176c93b638d9a42c88173dd147c08eb3",
+      "category": "container_scanning",
+      "message": "CVE-2022-41717 on stdlib@1.14.4",
+      "description": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests.\n\nHTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+      "cve": "CVE-2022-41717",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.18.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-41717",
+          "value": "CVE-2022-41717",
+          "url": "https://scout.docker.com/v/CVE-2022-41717?s=golang&n=stdlib&t=golang&vr=%3C1.18.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-41717?s=golang&n=stdlib&t=golang&vr=%3C1.18.9"
+        }
+      ]
+    },
+    {
+      "id": "5ca402db1224dc7b44ad4e4336b39b3eaae7b5d6912e1f9963581f3d27f1b86e",
+      "category": "container_scanning",
+      "message": "CVE-2023-24532 on stdlib@1.14.4",
+      "description": "The ScalarMult and ScalarBaseMult methods of the P256 Curve may return an incorrect result if called with some specific unreduced scalars (a scalar larger than the order of the curve).\n\nThis does not impact usages of crypto/ecdsa or crypto/ecdh.",
+      "cve": "CVE-2023-24532",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-24532",
+          "value": "CVE-2023-24532",
+          "url": "https://scout.docker.com/v/CVE-2023-24532?s=golang&n=stdlib&t=golang&vr=%3C1.19.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-24532?s=golang&n=stdlib&t=golang&vr=%3C1.19.7"
+        }
+      ]
+    },
+    {
+      "id": "68ef533bd7906a87c4e250455faf234fecba9dad30a0e73638b8cd4751228a51",
+      "category": "container_scanning",
+      "message": "CVE-2023-29409 on stdlib@1.14.4",
+      "description": "Extremely large RSA keys in certificate chains can cause a client/server to expend significant CPU time verifying signatures.\n\nWith fix, the size of RSA keys transmitted during handshakes is restricted to <= 8192 bits.\n\nBased on a survey of publicly trusted RSA keys, there are currently only three certificates in circulation with keys larger than this, and all three appear to be test certificates that are not actively deployed. It is possible there are larger keys in use in private PKIs, but we target the web PKI, so causing breakage here in the interests of increasing the default safety of users of crypto/tls seems reasonable.",
+      "cve": "CVE-2023-29409",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-29409",
+          "value": "CVE-2023-29409",
+          "url": "https://scout.docker.com/v/CVE-2023-29409?s=golang&n=stdlib&t=golang&vr=%3C1.19.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-29409?s=golang&n=stdlib&t=golang&vr=%3C1.19.12"
+        }
+      ]
+    },
+    {
+      "id": "b12fc68380aa63fb1c4f304f5e227815c09ee35d9282bbc628c5c9eac5f8dc8a",
+      "category": "container_scanning",
+      "message": "CVE-2023-39326 on stdlib@1.14.4",
+      "description": "A malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body.\n\nA malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request.\n\nChunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small.",
+      "cve": "CVE-2023-39326",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.20.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-39326",
+          "value": "CVE-2023-39326",
+          "url": "https://scout.docker.com/v/CVE-2023-39326?s=golang&n=stdlib&t=golang&vr=%3C1.20.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-39326?s=golang&n=stdlib&t=golang&vr=%3C1.20.12"
+        }
+      ]
+    },
+    {
+      "id": "b399d40e69eacc9a09e5c211e67ad0bf9d88cd5404925aa022ae134fc45f220f",
+      "category": "container_scanning",
+      "message": "CVE-2023-45284 on stdlib@1.14.4",
+      "description": "On Windows, The IsLocal function does not correctly detect reserved device names in some cases.\n\nReserved names followed by spaces, such as \"COM1 \", and reserved names \"COM\" and \"LPT\" followed by superscript 1, 2, or 3, are incorrectly reported as local.\n\nWith fix, IsLocal now correctly reports these names as non-local.",
+      "cve": "CVE-2023-45284",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.20.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-45284",
+          "value": "CVE-2023-45284",
+          "url": "https://scout.docker.com/v/CVE-2023-45284?s=golang&n=stdlib&t=golang&vr=%3C1.20.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-45284?s=golang&n=stdlib&t=golang&vr=%3C1.20.11"
+        }
+      ]
+    },
+    {
+      "id": "ba0cce32dbd99eac02190338a9ecaa2a099fe6761d4fc26df16f91a5d05cc651",
+      "category": "container_scanning",
+      "message": "CVE-2025-47912 on stdlib@1.14.4",
+      "description": "The Parse function permits values other than IPv6 addresses to be included in square brackets within the host component of a URL. RFC 3986 permits IPv6 addresses to be included within the host component, enclosed within square brackets. For example: \"http://[::1]/\". IPv4 addresses and hostnames must not appear within square brackets. Parse did not enforce this requirement.",
+      "cve": "CVE-2025-47912",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-47912",
+          "value": "CVE-2025-47912",
+          "url": "https://scout.docker.com/v/CVE-2025-47912?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-47912?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "016244d6c52df4a4ec3ffaba74dcf52e0db4cc16ed48f25a96c3d44e07a4fa13",
+      "category": "container_scanning",
+      "message": "CVE-2025-58185 on stdlib@1.14.4",
+      "description": "Parsing a maliciously crafted DER payload could allocate large amounts of memory, causing memory exhaustion.",
+      "cve": "CVE-2025-58185",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-58185",
+          "value": "CVE-2025-58185",
+          "url": "https://scout.docker.com/v/CVE-2025-58185?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-58185?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "d269ccdd6d935f7d79e053f152358a54faf1d96f37dd84f715818f55cd9fc9ce",
+      "category": "container_scanning",
+      "message": "CVE-2025-58186 on stdlib@1.14.4",
+      "description": "Despite HTTP headers having a default limit of 1MB, the number of cookies that can be parsed does not have a limit. By sending a lot of very small cookies such as \"a=;\", an attacker can make an HTTP server allocate a large amount of structs, causing large memory consumption.",
+      "cve": "CVE-2025-58186",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-58186",
+          "value": "CVE-2025-58186",
+          "url": "https://scout.docker.com/v/CVE-2025-58186?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-58186?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "da0fabe782ec6e5f378b3e42f53ec2e794bdc4be857a2487c2aa56b578c13fed",
+      "category": "container_scanning",
+      "message": "CVE-2025-58189 on stdlib@1.14.4",
+      "description": "When Conn.Handshake fails during ALPN negotiation the error contains attacker controlled information (the ALPN protocols sent by the client) which is not escaped.",
+      "cve": "CVE-2025-58189",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-58189",
+          "value": "CVE-2025-58189",
+          "url": "https://scout.docker.com/v/CVE-2025-58189?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-58189?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "599c6bdac102172449519fd2929ec94e2ba17cbaf41d733db1f7dcc54ba4d4ca",
+      "category": "container_scanning",
+      "message": "CVE-2025-61724 on stdlib@1.14.4",
+      "description": "The Reader.ReadResponse function constructs a response string through repeated string concatenation of lines. When the number of lines in a response is large, this can cause excessive CPU consumption.",
+      "cve": "CVE-2025-61724",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-61724",
+          "value": "CVE-2025-61724",
+          "url": "https://scout.docker.com/v/CVE-2025-61724?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-61724?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "de30a5de6a43ef80bb36f8c46a2934c7b3b5091afb789d7d770dde3a66d25ae3",
+      "category": "container_scanning",
+      "message": "CVE-2025-61730 on stdlib@1.14.4",
+      "description": "During the TLS 1.3 handshake if multiple messages are sent in records that span encryption level boundaries (for instance the Client Hello and Encrypted Extensions messages), the subsequent messages may be processed before the encryption level changes. This can cause some minor information disclosure if a network-local attacker can inject messages during the handshake.",
+      "cve": "CVE-2025-61730",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-61730",
+          "value": "CVE-2025-61730",
+          "url": "https://scout.docker.com/v/CVE-2025-61730?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-61730?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        }
+      ]
+    },
+    {
+      "id": "c7f423a1dda9d8baab3d1a96b1923897934b2d9cc2f1e159d36b63308eef3c2c",
+      "category": "container_scanning",
+      "message": "CVE-2024-24785 on stdlib@1.14.4",
+      "description": "If errors returned from MarshalJSON methods contain user controlled data, they may be used to break the contextual auto-escaping behavior of the html/template package, allowing for subsequent actions to inject unexpected content into templates.",
+      "cve": "CVE-2024-24785",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-24785",
+          "value": "CVE-2024-24785",
+          "url": "https://scout.docker.com/v/CVE-2024-24785?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-24785?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ]
+    },
+    {
+      "id": "4de4e6f39fc03dfebbff24a488456177d4d8c802e6bd95840fb7ac58f7639691",
+      "category": "container_scanning",
+      "message": "CVE-2022-1962 on stdlib@1.14.4",
+      "description": "Calling any of the Parse functions on Go source code which contains deeply nested types or declarations can cause a panic due to stack exhaustion.",
+      "cve": "CVE-2022-1962",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-1962",
+          "value": "CVE-2022-1962",
+          "url": "https://scout.docker.com/v/CVE-2022-1962?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-1962?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "b0874ac871fa56ab9d807bbed5268f8cd07ffb89155773a7e6ae6024c5fd9244",
+      "category": "container_scanning",
+      "message": "CVE-2024-24789 on stdlib@1.14.4",
+      "description": "The archive/zip package's handling of certain types of invalid zip files differs from the behavior of most zip implementations. This misalignment could be exploited to create an zip file with contents that vary depending on the implementation reading the file. The archive/zip package now rejects files containing these errors.",
+      "cve": "CVE-2024-24789",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-24789",
+          "value": "CVE-2024-24789",
+          "url": "https://scout.docker.com/v/CVE-2024-24789?s=golang&n=stdlib&t=golang&vr=%3C1.21.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-24789?s=golang&n=stdlib&t=golang&vr=%3C1.21.11"
+        }
+      ]
+    },
+    {
+      "id": "0441bf23549b1db5434d0e2e4944d40e3f73f518037941043a2d927252dcbbd0",
+      "category": "container_scanning",
+      "message": "CVE-2025-0913 on stdlib@1.14.4",
+      "description": "os.OpenFile(path, os.O_CREATE|O_EXCL) behaved differently on Unix and Windows systems when the target path was a dangling symlink. On Unix systems, OpenFile with O_CREATE and O_EXCL flags never follows symlinks. On Windows, when the target path was a symlink to a nonexistent location, OpenFile would create a file in that location. OpenFile now always returns an error when the O_CREATE and O_EXCL flags are both set and the target path is a symlink.",
+      "cve": "CVE-2025-0913",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.23.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-0913",
+          "value": "CVE-2025-0913",
+          "url": "https://scout.docker.com/v/CVE-2025-0913?s=golang&n=stdlib&t=golang&vr=%3C1.23.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-0913?s=golang&n=stdlib&t=golang&vr=%3C1.23.10"
+        }
+      ]
+    },
+    {
+      "id": "8609f978f2bb5d0fbce90afd0e12f5083258226782279447edd62b675addb320",
+      "category": "container_scanning",
+      "message": "CVE-2019-3902 on mercurial@4.0",
+      "description": "A flaw was found in Mercurial before 4.9. It was possible to use symlinks and subrepositories to defeat Mercurial's path-checking logic and write files outside a repository.",
+      "cve": "CVE-2019-3902",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2019-3902",
+          "value": "CVE-2019-3902",
+          "url": "https://scout.docker.com/v/CVE-2019-3902?s=github&n=mercurial&t=pypi&vr=%3C4.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2019-3902?s=github&n=mercurial&t=pypi&vr=%3C4.9"
+        }
+      ]
+    },
+    {
+      "id": "ca4749eecdfc3ebf33da17c598f7c45042b9b8afaeb61b6deba0d3e700649028",
+      "category": "container_scanning",
+      "message": "CVE-2020-15586 on stdlib@1.14.4",
+      "description": "HTTP servers where the Handler concurrently reads the request body and writes a response can encounter a data race and crash. The httputil.ReverseProxy Handler is affected.",
+      "cve": "CVE-2020-15586",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.14.5",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2020-15586",
+          "value": "CVE-2020-15586",
+          "url": "https://scout.docker.com/v/CVE-2020-15586?s=golang&n=stdlib&t=golang&vr=%3E%3D1.14.0-0%2C%3C1.14.5"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2020-15586?s=golang&n=stdlib&t=golang&vr=%3E%3D1.14.0-0%2C%3C1.14.5"
+        }
+      ]
+    },
+    {
+      "id": "ee28f337d51327be96c8d672f58447a1a1505c8b3ee2c9a51d08842ffc5fc270",
+      "category": "container_scanning",
+      "message": "CVE-2021-31525 on stdlib@1.14.4",
+      "description": "A malicious HTTP server or client can cause the net/http client or server to panic.\n\nReadRequest and ReadResponse can hit an unrecoverable panic when reading a very large header (over 7MB on 64-bit architectures, or over 4MB on 32-bit ones). Transport and Client are vulnerable and the program can be made to crash by a malicious server. Server is not vulnerable by default, but can be if the default max header of 1MB is overridden by setting Server.MaxHeaderBytes to a higher value, in which case the program can be made to crash by a malicious client.\n\nThis also affects golang.org/x/net/http2/h2c and HeaderValuesContainsToken in golang.org/x/net/http/httpguts.",
+      "cve": "CVE-2021-31525",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.15.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-31525",
+          "value": "CVE-2021-31525",
+          "url": "https://scout.docker.com/v/CVE-2021-31525?s=golang&n=stdlib&t=golang&vr=%3C1.15.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-31525?s=golang&n=stdlib&t=golang&vr=%3C1.15.12"
+        }
+      ]
+    },
+    {
+      "id": "1dc3e866b2af31044201cf2da3dbdd9bc063f146f521fcc712da9495380f3cd3",
+      "category": "container_scanning",
+      "message": "CVE-2021-36221 on stdlib@1.14.4",
+      "description": "ReverseProxy can panic after encountering a problem copying a proxied response body.",
+      "cve": "CVE-2021-36221",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.15.15",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-36221",
+          "value": "CVE-2021-36221",
+          "url": "https://scout.docker.com/v/CVE-2021-36221?s=golang&n=stdlib&t=golang&vr=%3C1.15.15"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-36221?s=golang&n=stdlib&t=golang&vr=%3C1.15.15"
+        }
+      ]
+    },
+    {
+      "id": "0552ad203b693a6b39656e9bcaef80d1cafc7d1c5b24cba6937e2585fc4f73d6",
+      "category": "container_scanning",
+      "message": "CVE-2024-24783 on stdlib@1.14.4",
+      "description": "Verifying a certificate chain which contains a certificate with an unknown public key algorithm will cause Certificate.Verify to panic.\n\nThis affects all crypto/tls clients, and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert. The default behavior is for TLS servers to not verify client certificates.",
+      "cve": "CVE-2024-24783",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-24783",
+          "value": "CVE-2024-24783",
+          "url": "https://scout.docker.com/v/CVE-2024-24783?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-24783?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ]
+    },
+    {
+      "id": "dd196460670fcc0cdcfa59443ecac267801a4c930544a3d5ce26b18de3d37b22",
+      "category": "container_scanning",
+      "message": "CVE-2020-24553 on stdlib@1.14.4",
+      "description": "When a Handler does not explicitly set the Content-Type header, the the package would default to “text/html”, which could cause a Cross-Site Scripting vulnerability if an attacker can control any part of the contents of a response.\n\nThe Content-Type header is now set based on the contents of the first Write using http.DetectContentType, which is consistent with the behavior of the net/http package.\n\nAlthough this protects some applications that validate the contents of uploaded files, not setting the Content-Type header explicitly on any attacker-controlled file is unsafe and should be avoided.",
+      "cve": "CVE-2020-24553",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.14.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2020-24553",
+          "value": "CVE-2020-24553",
+          "url": "https://scout.docker.com/v/CVE-2020-24553?s=golang&n=stdlib&t=golang&vr=%3C1.14.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2020-24553?s=golang&n=stdlib&t=golang&vr=%3C1.14.8"
+        }
+      ]
+    },
+    {
+      "id": "770b26fc9006255d33b9d35f3703138d8aa809460a1bee29a0497f4fbc7480a4",
+      "category": "container_scanning",
+      "message": "CVE-2023-39318 on stdlib@1.14.4",
+      "description": "The html/template package does not properly handle HTML-like \"\" comment tokens, nor hashbang \"#!\" comment tokens, in <script> contexts. This may cause the template parser to improperly interpret the contents of <script> contexts, causing actions to be improperly escaped. This may be leveraged to perform an XSS attack.",
+      "cve": "CVE-2023-39318",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.20.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-39318",
+          "value": "CVE-2023-39318",
+          "url": "https://scout.docker.com/v/CVE-2023-39318?s=golang&n=stdlib&t=golang&vr=%3C1.20.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-39318?s=golang&n=stdlib&t=golang&vr=%3C1.20.8"
+        }
+      ]
+    },
+    {
+      "id": "3af0bd30725078d5f11aa4afb78ca62f2f699503588f7205295c804092f2fbd3",
+      "category": "container_scanning",
+      "message": "CVE-2023-39319 on stdlib@1.14.4",
+      "description": "The html/template package does not apply the proper rules for handling occurrences of \"<script\", \"<!--\", and \"</script\" within JS literals in <script> contexts. This may cause the template parser to improperly consider script contexts to be terminated early, causing actions to be improperly escaped. This could be leveraged to perform an XSS attack.",
+      "cve": "CVE-2023-39319",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.20.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-39319",
+          "value": "CVE-2023-39319",
+          "url": "https://scout.docker.com/v/CVE-2023-39319?s=golang&n=stdlib&t=golang&vr=%3C1.20.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-39319?s=golang&n=stdlib&t=golang&vr=%3C1.20.8"
+        }
+      ]
+    },
+    {
+      "id": "650ffde60598a18b3e96083fbaf92f85bd414818da8fc42207a8b2c935b3891b",
+      "category": "container_scanning",
+      "message": "CVE-2024-45336 on stdlib@1.14.4",
+      "description": "The HTTP client drops sensitive headers after following a cross-domain redirect. For example, a request to a.com/ containing an Authorization header which is redirected to b.com/ will not send that header to b.com.\n\nIn the event that the client received a subsequent same-domain redirect, however, the sensitive headers would be restored. For example, a chain of redirects from a.com/, to b.com/1, and finally to b.com/2 would incorrectly send the Authorization header to b.com/2.",
+      "cve": "CVE-2024-45336",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.22.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-45336",
+          "value": "CVE-2024-45336",
+          "url": "https://scout.docker.com/v/CVE-2024-45336?s=golang&n=stdlib&t=golang&vr=%3C1.22.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-45336?s=golang&n=stdlib&t=golang&vr=%3C1.22.11"
+        }
+      ]
+    },
+    {
+      "id": "a9b601f0adbc806ac47577e6fe7a1f60806ce60eb6b09748048086017789bdbc",
+      "category": "container_scanning",
+      "message": "CVE-2024-45341 on stdlib@1.14.4",
+      "description": "A certificate with a URI which has a IPv6 address with a zone ID may incorrectly satisfy a URI name constraint that applies to the certificate chain.\n\nCertificates containing URIs are not permitted in the web PKI, so this only affects users of private PKIs which make use of URIs.",
+      "cve": "CVE-2024-45341",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.22.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-45341",
+          "value": "CVE-2024-45341",
+          "url": "https://scout.docker.com/v/CVE-2024-45341?s=golang&n=stdlib&t=golang&vr=%3C1.22.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-45341?s=golang&n=stdlib&t=golang&vr=%3C1.22.11"
+        }
+      ]
+    },
+    {
+      "id": "22eeb27285ac86cb2ec6e8cadb5a13060f1c6b77aeb0b52f3a8ef7e00174f5fe",
+      "category": "container_scanning",
+      "message": "CVE-2026-27142 on stdlib@1.14.4",
+      "description": "Actions which insert URLs into the content attribute of HTML meta tags are not escaped. This can allow XSS if the meta tag also has an http-equiv attribute with the value \"refresh\".\n\nA new GODEBUG setting has been added, htmlmetacontenturlescape, which can be used to disable escaping URLs in actions in the meta content attribute which follow \"url=\" by setting htmlmetacontenturlescape=0.",
+      "cve": "CVE-2026-27142",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-27142",
+          "value": "CVE-2026-27142",
+          "url": "https://scout.docker.com/v/CVE-2026-27142?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-27142?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        }
+      ]
+    },
+    {
+      "id": "30bc19229a33f8a4aa5bd2f10d3c23bcfc064e8b8fc5c207d12e73d860a6ce7e",
+      "category": "container_scanning",
+      "message": "CVE-2021-3114 on stdlib@1.14.4",
+      "description": "The P224() Curve implementation can in rare circumstances generate incorrect outputs, including returning invalid points from ScalarMult.",
+      "cve": "CVE-2021-3114",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.14.14",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-3114",
+          "value": "CVE-2021-3114",
+          "url": "https://scout.docker.com/v/CVE-2021-3114?s=golang&n=stdlib&t=golang&vr=%3C1.14.14"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-3114?s=golang&n=stdlib&t=golang&vr=%3C1.14.14"
+        }
+      ]
+    },
+    {
+      "id": "e23f20738fefa5e88488f28f556b77111c0a386d08e28880139fe75535ecb38a",
+      "category": "container_scanning",
+      "message": "CVE-2021-34558 on stdlib@1.14.4",
+      "description": "crypto/tls clients can panic when provided a certificate of the wrong type for the negotiated parameters. net/http clients performing HTTPS requests are also affected.",
+      "cve": "CVE-2021-34558",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.15.14",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-34558",
+          "value": "CVE-2021-34558",
+          "url": "https://scout.docker.com/v/CVE-2021-34558?s=golang&n=stdlib&t=golang&vr=%3C1.15.14"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-34558?s=golang&n=stdlib&t=golang&vr=%3C1.15.14"
+        }
+      ]
+    },
+    {
+      "id": "b94b469c8be3071878094d2ac6a998e190d49a9d84736a11ec66b3f5ffba6492",
+      "category": "container_scanning",
+      "message": "CVE-2022-1705 on stdlib@1.14.4",
+      "description": "The HTTP/1 client accepted some invalid Transfer-Encoding headers as indicating a \"chunked\" encoding. This could potentially allow for request smuggling, but only if combined with an intermediate server that also improperly failed to reject the header as invalid.",
+      "cve": "CVE-2022-1705",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-1705",
+          "value": "CVE-2022-1705",
+          "url": "https://scout.docker.com/v/CVE-2022-1705?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-1705?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "2e2d992130a1358f91af1d6610de7cebfe2deaf990891d4e10bf6010121378c7",
+      "category": "container_scanning",
+      "message": "CVE-2022-32148 on stdlib@1.14.4",
+      "description": "Client IP adresses may be unintentionally exposed via X-Forwarded-For headers.\n\nWhen httputil.ReverseProxy.ServeHTTP is called with a Request.Header map containing a nil value for the X-Forwarded-For header, ReverseProxy sets the client IP as the value of the X-Forwarded-For header, contrary to its documentation.\n\nIn the more usual case where a Director function sets the X-Forwarded-For header value to nil, ReverseProxy leaves the header unmodified as expected.",
+      "cve": "CVE-2022-32148",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-32148",
+          "value": "CVE-2022-32148",
+          "url": "https://scout.docker.com/v/CVE-2022-32148?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-32148?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "398bcf9b362dd2cc3250b34a19f7cb3addfc600805c662972c56c063b27f5040",
+      "category": "container_scanning",
+      "message": "CVE-2023-29406 on stdlib@1.14.4",
+      "description": "The HTTP/1 client does not fully validate the contents of the Host header. A maliciously crafted Host header can inject additional headers or entire requests.\n\nWith fix, the HTTP/1 client now refuses to send requests containing an invalid Request.Host or Request.URL.Host value.",
+      "cve": "CVE-2023-29406",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-29406",
+          "value": "CVE-2023-29406",
+          "url": "https://scout.docker.com/v/CVE-2023-29406?s=golang&n=stdlib&t=golang&vr=%3C1.19.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-29406?s=golang&n=stdlib&t=golang&vr=%3C1.19.11"
+        }
+      ]
+    },
+    {
+      "id": "8c49e40a68d18b53d2c30c57e6cbe619f006b6866499c2cf83e80953154d3b63",
+      "category": "container_scanning",
+      "message": "CVE-2023-45290 on stdlib@1.14.4",
+      "description": "When parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This permits a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to memory exhaustion.\n\nWith fix, the ParseMultipartForm function now correctly limits the maximum size of form lines.",
+      "cve": "CVE-2023-45290",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-45290",
+          "value": "CVE-2023-45290",
+          "url": "https://scout.docker.com/v/CVE-2023-45290?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-45290?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ]
+    },
+    {
+      "id": "9ac51d508284a324f1acbbf913e14906323c1300ecc5941c9eba81b6c0592f03",
+      "category": "container_scanning",
+      "message": "CVE-2025-47906 on stdlib@1.14.4",
+      "description": "If the PATH environment variable contains paths which are executables (rather than just directories), passing certain strings to LookPath (\"\", \".\", and \"..\"), can result in the binaries listed in the PATH being unexpectedly returned.",
+      "cve": "CVE-2025-47906",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.23.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-47906",
+          "value": "CVE-2025-47906",
+          "url": "https://scout.docker.com/v/CVE-2025-47906?s=golang&n=stdlib&t=golang&vr=%3C1.23.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-47906?s=golang&n=stdlib&t=golang&vr=%3C1.23.12"
+        }
+      ]
+    },
+    {
+      "id": "490a3706ba3186d9457b37a7b7c23332c0088f697977482e1822a787ef61446c",
+      "category": "container_scanning",
+      "message": "CVE-2025-61727 on stdlib@1.14.4",
+      "description": "An excluded subdomain constraint in a certificate chain does not restrict the usage of wildcard SANs in the leaf certificate. For example a constraint that excludes the subdomain test.example.com does not prevent a leaf certificate from claiming the SAN *.example.com.",
+      "cve": "CVE-2025-61727",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-61727",
+          "value": "CVE-2025-61727",
+          "url": "https://scout.docker.com/v/CVE-2025-61727?s=golang&n=stdlib&t=golang&vr=%3C1.24.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-61727?s=golang&n=stdlib&t=golang&vr=%3C1.24.11"
+        }
+      ]
+    },
+    {
+      "id": "dfbd9420a3b79e7bcb50425797e6c3e552ebcdd4d3e3db675f8ed47145c4bfe2",
+      "category": "container_scanning",
+      "message": "CVE-2025-61728 on stdlib@1.14.4",
+      "description": "archive/zip uses a super-linear file name indexing algorithm that is invoked the first time a file in an archive is opened. This can lead to a denial of service when consuming a maliciously constructed ZIP archive.",
+      "cve": "CVE-2025-61728",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-61728",
+          "value": "CVE-2025-61728",
+          "url": "https://scout.docker.com/v/CVE-2025-61728?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-61728?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        }
+      ]
+    },
+    {
+      "id": "a267a2071f62a8ff413f4e4d902743a17ff73c4bfd0f084ba698dc55460f3a99",
+      "category": "container_scanning",
+      "message": "CVE-2025-4673 on stdlib@1.14.4",
+      "description": "Proxy-Authorization and Proxy-Authenticate headers persisted on cross-origin redirects potentially leaking sensitive information.",
+      "cve": "CVE-2025-4673",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.23.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-4673",
+          "value": "CVE-2025-4673",
+          "url": "https://scout.docker.com/v/CVE-2025-4673?s=golang&n=stdlib&t=golang&vr=%3C1.23.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-4673?s=golang&n=stdlib&t=golang&vr=%3C1.23.10"
+        }
+      ]
+    },
+    {
+      "id": "b5ca3ffb146cdfe5be9466dbbcc70c9d7e75d10e3224cedabf7a4104395065a6",
+      "category": "container_scanning",
+      "message": "CVE-2021-33195 on stdlib@1.14.4",
+      "description": "The LookupCNAME, LookupSRV, LookupMX, LookupNS, and LookupAddr functions and their respective methods on the Resolver type may return arbitrary values retrieved from DNS which do not follow the established RFC 1035 rules for domain names. If these names are used without further sanitization, for instance unsafely included in HTML, they may allow for injection of unexpected content. Note that LookupTXT may still return arbitrary values that could require sanitization before further use.",
+      "cve": "CVE-2021-33195",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.15.13",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-33195",
+          "value": "CVE-2021-33195",
+          "url": "https://scout.docker.com/v/CVE-2021-33195?s=golang&n=stdlib&t=golang&vr=%3C1.15.13"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-33195?s=golang&n=stdlib&t=golang&vr=%3C1.15.13"
+        }
+      ]
+    },
+    {
+      "id": "e3d507cb11e63c9a6b0de3a23fe3557e1ea7396f0183abfa86d20503997917f4",
+      "category": "container_scanning",
+      "message": "CVE-2023-24539 on stdlib@1.14.4",
+      "description": "Angle brackets (<>) are not considered dangerous characters when inserted into CSS contexts. Templates containing multiple actions separated by a '/' character can result in unexpectedly closing the CSS context and allowing for injection of unexpected HTML, if executed with untrusted input.",
+      "cve": "CVE-2023-24539",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-24539",
+          "value": "CVE-2023-24539",
+          "url": "https://scout.docker.com/v/CVE-2023-24539?s=golang&n=stdlib&t=golang&vr=%3C1.19.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-24539?s=golang&n=stdlib&t=golang&vr=%3C1.19.9"
+        }
+      ]
+    },
+    {
+      "id": "d0ccd10e2b0d1c3491b8190b96cc8712d3e2c6fae4c90408ab0eee035508210d",
+      "category": "container_scanning",
+      "message": "CVE-2023-29400 on stdlib@1.14.4",
+      "description": "Templates containing actions in unquoted HTML attributes (e.g. \"attr={{.}}\") executed with empty input can result in output with unexpected results when parsed due to HTML normalization rules. This may allow injection of arbitrary attributes into tags.",
+      "cve": "CVE-2023-29400",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-29400",
+          "value": "CVE-2023-29400",
+          "url": "https://scout.docker.com/v/CVE-2023-29400?s=golang&n=stdlib&t=golang&vr=%3C1.19.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-29400?s=golang&n=stdlib&t=golang&vr=%3C1.19.9"
+        }
+      ]
+    },
+    {
+      "id": "7eaaba1a69c417e623b022b0be108dfedd720e35fe621927947a97a16e8fcd9b",
+      "category": "container_scanning",
+      "message": "CVE-2020-16845 on stdlib@1.14.4",
+      "description": "ReadUvarint and ReadVarint can read an unlimited number of bytes from invalid inputs.\n\nCertain invalid inputs to ReadUvarint or ReadVarint can cause these functions to read an unlimited number of bytes from the ByteReader parameter before returning an error. This can lead to processing more input than expected when the caller is reading directly from a network and depends on ReadUvarint or ReadVarint only consuming a small, bounded number of bytes, even from invalid inputs.",
+      "cve": "CVE-2020-16845",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.14.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2020-16845",
+          "value": "CVE-2020-16845",
+          "url": "https://scout.docker.com/v/CVE-2020-16845?s=golang&n=stdlib&t=golang&vr=%3E%3D1.14.0-0%2C%3C1.14.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2020-16845?s=golang&n=stdlib&t=golang&vr=%3E%3D1.14.0-0%2C%3C1.14.7"
+        }
+      ]
+    },
+    {
+      "id": "e7a7484e9114b6622258efa1c4b2773cc6f548055b14aba312ea06b339a06a74",
+      "category": "container_scanning",
+      "message": "CVE-2020-28362 on stdlib@1.14.4",
+      "description": "A number of math/big.Int methods can panic when provided large inputs due to a flawed division method.",
+      "cve": "CVE-2020-28362",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.14.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2020-28362",
+          "value": "CVE-2020-28362",
+          "url": "https://scout.docker.com/v/CVE-2020-28362?s=golang&n=stdlib&t=golang&vr=%3E%3D1.14.0-0%2C%3C1.14.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2020-28362?s=golang&n=stdlib&t=golang&vr=%3E%3D1.14.0-0%2C%3C1.14.12"
+        }
+      ]
+    },
+    {
+      "id": "52bad4f98a6995d07ffc7796abffa7900feb19d2c1c5639d55995fc1ee013770",
+      "category": "container_scanning",
+      "message": "CVE-2021-27918 on stdlib@1.14.4",
+      "description": "The Decode, DecodeElement, and Skip methods of an xml.Decoder provided by xml.NewTokenDecoder may enter an infinite loop when operating on a custom xml.TokenReader which returns an EOF in the middle of an open XML element.",
+      "cve": "CVE-2021-27918",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.15.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-27918",
+          "value": "CVE-2021-27918",
+          "url": "https://scout.docker.com/v/CVE-2021-27918?s=golang&n=stdlib&t=golang&vr=%3C1.15.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-27918?s=golang&n=stdlib&t=golang&vr=%3C1.15.9"
+        }
+      ]
+    },
+    {
+      "id": "74af9ca4dbf37d467c4228db8859b343feb410661e1a796991eb137a8ab86faa",
+      "category": "container_scanning",
+      "message": "CVE-2021-33196 on stdlib@1.14.4",
+      "description": "NewReader and OpenReader can cause a panic or an unrecoverable fatal error when reading an archive that claims to contain a large number of files, regardless of its actual size.",
+      "cve": "CVE-2021-33196",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.15.13",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-33196",
+          "value": "CVE-2021-33196",
+          "url": "https://scout.docker.com/v/CVE-2021-33196?s=golang&n=stdlib&t=golang&vr=%3C1.15.13"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-33196?s=golang&n=stdlib&t=golang&vr=%3C1.15.13"
+        }
+      ]
+    },
+    {
+      "id": "9e2ceec05e28dfbdb39a1361b7279ee1135e7e926b31683820cf57e4064aa01f",
+      "category": "container_scanning",
+      "message": "CVE-2021-33198 on stdlib@1.14.4",
+      "description": "Rat.SetString and Rat.UnmarshalText may cause a panic or an unrecoverable fatal error if passed inputs with very large exponents.",
+      "cve": "CVE-2021-33198",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.15.13",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-33198",
+          "value": "CVE-2021-33198",
+          "url": "https://scout.docker.com/v/CVE-2021-33198?s=golang&n=stdlib&t=golang&vr=%3C1.15.13"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-33198?s=golang&n=stdlib&t=golang&vr=%3C1.15.13"
+        }
+      ]
+    },
+    {
+      "id": "e8ba934043436b5a9a0c3f9a166f4b1b40197eedf20fa92f326ec6c55aac0145",
+      "category": "container_scanning",
+      "message": "CVE-2021-39293 on stdlib@1.14.4",
+      "description": "The NewReader and OpenReader functions in archive/zip can cause a panic or an unrecoverable fatal error when reading an archive that claims to contain a large number of files, regardless of its actual size. This is caused by an incomplete fix for CVE-2021-33196.",
+      "cve": "CVE-2021-39293",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.16.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-39293",
+          "value": "CVE-2021-39293",
+          "url": "https://scout.docker.com/v/CVE-2021-39293?s=golang&n=stdlib&t=golang&vr=%3C1.16.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-39293?s=golang&n=stdlib&t=golang&vr=%3C1.16.8"
+        }
+      ]
+    },
+    {
+      "id": "2e804fe64606a5ded5509dadc59d54675f57878aad670aba1a2d645b4b05378d",
+      "category": "container_scanning",
+      "message": "CVE-2021-41771 on stdlib@1.14.4",
+      "description": "Calling File.ImportedSymbols on a loaded file which contains an invalid dynamic symbol table command can cause a panic, in particular if the encoded number of undefined symbols is larger than the number of symbols in the symbol table.",
+      "cve": "CVE-2021-41771",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.16.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-41771",
+          "value": "CVE-2021-41771",
+          "url": "https://scout.docker.com/v/CVE-2021-41771?s=golang&n=stdlib&t=golang&vr=%3C1.16.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-41771?s=golang&n=stdlib&t=golang&vr=%3C1.16.10"
+        }
+      ]
+    },
+    {
+      "id": "10105dbd2962576f00f41a0d189f0dfc089e6d2d559ad6c090cbcc00e6b7c63e",
+      "category": "container_scanning",
+      "message": "CVE-2021-41772 on stdlib@1.14.4",
+      "description": "Previously, opening a zip with (*Reader).Open could result in a panic if the zip contained a file whose name was exclusively made up of slash characters or \"..\" path elements.\n\nOpen could also panic if passed the empty string directly as an argument.\n\nNow, any files in the zip whose name could not be made valid for fs.FS.Open will be skipped, and no longer added to the fs.FS file list, although they are still accessible through (*Reader).File.\n\nNote that it was already the case that a file could be accessible from (*Reader).Open with a name different from the one in (*Reader).File, as the former is the cleaned name, while the latter is the original one.\n\nFinally, the actual panic site was made robust as a defense-in-depth measure.",
+      "cve": "CVE-2021-41772",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.16.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-41772",
+          "value": "CVE-2021-41772",
+          "url": "https://scout.docker.com/v/CVE-2021-41772?s=golang&n=stdlib&t=golang&vr=%3C1.16.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-41772?s=golang&n=stdlib&t=golang&vr=%3C1.16.10"
+        }
+      ]
+    },
+    {
+      "id": "2d7ce5cd7a2703545bf8cf050a49c43e70148e24be48c66b9a240b5b3edf6e64",
+      "category": "container_scanning",
+      "message": "CVE-2021-44716 on stdlib@1.14.4",
+      "description": "An attacker can cause unbounded memory growth in servers accepting HTTP/2 requests.",
+      "cve": "CVE-2021-44716",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.16.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-44716",
+          "value": "CVE-2021-44716",
+          "url": "https://scout.docker.com/v/CVE-2021-44716?s=golang&n=stdlib&t=golang&vr=%3C1.16.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-44716?s=golang&n=stdlib&t=golang&vr=%3C1.16.12"
+        }
+      ]
+    },
+    {
+      "id": "0057de6ce2a7f10dfecf32574ad8d400381a8c0c048c7137db1c12a213e34f17",
+      "category": "container_scanning",
+      "message": "CVE-2022-23772 on stdlib@1.14.4",
+      "description": "Rat.SetString had an overflow issue that can lead to uncontrolled memory consumption.",
+      "cve": "CVE-2022-23772",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.16.14",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-23772",
+          "value": "CVE-2022-23772",
+          "url": "https://scout.docker.com/v/CVE-2022-23772?s=golang&n=stdlib&t=golang&vr=%3C1.16.14"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-23772?s=golang&n=stdlib&t=golang&vr=%3C1.16.14"
+        }
+      ]
+    },
+    {
+      "id": "847134a8913673b2dffb0857d2957c5714090d6d5d10eaeee659b5c42d2fd558",
+      "category": "container_scanning",
+      "message": "CVE-2022-24675 on stdlib@1.14.4",
+      "description": "encoding/pem in Go before 1.17.9 and 1.18.x before 1.18.1 has a Decode stack overflow via a large amount of PEM data.",
+      "cve": "CVE-2022-24675",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-24675",
+          "value": "CVE-2022-24675",
+          "url": "https://scout.docker.com/v/CVE-2022-24675?s=golang&n=stdlib&t=golang&vr=%3C1.17.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-24675?s=golang&n=stdlib&t=golang&vr=%3C1.17.9"
+        }
+      ]
+    },
+    {
+      "id": "a1b2ebe3b2b92a95758d9ca29928591500904eaa967591673299c32204f088fe",
+      "category": "container_scanning",
+      "message": "CVE-2022-24921 on stdlib@1.14.4",
+      "description": "On 64-bit platforms, an extremely deeply nested expression can cause regexp.Compile to cause goroutine stack exhaustion, forcing the program to exit. Note this applies to very large expressions, on the order of 2MB.",
+      "cve": "CVE-2022-24921",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.16.15",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-24921",
+          "value": "CVE-2022-24921",
+          "url": "https://scout.docker.com/v/CVE-2022-24921?s=golang&n=stdlib&t=golang&vr=%3C1.16.15"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-24921?s=golang&n=stdlib&t=golang&vr=%3C1.16.15"
+        }
+      ]
+    },
+    {
+      "id": "90d2a1f9609f5d88f7984cea8ce0e55619abf89e86ecc542dab270d93f69c8c2",
+      "category": "container_scanning",
+      "message": "CVE-2022-27664 on stdlib@1.14.4",
+      "description": "HTTP/2 server connections can hang forever waiting for a clean shutdown that was preempted by a fatal error. This condition can be exploited by a malicious client to cause a denial of service.",
+      "cve": "CVE-2022-27664",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.18.6",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-27664",
+          "value": "CVE-2022-27664",
+          "url": "https://scout.docker.com/v/CVE-2022-27664?s=golang&n=stdlib&t=golang&vr=%3C1.18.6"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-27664?s=golang&n=stdlib&t=golang&vr=%3C1.18.6"
+        }
+      ]
+    },
+    {
+      "id": "0f99ce5dd5193a9a0ede23d9f33d09254b925daf36e534395a1e504ea2ce90a1",
+      "category": "container_scanning",
+      "message": "CVE-2022-28131 on stdlib@1.14.4",
+      "description": "Calling Decoder.Skip when parsing a deeply nested XML document can cause a panic due to stack exhaustion.",
+      "cve": "CVE-2022-28131",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-28131",
+          "value": "CVE-2022-28131",
+          "url": "https://scout.docker.com/v/CVE-2022-28131?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-28131?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "b6cce731b0d893a60fc4e0b83d9725c88942743d95931776b80dda0381e36a61",
+      "category": "container_scanning",
+      "message": "CVE-2022-28327 on stdlib@1.14.4",
+      "description": "A crafted scalar input longer than 32 bytes can cause P256().ScalarMult or P256().ScalarBaseMult to panic. Indirect uses through crypto/ecdsa and crypto/tls are unaffected. amd64, arm64, ppc64le, and s390x are unaffected.",
+      "cve": "CVE-2022-28327",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-28327",
+          "value": "CVE-2022-28327",
+          "url": "https://scout.docker.com/v/CVE-2022-28327?s=golang&n=stdlib&t=golang&vr=%3C1.17.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-28327?s=golang&n=stdlib&t=golang&vr=%3C1.17.9"
+        }
+      ]
+    },
+    {
+      "id": "54a77f3c5b2e53676367f555eb81867882c700bd3f39af55a040584dab7e8eea",
+      "category": "container_scanning",
+      "message": "CVE-2022-2879 on stdlib@1.14.4",
+      "description": "Reader.Read does not set a limit on the maximum size of file headers. A maliciously crafted archive could cause Read to allocate unbounded amounts of memory, potentially causing resource exhaustion or panics. After fix, Reader.Read limits the maximum size of header blocks to 1 MiB.",
+      "cve": "CVE-2022-2879",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.18.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-2879",
+          "value": "CVE-2022-2879",
+          "url": "https://scout.docker.com/v/CVE-2022-2879?s=golang&n=stdlib&t=golang&vr=%3C1.18.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-2879?s=golang&n=stdlib&t=golang&vr=%3C1.18.7"
+        }
+      ]
+    },
+    {
+      "id": "13ad6f2cdb84d4561438dc587042a7c92379c32048ea0a8064ba9a11e4149022",
+      "category": "container_scanning",
+      "message": "CVE-2022-2880 on stdlib@1.14.4",
+      "description": "Requests forwarded by ReverseProxy include the raw query parameters from the inbound request, including unparsable parameters rejected by net/http. This could permit query parameter smuggling when a Go proxy forwards a parameter with an unparsable value.\n\nAfter fix, ReverseProxy sanitizes the query parameters in the forwarded query when the outbound request's Form field is set after the ReverseProxy. Director function returns, indicating that the proxy has parsed the query parameters. Proxies which do not parse query parameters continue to forward the original query parameters unchanged.",
+      "cve": "CVE-2022-2880",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.18.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-2880",
+          "value": "CVE-2022-2880",
+          "url": "https://scout.docker.com/v/CVE-2022-2880?s=golang&n=stdlib&t=golang&vr=%3C1.18.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-2880?s=golang&n=stdlib&t=golang&vr=%3C1.18.7"
+        }
+      ]
+    },
+    {
+      "id": "fc140fa170c50413083c7fe22731237c907ce6481529de9cf5245bd0cbbee9f7",
+      "category": "container_scanning",
+      "message": "CVE-2022-29804 on stdlib@1.14.4",
+      "description": "On Windows, the filepath.Clean function can convert certain invalid paths to valid, absolute paths, potentially allowing a directory traversal attack.\n\nFor example, Clean(\".\\c:\") returns \"c:\".",
+      "cve": "CVE-2022-29804",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-29804",
+          "value": "CVE-2022-29804",
+          "url": "https://scout.docker.com/v/CVE-2022-29804?s=golang&n=stdlib&t=golang&vr=%3C1.17.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-29804?s=golang&n=stdlib&t=golang&vr=%3C1.17.11"
+        }
+      ]
+    },
+    {
+      "id": "1fb1cc18650012a23d10a02d529485d4837af594cb818ad571d002d6bebfe3d2",
+      "category": "container_scanning",
+      "message": "CVE-2022-30630 on stdlib@1.14.4",
+      "description": "Calling Glob on a path which contains a large number of path separators can cause a panic due to stack exhaustion.",
+      "cve": "CVE-2022-30630",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-30630",
+          "value": "CVE-2022-30630",
+          "url": "https://scout.docker.com/v/CVE-2022-30630?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-30630?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "3a3f30d1d640b55e33d493eac6fa9410d37aa35fc8e82b39c1066bebd0e440e9",
+      "category": "container_scanning",
+      "message": "CVE-2022-30631 on stdlib@1.14.4",
+      "description": "Calling Reader.Read on an archive containing a large number of concatenated 0-length compressed files can cause a panic due to stack exhaustion.",
+      "cve": "CVE-2022-30631",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-30631",
+          "value": "CVE-2022-30631",
+          "url": "https://scout.docker.com/v/CVE-2022-30631?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-30631?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "ac8fef595792642d72b83652ef81a9b53094be376abfe8d8a87afadfe5050d9a",
+      "category": "container_scanning",
+      "message": "CVE-2022-30632 on stdlib@1.14.4",
+      "description": "Calling Glob on a path which contains a large number of path separators can cause a panic due to stack exhaustion.",
+      "cve": "CVE-2022-30632",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-30632",
+          "value": "CVE-2022-30632",
+          "url": "https://scout.docker.com/v/CVE-2022-30632?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-30632?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "43f47d582af7e728852f2ea5a70220975edb47dbfaf73a5a48d55aef04d9ab56",
+      "category": "container_scanning",
+      "message": "CVE-2022-30633 on stdlib@1.14.4",
+      "description": "Unmarshaling an XML document into a Go struct which has a nested field that uses the 'any' field tag can panic due to stack exhaustion.",
+      "cve": "CVE-2022-30633",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-30633",
+          "value": "CVE-2022-30633",
+          "url": "https://scout.docker.com/v/CVE-2022-30633?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-30633?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "2ada372f3668a5d6ce24f9b0839a426b6cea9fab7f2f97cdf1f1d6412158a973",
+      "category": "container_scanning",
+      "message": "CVE-2022-30634 on stdlib@1.14.4",
+      "description": "On Windows, rand.Read will hang indefinitely if passed a buffer larger than 1 << 32 - 1 bytes.",
+      "cve": "CVE-2022-30634",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-30634",
+          "value": "CVE-2022-30634",
+          "url": "https://scout.docker.com/v/CVE-2022-30634?s=golang&n=stdlib&t=golang&vr=%3C1.17.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-30634?s=golang&n=stdlib&t=golang&vr=%3C1.17.11"
+        }
+      ]
+    },
+    {
+      "id": "1f2ac08ddb474872b179c01a0f2fc5c245d64865eda7cbd3ab24baa3762b845f",
+      "category": "container_scanning",
+      "message": "CVE-2022-30635 on stdlib@1.14.4",
+      "description": "Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion.",
+      "cve": "CVE-2022-30635",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-30635",
+          "value": "CVE-2022-30635",
+          "url": "https://scout.docker.com/v/CVE-2022-30635?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-30635?s=golang&n=stdlib&t=golang&vr=%3C1.17.12"
+        }
+      ]
+    },
+    {
+      "id": "edb5f596f47064499acdb1b74bd05c3633da94c344e28dc29d3e6709b44614b9",
+      "category": "container_scanning",
+      "message": "CVE-2022-32189 on stdlib@1.14.4",
+      "description": "Decoding big.Float and big.Rat types can panic if the encoded message is too short, potentially allowing a denial of service.",
+      "cve": "CVE-2022-32189",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.13",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-32189",
+          "value": "CVE-2022-32189",
+          "url": "https://scout.docker.com/v/CVE-2022-32189?s=golang&n=stdlib&t=golang&vr=%3C1.17.13"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-32189?s=golang&n=stdlib&t=golang&vr=%3C1.17.13"
+        }
+      ]
+    },
+    {
+      "id": "50354e8ff3922c0cdad7d7bc4cadc14336c4a385329584f5943147aba8602860",
+      "category": "container_scanning",
+      "message": "CVE-2022-41715 on stdlib@1.14.4",
+      "description": "Programs which compile regular expressions from untrusted sources may be vulnerable to memory exhaustion or denial of service.\n\nThe parsed regexp representation is linear in the size of the input, but in some cases the constant factor can be as high as 40,000, making relatively small regexps consume much larger amounts of memory.\n\nAfter fix, each regexp being parsed is limited to a 256 MB memory footprint. Regular expressions whose representation would use more space than that are rejected. Normal use of regular expressions is unaffected.",
+      "cve": "CVE-2022-41715",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.18.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-41715",
+          "value": "CVE-2022-41715",
+          "url": "https://scout.docker.com/v/CVE-2022-41715?s=golang&n=stdlib&t=golang&vr=%3C1.18.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-41715?s=golang&n=stdlib&t=golang&vr=%3C1.18.7"
+        }
+      ]
+    },
+    {
+      "id": "348e132bdae9564bba93493c6d30af2aa949940ac0cd06a0c9a6607e742fca70",
+      "category": "container_scanning",
+      "message": "CVE-2022-41716 on stdlib@1.14.4",
+      "description": "Due to unsanitized NUL values, attackers may be able to maliciously set environment variables on Windows.\n\nIn syscall.StartProcess and os/exec.Cmd, invalid environment variable values containing NUL values are not properly checked for. A malicious environment variable value can exploit this behavior to set a value for a different environment variable. For example, the environment variable string \"A=B\\x00C=D\" sets the variables \"A=B\" and \"C=D\".",
+      "cve": "CVE-2022-41716",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.18.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-41716",
+          "value": "CVE-2022-41716",
+          "url": "https://scout.docker.com/v/CVE-2022-41716?s=golang&n=stdlib&t=golang&vr=%3C1.18.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-41716?s=golang&n=stdlib&t=golang&vr=%3C1.18.8"
+        }
+      ]
+    },
+    {
+      "id": "2405259db65912c2557f1c8fb337fe69e8b54a59d37845ffa2477f8805a2ce67",
+      "category": "container_scanning",
+      "message": "CVE-2022-41720 on stdlib@1.14.4",
+      "description": "On Windows, restricted files can be accessed via os.DirFS and http.Dir.\n\nThe os.DirFS function and http.Dir type provide access to a tree of files rooted at a given directory. These functions permit access to Windows device files under that root. For example, os.DirFS(\"C:/tmp\").Open(\"COM1\") opens the COM1 device. Both os.DirFS and http.Dir only provide read-only filesystem access.\n\nIn addition, on Windows, an os.DirFS for the directory (the root of the current drive) can permit a maliciously crafted path to escape from the drive and access any path on the system.\n\nWith fix applied, the behavior of os.DirFS(\"\") has changed. Previously, an empty root was treated equivalently to \"/\", so os.DirFS(\"\").Open(\"tmp\") would open the path \"/tmp\". This now returns an error.",
+      "cve": "CVE-2022-41720",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.18.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-41720",
+          "value": "CVE-2022-41720",
+          "url": "https://scout.docker.com/v/CVE-2022-41720?s=golang&n=stdlib&t=golang&vr=%3C1.18.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-41720?s=golang&n=stdlib&t=golang&vr=%3C1.18.9"
+        }
+      ]
+    },
+    {
+      "id": "33b56e56b378f481a0b3e7069ad1467cbbb8f2a7f1edaf4ae1a2d7d265502888",
+      "category": "container_scanning",
+      "message": "CVE-2022-41722 on stdlib@1.14.4",
+      "description": "A path traversal vulnerability exists in filepath.Clean on Windows.\n\nOn Windows, the filepath.Clean function could transform an invalid path such as \"a/../c:/b\" into the valid path \"c:\\b\". This transformation of a relative (if invalid) path into an absolute path could enable a directory traversal attack.\n\nAfter fix, the filepath.Clean function transforms this path into the relative (but still invalid) path \".\\c:\\b\".",
+      "cve": "CVE-2022-41722",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.6",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-41722",
+          "value": "CVE-2022-41722",
+          "url": "https://scout.docker.com/v/CVE-2022-41722?s=golang&n=stdlib&t=golang&vr=%3C1.19.6"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-41722?s=golang&n=stdlib&t=golang&vr=%3C1.19.6"
+        }
+      ]
+    },
+    {
+      "id": "ccbbc90749cea3d24e368b4e19cf3477187c9dcad273d5f241a3cc0215f1b8d7",
+      "category": "container_scanning",
+      "message": "CVE-2022-41723 on stdlib@1.14.4",
+      "description": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+      "cve": "CVE-2022-41723",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.6",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-41723",
+          "value": "CVE-2022-41723",
+          "url": "https://scout.docker.com/v/CVE-2022-41723?s=golang&n=stdlib&t=golang&vr=%3C1.19.6"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-41723?s=golang&n=stdlib&t=golang&vr=%3C1.19.6"
+        }
+      ]
+    },
+    {
+      "id": "434518c9e17be66c5f7de08b04c4042bf10f155922abebbede25c8a115ea10ed",
+      "category": "container_scanning",
+      "message": "CVE-2022-41724 on stdlib@1.14.4",
+      "description": "Large handshake records may cause panics in crypto/tls.\n\nBoth clients and servers may send large TLS handshake records which cause servers and clients, respectively, to panic when attempting to construct responses.\n\nThis affects all TLS 1.3 clients, TLS 1.2 clients which explicitly enable session resumption (by setting Config.ClientSessionCache to a non-nil value), and TLS 1.3 servers which request client certificates (by setting Config.ClientAuth >= RequestClientCert).",
+      "cve": "CVE-2022-41724",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.6",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-41724",
+          "value": "CVE-2022-41724",
+          "url": "https://scout.docker.com/v/CVE-2022-41724?s=golang&n=stdlib&t=golang&vr=%3C1.19.6"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-41724?s=golang&n=stdlib&t=golang&vr=%3C1.19.6"
+        }
+      ]
+    },
+    {
+      "id": "798d8c7ed20add7bcba4ccf04854c33522c9abedbc8fff667e2f1916bfc5b4d2",
+      "category": "container_scanning",
+      "message": "CVE-2022-41725 on stdlib@1.14.4",
+      "description": "A denial of service is possible from excessive resource consumption in net/http and mime/multipart.\n\nMultipart form parsing with mime/multipart.Reader.ReadForm can consume largely unlimited amounts of memory and disk files. This also affects form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue.\n\nReadForm takes a maxMemory parameter, and is documented as storing \"up to maxMemory bytes +10MB (reserved for non-file parts) in memory\". File parts which cannot be stored in memory are stored on disk in temporary files. The unconfigurable 10MB reserved for non-file parts is excessively large and can potentially open a denial of service vector on its own. However, ReadForm did not properly account for all memory consumed by a parsed form, such as map entry overhead, part names, and MIME headers, permitting a maliciously crafted form to consume well over 10MB. In addition, ReadForm contained no limit on the number of disk files created, permitting a relatively small request body to create a large number of disk temporary files.\n\nWith fix, ReadForm now properly accounts for various forms of memory overhead, and should now stay within its documented limit of 10MB + maxMemory bytes of memory consumption. Users should still be aware that this limit is high and may still be hazardous.\n\nIn addition, ReadForm now creates at most one on-disk temporary file, combining multiple form parts into a single temporary file. The mime/multipart.File interface type's documentation states, \"If stored on disk, the File's underlying concrete type will be an *os.File.\". This is no longer the case when a form contains more than one file part, due to this coalescing of parts into a single file. The previous behavior of using distinct files for each form part may be reenabled with the environment variable GODEBUG=multipartfiles=distinct.\n\nUsers should be aware that multipart.ReadForm and the http.Request methods that call it do not limit the amount of disk consumed by temporary files. Callers can limit the size of form data with http.MaxBytesReader.",
+      "cve": "CVE-2022-41725",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.6",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-41725",
+          "value": "CVE-2022-41725",
+          "url": "https://scout.docker.com/v/CVE-2022-41725?s=golang&n=stdlib&t=golang&vr=%3C1.19.6"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-41725?s=golang&n=stdlib&t=golang&vr=%3C1.19.6"
+        }
+      ]
+    },
+    {
+      "id": "1120490f1a084d7637775048530686ebe62a1ea19615e7a3c69de5c8cc8ba9a9",
+      "category": "container_scanning",
+      "message": "CVE-2023-24534 on stdlib@1.14.4",
+      "description": "HTTP and MIME header parsing can allocate large amounts of memory, even when parsing small inputs, potentially leading to a denial of service.\n\nCertain unusual patterns of input data can cause the common function used to parse HTTP and MIME headers to allocate substantially more memory than required to hold the parsed headers. An attacker can exploit this behavior to cause an HTTP server to allocate large amounts of memory from a small request, potentially leading to memory exhaustion and a denial of service.\n\nWith fix, header parsing now correctly allocates only the memory required to hold parsed headers.",
+      "cve": "CVE-2023-24534",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-24534",
+          "value": "CVE-2023-24534",
+          "url": "https://scout.docker.com/v/CVE-2023-24534?s=golang&n=stdlib&t=golang&vr=%3C1.19.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-24534?s=golang&n=stdlib&t=golang&vr=%3C1.19.8"
+        }
+      ]
+    },
+    {
+      "id": "dec5116553aa6ae808fd8af0aa538a1938023ef88b69f0b26689ed9627604b25",
+      "category": "container_scanning",
+      "message": "CVE-2023-24536 on stdlib@1.14.4",
+      "description": "Multipart form parsing can consume large amounts of CPU and memory when processing form inputs containing very large numbers of parts.\n\nThis stems from several causes:\n\n1. mime/multipart.Reader.ReadForm limits the total memory a parsed multipart form can consume. ReadForm can undercount the amount of memory consumed, leading it to accept larger inputs than intended.\n2. Limiting total memory does not account for increased pressure on the garbage collector from large numbers of small allocations in forms with many parts.\n3. ReadForm can allocate a large number of short-lived buffers, further increasing pressure on the garbage collector.\n\nThe combination of these factors can permit an attacker to cause an program that parses multipart forms to consume large amounts of CPU and memory, potentially resulting in a denial of service. This affects programs that use mime/multipart.Reader.ReadForm, as well as form parsing in the net/http package with the Request methods FormFile, FormValue, ParseMultipartForm, and PostFormValue.\n\nWith fix, ReadForm now does a better job of estimating the memory consumption of parsed forms, and performs many fewer short-lived allocations.\n\nIn addition, the fixed mime/multipart.Reader imposes the following limits on the size of parsed forms:\n\n1. Forms parsed with ReadForm may contain no more than 1000 parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxparts=.\n2. Form parts parsed with NextPart and NextRawPart may contain no more than 10,000 header fields. In addition, forms parsed with ReadForm may contain no more than 10,000 header fields across all parts. This limit may be adjusted with the environment variable GODEBUG=multipartmaxheaders=.",
+      "cve": "CVE-2023-24536",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-24536",
+          "value": "CVE-2023-24536",
+          "url": "https://scout.docker.com/v/CVE-2023-24536?s=golang&n=stdlib&t=golang&vr=%3C1.19.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-24536?s=golang&n=stdlib&t=golang&vr=%3C1.19.8"
+        }
+      ]
+    },
+    {
+      "id": "3f83620b11cfa5b09b6e291835e68bd5d4fe2be801d9a8c89c669572f9bd2324",
+      "category": "container_scanning",
+      "message": "CVE-2023-24537 on stdlib@1.14.4",
+      "description": "Calling any of the Parse functions on Go source code which contains //line directives with very large line numbers can cause an infinite loop due to integer overflow.",
+      "cve": "CVE-2023-24537",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-24537",
+          "value": "CVE-2023-24537",
+          "url": "https://scout.docker.com/v/CVE-2023-24537?s=golang&n=stdlib&t=golang&vr=%3C1.19.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-24537?s=golang&n=stdlib&t=golang&vr=%3C1.19.8"
+        }
+      ]
+    },
+    {
+      "id": "1630321f212210e65181b007527467e88ea137c28db6839ca83441162a6629c0",
+      "category": "container_scanning",
+      "message": "CVE-2023-39325 on stdlib@1.14.4",
+      "description": "A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing.\n\nWith the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection.\n\nThis issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2.\n\nThe default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function.",
+      "cve": "CVE-2023-39325",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.20.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-39325",
+          "value": "CVE-2023-39325",
+          "url": "https://scout.docker.com/v/CVE-2023-39325?s=golang&n=stdlib&t=golang&vr=%3C1.20.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-39325?s=golang&n=stdlib&t=golang&vr=%3C1.20.10"
+        }
+      ]
+    },
+    {
+      "id": "d0f69832f24753b4d7902271d844596c172485de8a796b11a4d0ab04acde1861",
+      "category": "container_scanning",
+      "message": "CVE-2023-44487 on stdlib@1.14.4",
+      "description": "A malicious HTTP/2 client which rapidly creates requests and immediately resets them can cause excessive server resource consumption. While the total number of requests is bounded by the http2.Server.MaxConcurrentStreams setting, resetting an in-progress request allows the attacker to create a new request while the existing one is still executing.\n\nWith the fix applied, HTTP/2 servers now bound the number of simultaneously executing handler goroutines to the stream concurrency limit (MaxConcurrentStreams). New requests arriving when at the limit (which can only happen after the client has reset an existing, in-flight request) will be queued until a handler exits. If the request queue grows too large, the server will terminate the connection.\n\nThis issue is also fixed in golang.org/x/net/http2 for users manually configuring HTTP/2.\n\nThe default stream concurrency limit is 250 streams (requests) per HTTP/2 connection. This value may be adjusted using the golang.org/x/net/http2 package; see the Server.MaxConcurrentStreams setting and the ConfigureServer function.",
+      "cve": "CVE-2023-44487",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.20.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-44487",
+          "value": "CVE-2023-44487",
+          "url": "https://scout.docker.com/v/CVE-2023-44487?s=golang&n=stdlib&t=golang&vr=%3C1.20.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-44487?s=golang&n=stdlib&t=golang&vr=%3C1.20.10"
+        }
+      ]
+    },
+    {
+      "id": "69d61b7b67a32324f702f84a6090a82c98a0bf7fc2e194221c867133f5d15da8",
+      "category": "container_scanning",
+      "message": "CVE-2023-45283 on stdlib@1.14.4",
+      "description": "The filepath package does not recognize paths with a \\??\\ prefix as special.\n\nOn Windows, a path beginning with \\??\\ is a Root Local Device path equivalent to a path beginning with \\\\?\\. Paths with a \\??\\ prefix may be used to access arbitrary locations on the system. For example, the path \\??\\c:\\x is equivalent to the more common path c:\\x.\n\nBefore fix, Clean could convert a rooted path such as \\a\\..\\??\\b into the root local device path \\??\\b. Clean will now convert this to .\\??\\b.\n\nSimilarly, Join(\\, ??, b) could convert a seemingly innocent sequence of path elements into the root local device path \\??\\b. Join will now convert this to \\.\\??\\b.\n\nIn addition, with fix, IsAbs now correctly reports paths beginning with \\??\\ as absolute, and VolumeName correctly reports the \\??\\ prefix as a volume name.\n\nUPDATE: Go 1.20.11 and Go 1.21.4 inadvertently changed the definition of the volume name in Windows paths starting with \\?, resulting in filepath.Clean(\\?\\c:) returning \\?\\c: rather than \\?\\c:\\ (among other effects). The previous behavior has been restored.",
+      "cve": "CVE-2023-45283",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.20.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-45283",
+          "value": "CVE-2023-45283",
+          "url": "https://scout.docker.com/v/CVE-2023-45283?s=golang&n=stdlib&t=golang&vr=%3C1.20.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-45283?s=golang&n=stdlib&t=golang&vr=%3C1.20.11"
+        }
+      ]
+    },
+    {
+      "id": "826b5f665f49a4ce82800a7f2d14f9c44785a68212c07819d5483e5fb196700a",
+      "category": "container_scanning",
+      "message": "CVE-2023-45287 on stdlib@1.14.4",
+      "description": "Before Go 1.20, the RSA based TLS key exchanges used the math/big library, which is not constant time. RSA blinding was applied to prevent timing attacks, but analysis shows this may not have been fully effective. In particular it appears as if the removal of PKCS#1 padding may leak timing information, which in turn could be used to recover session key bits.\n\nIn Go 1.20, the crypto/tls library switched to a fully constant time RSA implementation, which we do not believe exhibits any timing side channels.",
+      "cve": "CVE-2023-45287",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.20.0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-45287",
+          "value": "CVE-2023-45287",
+          "url": "https://scout.docker.com/v/CVE-2023-45287?s=golang&n=stdlib&t=golang&vr=%3C1.20.0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-45287?s=golang&n=stdlib&t=golang&vr=%3C1.20.0"
+        }
+      ]
+    },
+    {
+      "id": "413cb0be15b4706513926b00c39e6d1270d86915039ca48ca72db43bb20fb33f",
+      "category": "container_scanning",
+      "message": "CVE-2023-45288 on stdlib@1.14.4",
+      "description": "An attacker may cause an HTTP/2 endpoint to read arbitrary amounts of header data by sending an excessive number of CONTINUATION frames.\n\nMaintaining HPACK state requires parsing and processing all HEADERS and CONTINUATION frames on a connection. When a request's headers exceed MaxHeaderBytes, no memory is allocated to store the excess headers, but they are still parsed.\n\nThis permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send.\n\nThe fix sets a limit on the amount of excess header frames we will process before closing a connection.",
+      "cve": "CVE-2023-45288",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-45288",
+          "value": "CVE-2023-45288",
+          "url": "https://scout.docker.com/v/CVE-2023-45288?s=golang&n=stdlib&t=golang&vr=%3C1.21.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-45288?s=golang&n=stdlib&t=golang&vr=%3C1.21.9"
+        }
+      ]
+    },
+    {
+      "id": "c75ad3a51b2fa21c3b4ea1dffda737452b4bf426c4d1ebb0be6c8af6004a3fc3",
+      "category": "container_scanning",
+      "message": "CVE-2024-24784 on stdlib@1.14.4",
+      "description": "The ParseAddressList function incorrectly handles comments (text within parentheses) within display names. Since this is a misalignment with conforming address parsers, it can result in different trust decisions being made by programs using different parsers.",
+      "cve": "CVE-2024-24784",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-24784",
+          "value": "CVE-2024-24784",
+          "url": "https://scout.docker.com/v/CVE-2024-24784?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-24784?s=golang&n=stdlib&t=golang&vr=%3C1.21.8"
+        }
+      ]
+    },
+    {
+      "id": "168871be3a2b2f53cd3bf39cdea0a488a60df241eb1376c6af5eac84b0655701",
+      "category": "container_scanning",
+      "message": "CVE-2024-24791 on stdlib@1.14.4",
+      "description": "The net/http HTTP/1.1 client mishandled the case where a server responds to a request with an \"Expect: 100-continue\" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail.\n\nAn attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending \"Expect: 100-continue\" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail.",
+      "cve": "CVE-2024-24791",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-24791",
+          "value": "CVE-2024-24791",
+          "url": "https://scout.docker.com/v/CVE-2024-24791?s=golang&n=stdlib&t=golang&vr=%3C1.21.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-24791?s=golang&n=stdlib&t=golang&vr=%3C1.21.12"
+        }
+      ]
+    },
+    {
+      "id": "e6c435803abfafea1650eabb5e3377c9d0fed0ba17249ba1e06db997965689db",
+      "category": "container_scanning",
+      "message": "CVE-2024-34156 on stdlib@1.14.4",
+      "description": "Calling Decoder.Decode on a message which contains deeply nested structures can cause a panic due to stack exhaustion. This is a follow-up to CVE-2022-30635.",
+      "cve": "CVE-2024-34156",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.22.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-34156",
+          "value": "CVE-2024-34156",
+          "url": "https://scout.docker.com/v/CVE-2024-34156?s=golang&n=stdlib&t=golang&vr=%3C1.22.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-34156?s=golang&n=stdlib&t=golang&vr=%3C1.22.7"
+        }
+      ]
+    },
+    {
+      "id": "b2db7ef0c39bb4ea70429d5c148471798ee8ea751db5fc506e4a53e7687432ec",
+      "category": "container_scanning",
+      "message": "CVE-2024-34158 on stdlib@1.14.4",
+      "description": "Calling Parse on a \"// +build\" build tag line with deeply nested expressions can cause a panic due to stack exhaustion.",
+      "cve": "CVE-2024-34158",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.22.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-34158",
+          "value": "CVE-2024-34158",
+          "url": "https://scout.docker.com/v/CVE-2024-34158?s=golang&n=stdlib&t=golang&vr=%3C1.22.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-34158?s=golang&n=stdlib&t=golang&vr=%3C1.22.7"
+        }
+      ]
+    },
+    {
+      "id": "1f7a96ae751236bfafc976cf45a48c8ce6443685ad2a5837da23ac43442571af",
+      "category": "container_scanning",
+      "message": "CVE-2025-58187 on stdlib@1.14.4",
+      "description": "Due to the design of the name constraint checking algorithm, the processing time of some inputs scale non-linearly with respect to the size of the certificate.\n\nThis affects programs which validate arbitrary certificate chains.",
+      "cve": "CVE-2025-58187",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-58187",
+          "value": "CVE-2025-58187",
+          "url": "https://scout.docker.com/v/CVE-2025-58187?s=golang&n=stdlib&t=golang&vr=%3C1.24.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-58187?s=golang&n=stdlib&t=golang&vr=%3C1.24.9"
+        }
+      ]
+    },
+    {
+      "id": "e45e5ab0dfd70c94c905ccf9488b8713830af89cba5feafba055e953649d6c20",
+      "category": "container_scanning",
+      "message": "CVE-2025-58188 on stdlib@1.14.4",
+      "description": "Validating certificate chains which contain DSA public keys can cause programs to panic, due to a interface cast that assumes they implement the Equal method.\n\nThis affects programs which validate arbitrary certificate chains.",
+      "cve": "CVE-2025-58188",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-58188",
+          "value": "CVE-2025-58188",
+          "url": "https://scout.docker.com/v/CVE-2025-58188?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-58188?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "aab1519e8b7f3c9feb02ad157ef2314fa2777f9b68f9b8a8ad0690201322b04d",
+      "category": "container_scanning",
+      "message": "CVE-2025-61723 on stdlib@1.14.4",
+      "description": "The processing time for parsing some invalid inputs scales non-linearly with respect to the size of the input.\n\nThis affects programs which parse untrusted PEM inputs.",
+      "cve": "CVE-2025-61723",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-61723",
+          "value": "CVE-2025-61723",
+          "url": "https://scout.docker.com/v/CVE-2025-61723?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-61723?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "700bad8e0e8d03bd92b4df4231841ac6c039fe5935b0626af048bac1c4528cd0",
+      "category": "container_scanning",
+      "message": "CVE-2025-61725 on stdlib@1.14.4",
+      "description": "The ParseAddress function constructs domain-literal address components through repeated string concatenation. When parsing large domain-literal components, this can cause excessive CPU consumption.",
+      "cve": "CVE-2025-61725",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-61725",
+          "value": "CVE-2025-61725",
+          "url": "https://scout.docker.com/v/CVE-2025-61725?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-61725?s=golang&n=stdlib&t=golang&vr=%3C1.24.8"
+        }
+      ]
+    },
+    {
+      "id": "efae60193b9c58dd0e57b976fe4c599784af091eb1116e20c509a3534c4ab847",
+      "category": "container_scanning",
+      "message": "CVE-2025-61726 on stdlib@1.14.4",
+      "description": "The net/url package does not set a limit on the number of query parameters in a query.\n\nWhile the maximum size of query parameters in URLs is generally limited by the maximum request header size, the net/http.Request.ParseForm method can parse large URL-encoded forms. Parsing a large form containing many unique query parameters can cause excessive memory consumption.",
+      "cve": "CVE-2025-61726",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-61726",
+          "value": "CVE-2025-61726",
+          "url": "https://scout.docker.com/v/CVE-2025-61726?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-61726?s=golang&n=stdlib&t=golang&vr=%3C1.24.12"
+        }
+      ]
+    },
+    {
+      "id": "cad1d9495694d3eaeb735a0324108ac278c9e1ad9158abca9106ff705b03173b",
+      "category": "container_scanning",
+      "message": "CVE-2025-61729 on stdlib@1.14.4",
+      "description": "Within HostnameError.Error(), when constructing an error string, there is no limit to the number of hosts that will be printed out. Furthermore, the error string is constructed by repeated string concatenation, leading to quadratic runtime. Therefore, a certificate provided by a malicious actor can result in excessive resource consumption.",
+      "cve": "CVE-2025-61729",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-61729",
+          "value": "CVE-2025-61729",
+          "url": "https://scout.docker.com/v/CVE-2025-61729?s=golang&n=stdlib&t=golang&vr=%3C1.24.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-61729?s=golang&n=stdlib&t=golang&vr=%3C1.24.11"
+        }
+      ]
+    },
+    {
+      "id": "a9d9e051a74263ebd8c8d45ed947042333848c2a8d7e0c33d4b7a65adbed145f",
+      "category": "container_scanning",
+      "message": "CVE-2026-25679 on stdlib@1.14.4",
+      "description": "url.Parse insufficiently validated the host/authority component and accepted some invalid URLs.",
+      "cve": "CVE-2026-25679",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-25679",
+          "value": "CVE-2026-25679",
+          "url": "https://scout.docker.com/v/CVE-2026-25679?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-25679?s=golang&n=stdlib&t=golang&vr=%3C1.25.8"
+        }
+      ]
+    },
+    {
+      "id": "861bd7ac63bbd9c70c30c35bd9295a05503a47c3da62b0664f4ce03b603237f3",
+      "category": "container_scanning",
+      "message": "CVE-2026-32280 on stdlib@1.14.4",
+      "description": "During chain building, the amount of work that is done is not correctly limited when a large number of intermediate certificates are passed in VerifyOptions.Intermediates, which can lead to a denial of service. This affects both direct users of crypto/x509 and users of crypto/tls.",
+      "cve": "CVE-2026-32280",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.25.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-32280",
+          "value": "CVE-2026-32280",
+          "url": "https://scout.docker.com/v/CVE-2026-32280?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-32280?s=golang&n=stdlib&t=golang&vr=%3C1.25.9"
+        }
+      ]
+    },
+    {
+      "id": "55cb4ae84cea2e54819f8eae564637dc3be306a17ccce35788f4adcb0d2f99b8",
+      "category": "container_scanning",
+      "message": "CVE-2022-30580 on stdlib@1.14.4",
+      "description": "On Windows, executing Cmd.Run, Cmd.Start, Cmd.Output, or Cmd.CombinedOutput when Cmd.Path is unset will unintentionally trigger execution of any binaries in the working directory named either \"..com\" or \"..exe\".",
+      "cve": "CVE-2022-30580",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.17.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-30580",
+          "value": "CVE-2022-30580",
+          "url": "https://scout.docker.com/v/CVE-2022-30580?s=golang&n=stdlib&t=golang&vr=%3C1.17.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-30580?s=golang&n=stdlib&t=golang&vr=%3C1.17.11"
+        }
+      ]
+    },
+    {
+      "id": "209e836178f0c37f5adbdc63b8dc46b0c43c3d832cf4e24c6d0c465807471da6",
+      "category": "container_scanning",
+      "message": "CVE-2023-29403 on stdlib@1.14.4",
+      "description": "On Unix platforms, the Go runtime does not behave differently when a binary is run with the setuid/setgid bits. This can be dangerous in certain cases, such as when dumping memory state, or assuming the status of standard i/o file descriptors.\n\nIf a setuid/setgid binary is executed with standard I/O file descriptors closed, opening any files can result in unexpected content being read or written with elevated privileges. Similarly, if a setuid/setgid program is terminated, either via panic or signal, it may leak the contents of its registers.",
+      "cve": "CVE-2023-29403",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-29403",
+          "value": "CVE-2023-29403",
+          "url": "https://scout.docker.com/v/CVE-2023-29403?s=golang&n=stdlib&t=golang&vr=%3C1.19.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-29403?s=golang&n=stdlib&t=golang&vr=%3C1.19.10"
+        }
+      ]
+    },
+    {
+      "id": "6d1411803a41c4adb554f28ce34db4b8144727f010b26cd606e387ea011f6c22",
+      "category": "container_scanning",
+      "message": "CVE-2017-1000115 on mercurial@4.0",
+      "description": "Mercurial prior to version 4.3 is vulnerable to a missing symlink check that can malicious repositories to modify files outside the repository",
+      "cve": "CVE-2017-1000115",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.3.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2017-1000115",
+          "value": "CVE-2017-1000115",
+          "url": "https://scout.docker.com/v/CVE-2017-1000115?s=github&n=mercurial&t=pypi&vr=%3C4.3.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2017-1000115?s=github&n=mercurial&t=pypi&vr=%3C4.3.1"
+        }
+      ]
+    },
+    {
+      "id": "fd92886e69bb0e746e0026ae157362fd97708fe22b736910539385ea0f5789fb",
+      "category": "container_scanning",
+      "message": "CVE-2017-9462 on mercurial@4.0",
+      "description": "In Mercurial before 4.1.3, \"hg serve --stdio\" allows remote authenticated users to launch the Python debugger, and consequently execute arbitrary code, by using --debugger as a repository name.",
+      "cve": "CVE-2017-9462",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.1.3",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2017-9462",
+          "value": "CVE-2017-9462",
+          "url": "https://scout.docker.com/v/CVE-2017-9462?s=github&n=mercurial&t=pypi&vr=%3C4.1.3"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2017-9462?s=github&n=mercurial&t=pypi&vr=%3C4.1.3"
+        }
+      ]
+    },
+    {
+      "id": "a7088ffb84ad01d5248f639c4305bb70d19ed3f10cd42bee38709ede2ec9a3fc",
+      "category": "container_scanning",
+      "message": "CVE-2018-13346 on mercurial@4.0",
+      "description": "The `mpatch_apply` function in `mpatch.c` in Mercurial before 4.6.1 incorrectly proceeds in cases where the fragment start is past the end of the original data, aka OVE-20180430-0004.",
+      "cve": "CVE-2018-13346",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.6.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2018-13346",
+          "value": "CVE-2018-13346",
+          "url": "https://scout.docker.com/v/CVE-2018-13346?s=github&n=mercurial&t=pypi&vr=%3C4.6.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2018-13346?s=github&n=mercurial&t=pypi&vr=%3C4.6.1"
+        }
+      ]
+    },
+    {
+      "id": "84d3f221d58c93920fd2b260548977773e86c1f15a8e21e4b3a84ac4a5ac5294",
+      "category": "container_scanning",
+      "message": "CVE-2018-13348 on mercurial@4.0",
+      "description": "The `mpatch_decode` function in `mpatch.c` in Mercurial before 4.6.1 mishandles certain situations where there should be at least 12 bytes remaining after the current position in the patch data, but actually are not, aka OVE-20180430-0001.",
+      "cve": "CVE-2018-13348",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.6.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2018-13348",
+          "value": "CVE-2018-13348",
+          "url": "https://scout.docker.com/v/CVE-2018-13348?s=github&n=mercurial&t=pypi&vr=%3C4.6.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2018-13348?s=github&n=mercurial&t=pypi&vr=%3C4.6.1"
+        }
+      ]
+    },
+    {
+      "id": "34a95b0f313ee9cdf93d861977ff77f6e0cbeb4d4938596d7dead351ebb44a5c",
+      "category": "container_scanning",
+      "message": "CVE-2018-17983 on mercurial@4.0",
+      "description": "`cext/manifest.c` in Mercurial before 4.7.2 has an out-of-bounds read during parsing of a malformed manifest entry.",
+      "cve": "CVE-2018-17983",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.7.2",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2018-17983",
+          "value": "CVE-2018-17983",
+          "url": "https://scout.docker.com/v/CVE-2018-17983?s=github&n=mercurial&t=pypi&vr=%3C4.7.2"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2018-17983?s=github&n=mercurial&t=pypi&vr=%3C4.7.2"
+        }
+      ]
+    },
+    {
+      "id": "05c36ae2a1b1e27a6b10064ae3f3adc0e4f807549e59a63fd1eea938a53dd306",
+      "category": "container_scanning",
+      "message": "CVE-2022-23806 on stdlib@1.14.4",
+      "description": "Some big.Int values that are not valid field elements (negative or overflowing) might cause Curve.IsOnCurve to incorrectly return true. Operating on those values may cause a panic or an invalid curve operation. Note that Unmarshal will never return such values.",
+      "cve": "CVE-2022-23806",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.16.14",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-23806",
+          "value": "CVE-2022-23806",
+          "url": "https://scout.docker.com/v/CVE-2022-23806?s=golang&n=stdlib&t=golang&vr=%3C1.16.14"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-23806?s=golang&n=stdlib&t=golang&vr=%3C1.16.14"
+        }
+      ]
+    },
+    {
+      "id": "c40d7de352da39e6859c25ac564e21424b7df213f774487fead3bb99ccee83a4",
+      "category": "container_scanning",
+      "message": "CVE-2025-22871 on stdlib@1.14.4",
+      "description": "The net/http package improperly accepts a bare LF as a line terminator in chunked data chunk-size lines. This can permit request smuggling if a net/http server is used in conjunction with a server that incorrectly accepts a bare LF as part of a chunk-ext.",
+      "cve": "CVE-2025-22871",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.23.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-22871",
+          "value": "CVE-2025-22871",
+          "url": "https://scout.docker.com/v/CVE-2025-22871?s=golang&n=stdlib&t=golang&vr=%3C1.23.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-22871?s=golang&n=stdlib&t=golang&vr=%3C1.23.8"
+        }
+      ]
+    },
+    {
+      "id": "445df7d156fa8952a6504889e39417647090a70a876646ffe1d1381ca9723b86",
+      "category": "container_scanning",
+      "message": "CVE-2017-1000116 on mercurial@4.0",
+      "description": "Mercurial prior to 4.3 did not adequately sanitize hostnames passed to ssh, leading to possible shell-injection attacks.",
+      "cve": "CVE-2017-1000116",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.3",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2017-1000116",
+          "value": "CVE-2017-1000116",
+          "url": "https://scout.docker.com/v/CVE-2017-1000116?s=github&n=mercurial&t=pypi&vr=%3C4.3"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2017-1000116?s=github&n=mercurial&t=pypi&vr=%3C4.3"
+        }
+      ]
+    },
+    {
+      "id": "56ae3e950be0b60a9ad2edd0cdfd787ccea09edb7e2894a706ea1ad7e3a67d25",
+      "category": "container_scanning",
+      "message": "CVE-2017-17458 on mercurial@4.0",
+      "description": "In Mercurial before 4.4.1, it is possible that a specially malformed repository can cause Git subrepositories to run arbitrary code in the form of a `.git/hooks/post-update` script checked into the repository. Typical use of Mercurial prevents construction of such repositories, but they can be created programmatically.",
+      "cve": "CVE-2017-17458",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.4.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2017-17458",
+          "value": "CVE-2017-17458",
+          "url": "https://scout.docker.com/v/CVE-2017-17458?s=github&n=mercurial&t=pypi&vr=%3C4.4.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2017-17458?s=github&n=mercurial&t=pypi&vr=%3C4.4.1"
+        }
+      ]
+    },
+    {
+      "id": "1bc86fe066a765285a86c187f6cee163e79f873788e8881f4a2cb34d2e47cc70",
+      "category": "container_scanning",
+      "message": "CVE-2018-1000132 on mercurial@4.0",
+      "description": "Mercurial version 4.5 and earlier contains a Incorrect Access Control (CWE-285) vulnerability in Protocol server that can result in Unauthorized data access. This attack appear to be exploitable via network connectivity. This vulnerability appears to have been fixed in 4.5.1.",
+      "cve": "CVE-2018-1000132",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.5.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2018-1000132",
+          "value": "CVE-2018-1000132",
+          "url": "https://scout.docker.com/v/CVE-2018-1000132?s=github&n=mercurial&t=pypi&vr=%3C4.5.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2018-1000132?s=github&n=mercurial&t=pypi&vr=%3C4.5.1"
+        }
+      ]
+    },
+    {
+      "id": "1d567d0cc7fa9a16d9c1bf5f29f51636085270687a3f17ffd89b15729c9b30d7",
+      "category": "container_scanning",
+      "message": "CVE-2018-13347 on mercurial@4.0",
+      "description": "`mpatch.c` in Mercurial before 4.6.1 mishandles integer addition and subtraction, aka OVE-20180430-0002.",
+      "cve": "CVE-2018-13347",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade mercurial@4.0 to 4.6.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:pypi/mercurial@4.0"
+          },
+          "version": "4.0"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2018-13347",
+          "value": "CVE-2018-13347",
+          "url": "https://scout.docker.com/v/CVE-2018-13347?s=github&n=mercurial&t=pypi&vr=%3C4.6.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2018-13347?s=github&n=mercurial&t=pypi&vr=%3C4.6.1"
+        }
+      ]
+    },
+    {
+      "id": "56ecb1ac8d4623d5fafcf6ed7d849b58d3257104cc9ea59a0511f73b95f997b3",
+      "category": "container_scanning",
+      "message": "CVE-2023-24538 on stdlib@1.14.4",
+      "description": "Templates do not properly consider backticks (`) as Javascript string delimiters, and do not escape them as expected.\n\nBackticks are used, since ES6, for JS template literals. If a template contains a Go template action within a Javascript template literal, the contents of the action can be used to terminate the literal, injecting arbitrary Javascript code into the Go template.\n\nAs ES6 template literals are rather complex, and themselves can do string interpolation, the decision was made to simply disallow Go template actions from being used inside of them (e.g. \"var a = {{.}}\"), since there is no obviously safe way to allow this behavior. This takes the same approach as github.com/google/safehtml.\n\nWith fix, Template.Parse returns an Error when it encounters templates like this, with an ErrorCode of value 12. This ErrorCode is currently unexported, but will be exported in the release of Go 1.21.\n\nUsers who rely on the previous behavior can re-enable it using the GODEBUG flag jstmpllitinterp=1, with the caveat that backticks will now be escaped. This should be used with caution.",
+      "cve": "CVE-2023-24538",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-24538",
+          "value": "CVE-2023-24538",
+          "url": "https://scout.docker.com/v/CVE-2023-24538?s=golang&n=stdlib&t=golang&vr=%3C1.19.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-24538?s=golang&n=stdlib&t=golang&vr=%3C1.19.8"
+        }
+      ]
+    },
+    {
+      "id": "0c96bcd0f5cb4dba7460f2b7733f1f9939f51d1c2ac9ee71a2d198b972630195",
+      "category": "container_scanning",
+      "message": "CVE-2023-24540 on stdlib@1.14.4",
+      "description": "Not all valid JavaScript whitespace characters are considered to be whitespace. Templates containing whitespace characters outside of the character set \"\\t\\n\\f\\r\\u0020\\u2028\\u2029\" in JavaScript contexts that also contain actions may not be properly sanitized during execution.",
+      "cve": "CVE-2023-24540",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.19.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-24540",
+          "value": "CVE-2023-24540",
+          "url": "https://scout.docker.com/v/CVE-2023-24540?s=golang&n=stdlib&t=golang&vr=%3C1.19.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-24540?s=golang&n=stdlib&t=golang&vr=%3C1.19.9"
+        }
+      ]
+    },
+    {
+      "id": "47ac901059bbc9f0a4e7a2ae1a502f2de14826c5aa1a724e37885c3670e4ba39",
+      "category": "container_scanning",
+      "message": "CVE-2024-24790 on stdlib@1.14.4",
+      "description": "The various Is methods (IsPrivate, IsLoopback, etc) did not work as expected for IPv4-mapped IPv6 addresses, returning false for addresses which would return true in their traditional IPv4 forms.",
+      "cve": "CVE-2024-24790",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.21.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-24790",
+          "value": "CVE-2024-24790",
+          "url": "https://scout.docker.com/v/CVE-2024-24790?s=golang&n=stdlib&t=golang&vr=%3C1.21.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-24790?s=golang&n=stdlib&t=golang&vr=%3C1.21.11"
+        }
+      ]
+    },
+    {
+      "id": "0e6e73d0a3b30620a2dbb0a98d3c7eae66c7379d3205765ff003c8bca868deeb",
+      "category": "container_scanning",
+      "message": "CVE-2025-68121 on stdlib@1.14.4",
+      "description": "During session resumption in crypto/tls, if the underlying Config has its ClientCAs or RootCAs fields mutated between the initial handshake and the resumed handshake, the resumed handshake may succeed when it should have failed. This may happen when a user calls Config.Clone and mutates the returned Config, or uses Config.GetConfigForClient. This can cause a client to resume a session with a server that it would not have resumed with during the initial handshake, or cause a server to resume a session with a client that it would not have resumed with during the initial handshake.",
+      "cve": "CVE-2025-68121",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade stdlib@1.14.4 to 1.24.13",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:golang/stdlib@1.14.4"
+          },
+          "version": "1.14.4"
+        },
+        "operating_system": "debian 9",
+        "image": "golang:1.14.4-stretch"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-68121",
+          "value": "CVE-2025-68121",
+          "url": "https://scout.docker.com/v/CVE-2025-68121?s=golang&n=stdlib&t=golang&vr=%3C1.24.13"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-68121?s=golang&n=stdlib&t=golang&vr=%3C1.24.13"
+        }
+      ]
+    }
+  ],
+  "remediations": [],
+  "scan": {
+    "start_time": "2026-04-12T01:02:41",
+    "end_time": "2026-04-12T01:02:41",
+    "status": "success",
+    "type": "container_scanning",
+    "scanner": {
+      "id": "docker-scout",
+      "name": "Docker Scout",
+      "version": "1.19.0",
+      "vendor": {
+        "name": "Docker"
+      }
+    },
+    "analyzer": {
+      "id": "docker-scout",
+      "name": "Docker Scout",
+      "version": "1.19.0",
+      "vendor": {
+        "name": "Docker"
+      }
+    }
+  }
+}

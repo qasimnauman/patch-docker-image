@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docker-vuln-patcher"
+version = "0.1.0"
+description = "Patch Docker image vulnerabilities for Node.js and Python images using Docker Scout"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "docker-vuln-patcher contributors" }
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Security",
+  "Topic :: Software Development :: Build Tools"
+]
+
+[project.scripts]
+docker-vuln-patcher = "docker_vuln_patcher.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
