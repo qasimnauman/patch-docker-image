@@ -99,6 +99,55 @@ docker-vuln-patcher \
   --push
 ```
 
+## Where It Reads Dockerfile, Image, and Other Inputs
+
+### CLI mode (docker-vuln-patcher / patch_image.py)
+
+1. Image source
+
+- `--image` is required and is always the target image reference.
+
+1. Dockerfile vs registry image
+
+- If `--dockerfile-path` is provided, the tool builds the source image first using:
+  - Dockerfile at `--dockerfile-path`
+  - Build context from `--context-path` if set, otherwise the Dockerfile folder
+  - Build arguments from repeated `--build-arg KEY=VALUE`
+- If `--dockerfile-path` is not provided, the tool pulls `--image` from the registry.
+
+1. Credentials (Docker Hub)
+
+- Username resolution order:
+  - `--dh-user` (highest priority)
+  - environment variable named by `--dh-user-env` (default: `DOCKERHUB_USERNAME`)
+- Password source:
+  - environment variable named by `--dh-password-env` (default: `DOCKERHUB_PASSWORD`)
+  - if missing and interactive shell is available, it prompts securely
+  - if `--non-interactive` is set and missing, the run fails
+
+1. Reports and generated patch Dockerfile
+
+- `--report-dir` controls output location (default: `./vuln_reports`)
+- Generated patch Dockerfile is saved at:
+  - `<report-dir>/patches/Dockerfile.<safe-image-name>.patched`
+
+### GitHub Action mode
+
+1. Image and build inputs come from action inputs
+
+- `image`, `dockerfile-path`, `context-path`, `build-args`, `severities`, and other flags are passed in the workflow `with:` block.
+
+1. Credential inputs come from workflow secrets
+
+- Pass secrets into action inputs:
+  - `dh-user: ${{ secrets.DOCKERHUB_USERNAME }}`
+  - `dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}`
+
+1. Same Dockerfile behavior as CLI
+
+- If `dockerfile-path` is provided, it builds first from workflow workspace files.
+- If `dockerfile-path` is empty, it pulls the `image` from the registry.
+
 ## Credential Handling (Secure by Default)
 
 - Credentials are read from environment variables.
