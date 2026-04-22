@@ -31,6 +31,8 @@ Production-oriented Docker image vulnerability patcher for Node.js and Python im
       README.md
   workflows/
     e2e-live-smoke.yml
+    release-action-tags.yml
+action.yml
 src/
   docker_vuln_patcher/
     __init__.py
@@ -117,7 +119,11 @@ Use one of these:
 - `templates/github-actions/patch-image.yml` (local action in same repo)
 - `templates/github-actions/consume-composite-action.yml` (other repos)
 
-Reusable composite action path:
+Public action entrypoint:
+
+- `action.yml` (repository root)
+
+Backward-compatible internal action path:
 
 - `.github/actions/patch-docker-image/action.yml`
 
@@ -143,7 +149,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: patch
-        uses: ./.github/actions/patch-docker-image
+        uses: ./
         with:
           image: myrepo/myapp:latest
           push: "true"
@@ -160,7 +166,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: patch
-        uses: your-org/docker-vuln-patcher/.github/actions/patch-docker-image@v0.1.0
+        uses: qasimnauman/patch-docker-image@v1
         with:
           image: myrepo/myapp:latest
           push: "true"
@@ -169,6 +175,23 @@ jobs:
 ```
 
 Pin the action to a release tag or commit SHA in production.
+
+## Publish Stable Action Tags
+
+To let internet users consume your action with `@v1`, publish tags from:
+
+- `.github/workflows/release-action-tags.yml`
+
+Run it with inputs like:
+
+- `version`: `v1.0.0`
+- `major`: `v1`
+
+Then users can reference:
+
+```yaml
+uses: qasimnauman/patch-docker-image@v1
+```
 
 ## Linux Executable Binary (Current Focus)
 

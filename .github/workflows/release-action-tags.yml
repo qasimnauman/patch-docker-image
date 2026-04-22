@@ -1,0 +1,64 @@
+name: Publish Action Version Tags
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Full immutable tag (e.g. v1.0.0)
+        required: true
+        default: v1.0.0
+        type: string
+      major:
+        description: Major moving tag (e.g. v1)
+        required: true
+        default: v1
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate tag inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="${{ inputs.version }}"
+          major="${{ inputs.major }}"
+
+          if [[ ! "$version" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid version tag: $version"
+            exit 1
+          fi
+
+          if [[ ! "$major" =~ ^v[0-9]+$ ]]; then
+            echo "Invalid major tag: $major"
+            exit 1
+          fi
+
+      - name: Create and push tags
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="${{ inputs.version }}"
+          major="${{ inputs.major }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git tag -fa "$version" -m "Release $version"
+          git push origin "$version" --force
+
+          git tag -fa "$major" -m "Move $major to $version"
+          git push origin "$major" --force
+
+      - name: Summary
+        run: |
+          echo "Published action tags: ${{ inputs.version }} and ${{ inputs.major }}"

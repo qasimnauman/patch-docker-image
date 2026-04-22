@@ -35,7 +35,7 @@ jobs:
 
       - name: Patch image with local composite action
         id: patch
-        uses: ./.github/actions/patch-docker-image
+        uses: ./
         with:
           image: ${{ inputs.image }}
           severities: ${{ inputs.severities }}

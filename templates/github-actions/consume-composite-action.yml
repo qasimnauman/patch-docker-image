@@ -34,7 +34,7 @@ jobs:
 
       - name: Patch image using reusable composite action
         id: patch
-        uses: your-org/docker-vuln-patcher/.github/actions/patch-docker-image@v0.1.0
+        uses: qasimnauman/patch-docker-image@v1
         with:
           image: ${{ inputs.image }}
           push: ${{ inputs.push }}
