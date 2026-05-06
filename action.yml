@@ -68,7 +68,15 @@ runs:
       run: |
         set -euo pipefail
 
+        # CLI still requires --image; derive an internal local tag from workflow context.
+        owner="$(echo "${GITHUB_REPOSITORY_OWNER:-local}" | tr '[:upper:]' '[:lower:]')"
+        repo="$(echo "${GITHUB_REPOSITORY##*/}" | tr '[:upper:]' '[:lower:]')"
+        run_id="${GITHUB_RUN_ID:-local}"
+        attempt="${GITHUB_RUN_ATTEMPT:-1}"
+        derived_image="${owner}/${repo}:${run_id}-${attempt}"
+
         cmd=(docker-vuln-patcher
+          --image "$derived_image"
           --dockerfile-path "${{ inputs.dockerfile-path }}"
           --context-path "${{ inputs.context-path }}"
           --severities "${{ inputs.severities }}"

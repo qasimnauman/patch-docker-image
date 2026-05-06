@@ -40,15 +40,24 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Install Docker Scout (pinned release)
+      - name: Install Docker Scout
         run: |
           set -euo pipefail
-          SCOUT_VERSION=v0.6.0
-          tmpfile=$(mktemp)
-          curl -fsSL "https://github.com/docker/scout-cli/releases/download/${SCOUT_VERSION}/scout-linux-amd64" -o "$tmpfile"
-          sudo install -m 0755 "$tmpfile" /usr/local/bin/docker-scout
-          rm -f "$tmpfile"
-          docker-scout version || true
+
+          if docker scout version >/dev/null 2>&1; then
+            echo "Docker Scout is already installed."
+            docker scout version
+            exit 0
+          fi
+
+          if ! command -v curl >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y curl
+          fi
+
+          mkdir -p "$HOME/.docker"
+          curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
+          docker scout version
 
       - name: Verify Dockerfile exists
         run: |
@@ -63,7 +72,7 @@ jobs:
       - name: Patch Dockerfile (Dockerfile-only mode)
         id: patch
         continue-on-error: true
-        uses: qasimnauman/patch-docker-image@v1
+        uses: qasimnauman/patch-docker-image@v1.0.2
         with:
           dockerfile-path: ${{ inputs.dockerfile_path }}
           context-path: .
