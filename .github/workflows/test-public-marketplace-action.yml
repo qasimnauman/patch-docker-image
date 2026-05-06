@@ -76,14 +76,14 @@ jobs:
         run: |
           echo "Action outcome: ${{ steps.patch.outcome }}"
           echo "Action conclusion: ${{ steps.patch.conclusion }}"
-          echo "Patched image: ${{ steps.patch.outputs.patched_image }}"
+          echo "Patched image output is not used in Dockerfile-only mode."
 
       - name: List generated reports
         if: always()
         run: |
-          if [[ -d ./vuln_reports ]]; then
+          if [[ -d "${{ inputs.report_dir }}" ]]; then
             echo "Generated vulnerability reports:"
-            find ./vuln_reports -maxdepth 3 -type f | sort
+            find "${{ inputs.report_dir }}" -maxdepth 3 -type f | sort
           else
             echo "No reports generated"
           fi
@@ -93,7 +93,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vulnerability-reports
-          path: ./vuln_reports
+          path: ${{ inputs.report_dir }}
           if-no-files-found: warn
 
       - name: Enforce production gate

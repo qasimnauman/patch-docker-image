@@ -1,21 +1,18 @@
 name: Patch Docker Image
-description: Scan, patch, and verify Docker image vulnerabilities for Node.js and Python images.
+description: Scan, patch, and verify vulnerabilities using a Dockerfile input.
 branding:
   icon: shield
   color: blue
 
 inputs:
-  image:
-    description: Docker image reference to patch.
-    required: true
   dockerfile-path:
-    description: Optional Dockerfile path for building source image before patching.
-    required: false
-    default: ""
+    description: Path to the Dockerfile to patch.
+    required: true
+    default: ./Dockerfile
   context-path:
     description: Optional build context path used with dockerfile-path.
     required: false
-    default: ""
+    default: .
   build-args:
     description: Optional newline-separated build args (KEY=VALUE).
     required: false
@@ -32,18 +29,6 @@ inputs:
     description: Directory for reports and generated patch Dockerfile.
     required: false
     default: ./vuln_reports
-  dh-user:
-    description: Docker Hub username.
-    required: false
-    default: ""
-  dh-password:
-    description: Docker Hub password or token.
-    required: false
-    default: ""
-  push:
-    description: Push verified patched image.
-    required: false
-    default: "false"
   dry-run:
     description: Only generate artifacts and skip build, verify, push.
     required: false
@@ -61,11 +46,6 @@ inputs:
     required: false
     default: "3.12"
 
-outputs:
-  patched_image:
-    description: Derived patched image tag.
-    value: ${{ steps.compute.outputs.patched_image }}
-
 runs:
   using: composite
   steps:
@@ -82,32 +62,18 @@ runs:
         python -m pip install --upgrade pip
         python -m pip install "$project_root"
 
-    - name: Compute patched image tag
-      id: compute
-      shell: bash
-      env:
-        IMAGE: ${{ inputs.image }}
-        PATCHED_SUFFIX: ${{ inputs.patched-suffix }}
-      run: |
-        set -euo pipefail
-        patched_image="$(python -c "from docker_vuln_patcher.cli import derive_patched_tag; import os; print(derive_patched_tag(os.environ['IMAGE'], os.environ['PATCHED_SUFFIX']))")"
-        echo "patched_image=$patched_image" >> "$GITHUB_OUTPUT"
-
     - name: Run patch and verification flow
       shell: bash
-      env:
-        DOCKERHUB_USERNAME: ${{ inputs.dh-user }}
-        DOCKERHUB_PASSWORD: ${{ inputs.dh-password }}
+      env: {}
       run: |
         set -euo pipefail
 
         cmd=(docker-vuln-patcher
-          --image "${{ inputs.image }}"
+          --dockerfile-path "${{ inputs.dockerfile-path }}"
+          --context-path "${{ inputs.context-path }}"
           --severities "${{ inputs.severities }}"
           --report-dir "${{ inputs.report-dir }}"
           --patched-suffix="${{ inputs.patched-suffix }}"
-          --dh-user-env DOCKERHUB_USERNAME
-          --dh-password-env DOCKERHUB_PASSWORD
         )
 
         if [[ "${{ inputs.non-interactive }}" == "true" ]]; then
@@ -118,20 +84,8 @@ runs:
           cmd+=(--use-buildx)
         fi
 
-        if [[ "${{ inputs.push }}" == "true" ]]; then
-          cmd+=(--push)
-        fi
-
         if [[ "${{ inputs.dry-run }}" == "true" ]]; then
           cmd+=(--dry-run)
-        fi
-
-        if [[ -n "${{ inputs.dockerfile-path }}" ]]; then
-          cmd+=(--dockerfile-path "${{ inputs.dockerfile-path }}")
-        fi
-
-        if [[ -n "${{ inputs.context-path }}" ]]; then
-          cmd+=(--context-path "${{ inputs.context-path }}")
         fi
 
         while IFS= read -r build_arg; do
