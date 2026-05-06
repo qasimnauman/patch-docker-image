@@ -599,7 +599,14 @@ def build_npm_upgrade_run(packages_to_version: dict[str, str]) -> list[str]:
     specs = [f"{name}@{version}" for name, version in sorted(packages_to_version.items()) if version]
     if not specs:
         return []
-    return [f"RUN npm install -g --no-audit --no-fund {' '.join(specs)}"]
+    joined = " ".join(specs)
+    return [
+        "RUN if [ -f package.json ]; then \\",
+        f"    npm install --no-audit --no-fund {joined}; \\",
+        "  else \\",
+        f"    npm install -g --no-audit --no-fund {joined}; \\",
+        "  fi",
+    ]
 
 
 def build_pip_upgrade_run(pip_cmd: str, packages_to_version: dict[str, str]) -> list[str]:
