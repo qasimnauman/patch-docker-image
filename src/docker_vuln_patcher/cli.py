@@ -618,7 +618,7 @@ def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[s
     manager_chain = "".join(app_install_steps)
 
     return [
-        "RUN set -euo pipefail; \\",
+        "RUN set -eu; \\",
         "    found=0; \\",
         "    for d in /app /usr/src/app /workspace /srv/app /; do \\",
         "      if [ -f \"$d/package.json\" ]; then cd \"$d\"; found=1; break; fi; \\",
