@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import getpass
 import json
+import shutil
 import logging
 import os
 import re
@@ -244,10 +245,15 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
     # Prefer gitlab because it is JSON and maps well to our parser.
     candidate_formats = ["gitlab", "json"]
     artifact_ref = f"local://{image}"
-    scout_cmd_variants = [
-        ["docker", "scout", "cves"],
-        ["docker-scout", "cves"],
-    ]
+    scout_cmd_variants = []
+    if shutil.which("docker"):
+        scout_cmd_variants.append(["docker", "scout", "cves"])
+    if shutil.which("docker-scout"):
+        scout_cmd_variants.append(["docker-scout", "cves"])
+
+    if not scout_cmd_variants:
+        log.error("Neither 'docker scout' nor 'docker-scout' is available on PATH.")
+        sys.exit(1)
 
     for fmt in candidate_formats:
         for cmd_prefix in scout_cmd_variants:
