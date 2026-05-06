@@ -240,56 +240,68 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
 
     raw_output = ""
     attempted: list[str] = []
-    candidate_formats = ["json", "gitlab"]
+    attempt_errors: list[str] = []
+    # Prefer gitlab because it is JSON and maps well to our parser.
+    candidate_formats = ["gitlab", "json"]
+    artifact_ref = f"local://{image}"
+    scout_cmd_variants = [
+        ["docker", "scout", "cves"],
+        ["docker-scout", "cves"],
+    ]
 
     for fmt in candidate_formats:
-        attempted.append(fmt)
-        result = run_command(
-            ["docker", "scout", "cves", image, "--format", fmt],
-            capture_output=True,
-        )
+        for cmd_prefix in scout_cmd_variants:
+            attempted.append(f"{' '.join(cmd_prefix)} --format {fmt}")
+            result = run_command(
+                [*cmd_prefix, artifact_ref, "--format", fmt],
+                capture_output=True,
+            )
 
-        for candidate in (result.stdout, result.stderr):
-            blob = extract_json_blob(candidate)
-            if not blob:
-                continue
-            try:
-                json.loads(blob)
-                raw_output = blob
+            for candidate in (result.stdout, result.stderr):
+                blob = extract_json_blob(candidate)
+                if not blob:
+                    continue
+                try:
+                    json.loads(blob)
+                    raw_output = blob
+                    break
+                except json.JSONDecodeError:
+                    continue
+
+            if raw_output:
                 break
-            except json.JSONDecodeError:
-                continue
+
+            stderr_preview = ((result.stderr or "").strip().splitlines() or [""])[0]
+            if stderr_preview:
+                attempt_errors.append(f"{' '.join(cmd_prefix)} ({fmt}): {stderr_preview}")
+
+            file_target = report_dir / f"{prefix}_{safe_name}_{fmt}.json"
+            result2 = run_command(
+                [*cmd_prefix, artifact_ref, "--format", fmt, "--output", str(file_target)],
+                capture_output=True,
+            )
+            if file_target.exists() and file_target.stat().st_size > 0:
+                try:
+                    file_blob = file_target.read_text(encoding="utf-8", errors="replace")
+                    json.loads(file_blob)
+                    raw_output = file_blob
+                    break
+                except json.JSONDecodeError:
+                    raw_output = ""
+            stderr_preview2 = ((result2.stderr or "").strip().splitlines() or [""])[0]
+            if stderr_preview2:
+                attempt_errors.append(f"{' '.join(cmd_prefix)} ({fmt} --output): {stderr_preview2}")
 
         if raw_output:
             break
 
-        file_target = report_dir / f"{prefix}_{safe_name}_{fmt}.json"
-        result2 = run_command(
-            [
-                "docker",
-                "scout",
-                "cves",
-                image,
-                "--format",
-                fmt,
-                "--output",
-                str(file_target),
-            ],
-            capture_output=True,
-        )
-        if result2.returncode == 0 and file_target.exists() and file_target.stat().st_size > 0:
-            try:
-                raw_output = file_target.read_text(encoding="utf-8", errors="replace")
-                json.loads(raw_output)
-                break
-            except json.JSONDecodeError:
-                raw_output = ""
-
     if not raw_output:
         log.error(
-            "Docker Scout returned no parseable JSON output for formats: %s",
+            "Docker Scout returned no parseable JSON output for attempts: %s",
             ", ".join(attempted),
         )
+        if attempt_errors:
+            log.error("Scout command errors: %s", " | ".join(attempt_errors[:4]))
         sys.exit(1)
 
     report_path.write_text(raw_output, encoding="utf-8")
