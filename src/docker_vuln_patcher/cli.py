@@ -500,6 +500,10 @@ def detect_patch_capabilities(image: str, os_pkg_manager: Optional[str]) -> dict
 
     if command_exists_in_image(image, "npm"):
         capabilities["npm"] = "npm"
+    if command_exists_in_image(image, "yarn"):
+        capabilities["yarn"] = "yarn"
+    if command_exists_in_image(image, "pnpm"):
+        capabilities["pnpm"] = "pnpm"
 
     if command_exists_in_image(image, "pip3"):
         capabilities["pip"] = "pip3"
@@ -529,7 +533,7 @@ def detect_patch_capabilities(image: str, os_pkg_manager: Optional[str]) -> dict
 
 
 def ensure_supported_runtime(capabilities: dict[str, str]) -> None:
-    has_node = "npm" in capabilities
+    has_node = any(k in capabilities for k in ("npm", "yarn", "pnpm"))
     has_python = "pip" in capabilities
     if not has_node and not has_python:
         log.error(
@@ -595,17 +599,39 @@ def build_os_upgrade_run(pkg_manager: str, packages: list[str]) -> list[str]:
     ]
 
 
-def build_npm_upgrade_run(packages_to_version: dict[str, str]) -> list[str]:
+def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[str]) -> list[str]:
     specs = [f"{name}@{version}" for name, version in sorted(packages_to_version.items()) if version]
     if not specs:
         return []
+    if not managers:
+        return []
+
     joined = " ".join(specs)
+    app_install_steps = []
+    for mgr in managers:
+        if mgr == "npm":
+            app_install_steps.append(f"if command -v npm >/dev/null 2>&1; then npm install --no-audit --no-fund {joined}; exit 0; fi; ")
+        elif mgr == "yarn":
+            app_install_steps.append(f"if command -v yarn >/dev/null 2>&1; then yarn add {joined}; exit 0; fi; ")
+        elif mgr == "pnpm":
+            app_install_steps.append(f"if command -v pnpm >/dev/null 2>&1; then pnpm add {joined}; exit 0; fi; ")
+    manager_chain = "".join(app_install_steps)
+
     return [
-        "RUN if [ -f package.json ]; then \\",
-        f"    npm install --no-audit --no-fund {joined}; \\",
-        "  else \\",
-        f"    npm install -g --no-audit --no-fund {joined}; \\",
-        "  fi",
+        "RUN set -euo pipefail; \\",
+        "    found=0; \\",
+        "    for d in /app /usr/src/app /workspace /srv/app /; do \\",
+        "      if [ -f \"$d/package.json\" ]; then cd \"$d\"; found=1; break; fi; \\",
+        "    done; \\",
+        "    if [ \"$found\" = \"1\" ]; then \\",
+        f"      {manager_chain} \\",
+        "      echo 'No Node package manager found in image.'; exit 1; \\",
+        "    else \\",
+        "      if command -v npm >/dev/null 2>&1; then npm install -g --no-audit --no-fund " + joined + "; exit 0; fi; \\",
+        "      if command -v yarn >/dev/null 2>&1; then yarn global add " + joined + "; exit 0; fi; \\",
+        "      if command -v pnpm >/dev/null 2>&1; then pnpm add -g " + joined + "; exit 0; fi; \\",
+        "      echo 'No Node package manager found in image.'; exit 1; \\",
+        "    fi",
     ]
 
 
@@ -662,7 +688,8 @@ def generate_dockerfile(
     if os_pkg_manager and os_packages:
         run_lines.extend(build_os_upgrade_run(os_pkg_manager, os_packages))
     if "npm" in patchable_by_manager:
-        run_lines.extend(build_npm_upgrade_run(npm_versions))
+        managers = [m for m in ("pnpm", "yarn", "npm") if m in capabilities]
+        run_lines.extend(build_node_upgrade_run(npm_versions, managers))
     if "pip" in patchable_by_manager:
         run_lines.extend(build_pip_upgrade_run(capabilities["pip"], pip_versions))
 
