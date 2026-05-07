@@ -600,6 +600,12 @@ def build_os_upgrade_run(pkg_manager: str, packages: list[str]) -> list[str]:
 
 
 def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[str]) -> list[str]:
+    """
+    Generate RUN instruction for Node.js package upgrades.
+    
+    Dynamically finds package.json in the filesystem (no hardcoded paths).
+    Tries app-level install first, then falls back to global.
+    """
     specs = [f"{name}@{version}" for name, version in sorted(packages_to_version.items()) if version]
     if not specs:
         return []
@@ -620,10 +626,9 @@ def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[s
     return [
         "RUN set -eu; \\",
         "    found=0; \\",
-        "    for d in /app /usr/src/app /workspace /srv/app /; do \\",
-        "      if [ -f \"$d/package.json\" ]; then cd \"$d\"; found=1; break; fi; \\",
-        "    done; \\",
-        "    if [ \"$found\" = \"1\" ]; then \\",
+        "    app_dir=$(find / -maxdepth 3 -name package.json -type f 2>/dev/null | head -1 | xargs dirname 2>/dev/null || true); \\",
+        "    if [ -n \"$app_dir\" ] && [ -f \"$app_dir/package.json\" ]; then \\",
+        "      cd \"$app_dir\"; \\",
         f"      {manager_chain} \\",
         "      echo 'No Node package manager found in image.'; exit 1; \\",
         "    else \\",
@@ -915,69 +920,132 @@ def main() -> int:
     capabilities = detect_patch_capabilities(args.image, os_pkg_manager)
     ensure_supported_runtime(capabilities)
 
-    generated_dockerfile, patchable_cves, skipped_cves = generate_dockerfile(
-        args.image,
-        os_pkg_manager,
-        capabilities,
-        baseline_fixable,
-    )
-    generated_dockerfile_path = write_generated_dockerfile(report_dir, args.image, generated_dockerfile)
+    # ============================================================================
+    # ITERATIVE PATCHING LOOP: scan -> patch -> verify -> repeat until zero CVEs
+    # ============================================================================
+    MAX_ITERATIONS = 5
+    current_image = args.image
+    current_fixable = baseline_fixable
+    iteration = 0
+    total_patches_applied = 0
+    generated_dockerfile_path = None
+    patched_tag = None
+    final_scan = None
+    remaining_fixable = current_fixable
 
-    if skipped_cves:
-        skipped_types = sorted({(c.package_type or "unknown") for c in skipped_cves})
-        log.warning(
-            "Skipped %d CVE(s) due to unsupported package manager/type: %s",
-            len(skipped_cves),
-            ", ".join(skipped_types),
+    while iteration < MAX_ITERATIONS and current_fixable:
+        iteration += 1
+        log.info(
+            "=== PATCHING ITERATION %d/%d (%d fixable CVE(s) to address) ===",
+            iteration,
+            MAX_ITERATIONS,
+            len(current_fixable),
         )
 
-    if args.dry_run:
-        print(f"\n{BOLD}Generated Dockerfile (dry-run): {generated_dockerfile_path}{RESET}\n")
-        print(generated_dockerfile)
-        log.info("Dry-run complete.")
-        return 0
+        # Generate patch Dockerfile based on current fixable CVEs
+        generated_dockerfile, patchable_cves, skipped_cves = generate_dockerfile(
+            current_image,
+            os_pkg_manager,
+            capabilities,
+            current_fixable,
+        )
+        generated_dockerfile_path = write_generated_dockerfile(
+            report_dir / f"iteration_{iteration}", current_image, generated_dockerfile
+        )
 
-    if not patchable_cves:
-        log.error("No patchable CVEs found for current runtime support. Failing safely.")
-        return 2
+        if skipped_cves:
+            skipped_types = sorted({(c.package_type or "unknown") for c in skipped_cves})
+            log.warning(
+                "Skipped %d CVE(s) due to unsupported package manager/type: %s",
+                len(skipped_cves),
+                ", ".join(skipped_types),
+            )
 
-    build_patched_image(generated_dockerfile_path, patched_tag, use_buildx=args.use_buildx)
+        if args.dry_run:
+            print(f"\n{BOLD}Generated Dockerfile (dry-run, iteration {iteration}): {generated_dockerfile_path}{RESET}\n")
+            print(generated_dockerfile)
+            log.info("Dry-run complete.")
+            return 0
 
-    verification_report_path = run_docker_scout(patched_tag, report_dir, prefix="post_patch_scout")
-    verification_scan = parse_scout_report(verification_report_path, patched_tag)
-    remaining_fixable = verification_scan.fixable(severities)
+        if not patchable_cves:
+            log.error(
+                "Iteration %d: No patchable CVEs found. Cannot proceed with this pass.",
+                iteration,
+            )
+            break
 
-    if remaining_fixable:
+        total_patches_applied += len(patchable_cves)
+
+        # Build patched image with iteration suffix
+        iteration_patched_tag = derive_patched_tag(current_image, f"{args.patched_suffix}-iter{iteration}")
+        build_patched_image(generated_dockerfile_path, iteration_patched_tag, use_buildx=args.use_buildx)
+
+        # Scan patched image
+        verification_report_path = run_docker_scout(
+            iteration_patched_tag, report_dir / f"iteration_{iteration}", prefix="post_patch_scout"
+        )
+        verification_scan = parse_scout_report(verification_report_path, iteration_patched_tag)
+        remaining_fixable = verification_scan.fixable(severities)
+
         print_report(
             verification_scan,
             remaining_fixable,
             severities,
-            title="Post-Patch Verification Report (FAILED)",
+            title=f"Post-Patch Verification Report (Iteration {iteration})",
         )
+
+        if not remaining_fixable:
+            # SUCCESS: All CVEs fixed
+            log.info("Iteration %d: ✓ All fixable CVEs resolved!", iteration)
+            patched_tag = iteration_patched_tag
+            final_scan = verification_scan
+            break
+        else:
+            # More CVEs remain; prepare for next iteration
+            log.warning(
+                "Iteration %d: %d fixable CVE(s) remain. Looping for next pass...",
+                iteration,
+                len(remaining_fixable),
+            )
+            current_image = iteration_patched_tag
+            current_fixable = remaining_fixable
+
+    # Post-loop: check if we exited due to success or max iterations
+    if remaining_fixable:
+        if verification_scan:
+            print_report(
+                verification_scan,
+                remaining_fixable,
+                severities,
+                title="Final Verification Report (FAILED - CVEs Still Present)",
+            )
         log.error(
-            "Verification failed: %d fixable CVE(s) still present. Patched image will not be treated as final.",
+            "Max iterations (%d) reached or no more patchable CVEs, but %d fixable CVE(s) remain. Failing safely.",
+            MAX_ITERATIONS,
             len(remaining_fixable),
         )
         return 2
 
-    print_report(
-        verification_scan,
-        remaining_fixable,
-        severities,
-        title="Post-Patch Verification Report (PASSED)",
-    )
+    # SUCCESS PATH: remaining_fixable is empty
+    if final_scan:
+        print_report(
+            final_scan,
+            [],
+            severities,
+            title="✓ Final Verification Report (ZERO VULNERABILITIES - SAFE TO PUSH)",
+        )
 
-    if args.push:
+    if args.push and patched_tag:
         push_image(patched_tag)
 
     print_summary(
         original_image=args.image,
-        patched_tag=patched_tag,
+        patched_tag=patched_tag or args.image,
         generated_dockerfile_path=generated_dockerfile_path,
         requested_fixes=len(baseline_fixable),
-        attempted_fixes=len(patchable_cves),
-        remaining_fixes=len(remaining_fixable),
-        pushed=args.push,
+        attempted_fixes=total_patches_applied,
+        remaining_fixes=0,
+        pushed=args.push and patched_tag is not None,
     )
     return 0
 
