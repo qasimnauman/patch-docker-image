@@ -72,13 +72,15 @@ jobs:
       - name: Patch Dockerfile (Dockerfile-only mode)
         id: patch
         continue-on-error: true
-        uses: qasimnauman/patch-docker-image@v1.0.2
+        uses: qasimnauman/patch-docker-image@v1.1.1
         with:
           dockerfile-path: ${{ inputs.dockerfile_path }}
           context-path: .
           severities: ${{ inputs.severities }}
           report-dir: ${{ inputs.report_dir }}
           non-interactive: "true"
+          dh-user: ${{ secrets.DOCKERHUB_USERNAME }}
+          dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Print action result
         if: always()

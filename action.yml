@@ -45,6 +45,14 @@ inputs:
     description: Python version for running the tool.
     required: false
     default: "3.12"
+  dh-user:
+    description: Docker Hub username used to authenticate Docker Scout.
+    required: false
+    default: ""
+  dh-password:
+    description: Docker Hub token or password used to authenticate Docker Scout.
+    required: false
+    default: ""
 
 runs:
   using: composite
@@ -61,6 +69,20 @@ runs:
         project_root="$GITHUB_ACTION_PATH"
         python -m pip install --upgrade pip
         python -m pip install "$project_root"
+
+    - name: Docker login for Docker Scout
+      shell: bash
+      env:
+        DH_USER: ${{ inputs.dh-user }}
+        DH_PASSWORD: ${{ inputs.dh-password }}
+      run: |
+        set -euo pipefail
+        if [[ -n "$DH_USER" && -n "$DH_PASSWORD" ]]; then
+          echo "$DH_PASSWORD" | docker login --username "$DH_USER" --password-stdin
+        else
+          echo "ERROR: Docker Scout requires Docker Hub authentication. Set dh-user and dh-password inputs."
+          exit 1
+        fi
 
     - name: Run patch and verification flow
       shell: bash
