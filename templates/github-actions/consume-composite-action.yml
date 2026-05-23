@@ -1,27 +1,23 @@
-name: Patch Docker Image With Reusable Action
+name: Patch Docker Image
 
 on:
   workflow_dispatch:
     inputs:
-      image:
-        description: Image reference to patch
+      dockerfile_path:
+        description: Path to the Dockerfile to patch
         required: true
+        default: ./Dockerfile
         type: string
-      push:
-        description: Push verified patched image
-        required: true
-        default: false
-        type: boolean
-      dry_run:
-        description: Skip build/verify/push and generate artifacts only
-        required: true
-        default: false
-        type: boolean
       severities:
-        description: Comma-separated severities to patch
-        required: true
+        description: Comma-separated CVE severities to target
+        required: false
         default: CRITICAL,HIGH,MEDIUM,LOW
         type: string
+      dry_run:
+        description: Generate patch artifacts only, skip build and verify
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   patch:
@@ -32,17 +28,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Patch image using reusable composite action
+      - name: Patch Docker image
         id: patch
         uses: qasimnauman/patch-docker-image@v1
         with:
-          image: ${{ inputs.image }}
-          push: ${{ inputs.push }}
-          dry-run: ${{ inputs.dry_run }}
+          dockerfile-path: ${{ inputs.dockerfile_path }}
           severities: ${{ inputs.severities }}
-          non-interactive: "true"
+          dry-run: "${{ inputs.dry_run }}"
           dh-user: ${{ secrets.DOCKERHUB_USERNAME }}
           dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Print output image tag
-        run: 'echo "Patched image: ${{ steps.patch.outputs.patched_image }}"'
+      - name: Upload vulnerability reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vulnerability-reports
+          path: ./vuln_reports
+          if-no-files-found: warn

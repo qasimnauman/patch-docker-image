@@ -3,47 +3,46 @@ name: E2E Live Patch Smoke
 on:
   workflow_dispatch:
     inputs:
-      image:
-        description: Image reference to patch
+      dockerfile_path:
+        description: Path to the Dockerfile to patch
         required: true
+        default: ./Dockerfile
         type: string
-        default: node:24-slim
-      push:
-        description: Push verified patched image
-        required: true
-        default: false
-        type: boolean
-      dry_run:
-        description: Skip build/verify/push and generate artifacts only
-        required: true
-        default: false
-        type: boolean
       severities:
-        description: Comma-separated severities to patch
-        required: true
+        description: Comma-separated CVE severities to target
+        required: false
         default: CRITICAL,HIGH,MEDIUM,LOW
         type: string
+      dry_run:
+        description: Generate patch artifacts only, skip build and verify
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   patch:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Patch image with local composite action
+      - name: Patch Docker image
         id: patch
         uses: ./
         with:
-          image: ${{ inputs.image }}
+          dockerfile-path: ${{ inputs.dockerfile_path }}
           severities: ${{ inputs.severities }}
-          push: "${{ inputs.push }}"
           dry-run: "${{ inputs.dry_run }}"
-          non-interactive: "true"
           dh-user: ${{ secrets.DOCKERHUB_USERNAME }}
           dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Print patched image
-        run: 'echo "Patched image tag: ${{ steps.patch.outputs.patched_image }}"'
+      - name: Upload vulnerability reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vulnerability-reports
+          path: ./vuln_reports
+          if-no-files-found: warn
