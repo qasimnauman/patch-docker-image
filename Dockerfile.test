@@ -1,0 +1,8 @@
+FROM node:24-slim
+
+WORKDIR /app
+
+# Keep the image intentionally simple for action validation runs.
+RUN node --version && npm --version
+
+CMD ["node", "-e", "console.log('patch-image test container')"]

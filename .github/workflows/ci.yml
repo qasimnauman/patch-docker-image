@@ -1,0 +1,198 @@
+name: CI — Action Self-Test
+
+# Runs on every push to main, every PR, and on-demand.
+# Job 1 (dry-run)  — fast path: validates infrastructure + report generation (~2-3 min)
+# Job 2 (full-patch) — full path: build → Scout scan → patch → verify scan  (~10-20 min)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      skip_full_patch:
+        description: Skip the full patch+verify job (dry-run only)
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 1 · Dry-run
+  # Validates: Buildx installs, Scout installs, login works, Dockerfile is built,
+  # Scout report is written, patch plan JSON is written, patch Dockerfile is
+  # generated. No patched image build — completes in ~2-3 minutes.
+  # ─────────────────────────────────────────────────────────────────────────────
+  dry-run:
+    name: Dry-run (infra + report generation)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run action — dry-run mode
+        id: patch
+        uses: ./
+        with:
+          dockerfile-path: ./Dockerfile.test
+          severities: CRITICAL,HIGH,MEDIUM,LOW
+          dry-run: "true"
+          report-dir: ./vuln_reports
+          dh-user: ${{ secrets.DOCKERHUB_USERNAME }}
+          dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # ── Validations ──────────────────────────────────────────────────────────
+
+      - name: "Validate: report directory was created"
+        if: always()
+        run: |
+          set -euo pipefail
+          if [[ ! -d "./vuln_reports" ]]; then
+            echo "::error::FAIL — report directory ./vuln_reports was not created"
+            exit 1
+          fi
+          echo "PASS — report directory exists"
+          find ./vuln_reports -type f | sort
+
+      - name: "Validate: Scout JSON report written"
+        if: always()
+        run: |
+          set -euo pipefail
+          count=$(find ./vuln_reports -name "scout_*.json" -type f | wc -l)
+          if [[ "$count" -lt 1 ]]; then
+            echo "::error::FAIL — no Scout JSON report found under ./vuln_reports"
+            exit 1
+          fi
+          echo "PASS — $count Scout report file(s) found"
+
+      - name: "Validate: patch plan JSON written"
+        if: always()
+        run: |
+          set -euo pipefail
+          file=$(find ./vuln_reports -name "patch_plan_*.json" -type f | head -1)
+          if [[ -z "$file" ]]; then
+            echo "::error::FAIL — no patch plan JSON found"
+            exit 1
+          fi
+          echo "PASS — patch plan: $file"
+          cat "$file"
+
+      - name: "Validate: patch Dockerfile generated"
+        if: always()
+        run: |
+          set -euo pipefail
+          file=$(find ./vuln_reports -name "Dockerfile.*.patched" -type f | head -1)
+          if [[ -z "$file" ]]; then
+            echo "::error::FAIL — no patch Dockerfile generated"
+            exit 1
+          fi
+          echo "PASS — patch Dockerfile: $file"
+          echo "──── Contents ────"
+          cat "$file"
+
+      - name: Upload dry-run reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dry-run-reports
+          path: ./vuln_reports
+          if-no-files-found: warn
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 2 · Full patch + verify
+  # Validates: full iterative scan → patch Dockerfile build → post-patch Scout
+  # scan loop runs to completion with zero remaining fixable CVEs.
+  # Requires DOCKERHUB_USERNAME / DOCKERHUB_PASSWORD secrets.
+  # ─────────────────────────────────────────────────────────────────────────────
+  full-patch:
+    name: Full patch + verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    if: ${{ github.event_name != 'workflow_dispatch' || !inputs.skip_full_patch }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run action — full patch pipeline
+        id: patch
+        uses: ./
+        with:
+          dockerfile-path: ./Dockerfile.test
+          severities: CRITICAL,HIGH,MEDIUM,LOW
+          report-dir: ./vuln_reports
+          dh-user: ${{ secrets.DOCKERHUB_USERNAME }}
+          dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # ── Validations ──────────────────────────────────────────────────────────
+
+      - name: "Validate: patched_image output is set"
+        if: always()
+        run: |
+          set -euo pipefail
+          img="${{ steps.patch.outputs.patched_image }}"
+          if [[ -z "$img" ]]; then
+            echo "::error::FAIL — patched_image output is empty"
+            exit 1
+          fi
+          echo "PASS — patched_image = $img"
+
+      - name: "Validate: patched image exists in Docker daemon"
+        run: |
+          set -euo pipefail
+          img="${{ steps.patch.outputs.patched_image }}"
+          if ! docker image inspect "$img" >/dev/null 2>&1; then
+            echo "::error::FAIL — image '$img' not found in local Docker daemon"
+            exit 1
+          fi
+          digest=$(docker image inspect "$img" --format '{{.Id}}')
+          echo "PASS — image present, digest: ${digest:0:24}..."
+
+      - name: "Validate: patch plan JSON written"
+        if: always()
+        run: |
+          set -euo pipefail
+          file=$(find ./vuln_reports -name "patch_plan_*.json" -type f | head -1)
+          if [[ -z "$file" ]]; then
+            echo "::error::FAIL — no patch plan JSON found"
+            exit 1
+          fi
+          echo "PASS — patch plan: $file"
+          cat "$file"
+
+      - name: "Validate: post-patch Scout verification report written"
+        if: always()
+        run: |
+          set -euo pipefail
+          count=$(find ./vuln_reports -name "post_patch_scout_*.json" -type f | wc -l)
+          if [[ "$count" -lt 1 ]]; then
+            echo "::error::FAIL — no post-patch verification report found"
+            exit 1
+          fi
+          echo "PASS — $count post-patch Scout report(s) found"
+
+      - name: "Validate: iteration subdirectories created"
+        if: always()
+        run: |
+          set -euo pipefail
+          count=$(find ./vuln_reports -maxdepth 1 -type d -name "iteration_*" | wc -l)
+          if [[ "$count" -lt 1 ]]; then
+            echo "::error::FAIL — no iteration_N subdirectories found (patch loop may not have run)"
+            exit 1
+          fi
+          echo "PASS — $count iteration subdirector(ies) found"
+          find ./vuln_reports -type f | sort
+
+      - name: Upload full-patch reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-patch-reports
+          path: ./vuln_reports
+          if-no-files-found: warn
