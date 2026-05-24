@@ -1,0 +1,217 @@
+name: Test — Docker Vulnerability Patcher
+
+# Place this file in your repo at .github/workflows/test-patch.yml
+# Requires secrets: DOCKERHUB_USERNAME, DOCKERHUB_PASSWORD
+#
+# Triggers:
+#   - Manual (workflow_dispatch) with configurable inputs
+#   - Automatic on push to main / any PR that touches a Dockerfile
+
+on:
+  workflow_dispatch:
+    inputs:
+      dockerfile_path:
+        description: Path to the Dockerfile to patch
+        required: true
+        default: ./Dockerfile
+        type: string
+      severities:
+        description: Comma-separated CVE severities to target
+        required: false
+        default: CRITICAL,HIGH,MEDIUM,LOW
+        type: string
+      dry_run:
+        description: "Dry-run: generate artifacts only, skip build and verify"
+        required: false
+        default: false
+        type: boolean
+      full_patch:
+        description: "Full patch: run complete scan → patch → verify loop"
+        required: false
+        default: true
+        type: boolean
+
+  push:
+    branches: [main]
+    paths:
+      - "Dockerfile"
+      - "Dockerfile.*"
+      - "**/Dockerfile"
+
+  pull_request:
+    paths:
+      - "Dockerfile"
+      - "Dockerfile.*"
+      - "**/Dockerfile"
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 1 · Dry-run
+  # Fast validation: Scout installs, login works, reports are generated.
+  # No patched image build. Completes in ~2-3 min.
+  # Always runs — safe for every push/PR.
+  # ─────────────────────────────────────────────────────────────────────────────
+  dry-run:
+    name: "Dry-run: infra + report generation"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Patch image (dry-run)
+        id: patch
+        uses: qasimnauman/patch-docker-image@v1
+        with:
+          dockerfile-path: ${{ inputs.dockerfile_path || './Dockerfile' }}
+          severities: ${{ inputs.severities || 'CRITICAL,HIGH,MEDIUM,LOW' }}
+          report-dir: ./vuln_reports
+          dry-run: "true"
+          dh-user: ${{ secrets.DOCKERHUB_USERNAME }}
+          dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # ── Validations ──────────────────────────────────────────────────────────
+
+      - name: "Validate: report directory created"
+        if: always()
+        run: |
+          set -euo pipefail
+          if [[ ! -d "./vuln_reports" ]]; then
+            echo "::error::FAIL — report directory was not created (action may have failed before scanning)"
+            exit 1
+          fi
+          echo "PASS — report directory exists"
+          find ./vuln_reports -type f | sort
+
+      - name: "Validate: Scout JSON report written"
+        if: always()
+        run: |
+          set -euo pipefail
+          file=$(find ./vuln_reports -name "scout_*.json" -type f | head -1)
+          if [[ -z "$file" ]]; then
+            echo "::error::FAIL — no Scout JSON report found (Scout may not have authenticated or the image failed to build)"
+            exit 1
+          fi
+          echo "PASS — Scout report: $file"
+
+      - name: "Validate: patch plan JSON written"
+        if: always()
+        run: |
+          set -euo pipefail
+          file=$(find ./vuln_reports -name "patch_plan_*.json" -type f | head -1)
+          if [[ -z "$file" ]]; then
+            echo "::warning::No patch plan found — image may have zero fixable CVEs (not necessarily a failure)"
+          else
+            echo "PASS — patch plan: $file"
+            echo "── CVEs selected for patching ──"
+            cat "$file"
+          fi
+
+      - name: "Validate: patch Dockerfile generated"
+        if: always()
+        run: |
+          set -euo pipefail
+          file=$(find ./vuln_reports -name "Dockerfile.*.patched" -type f | head -1)
+          if [[ -z "$file" ]]; then
+            echo "::error::FAIL — no patch Dockerfile generated"
+            exit 1
+          fi
+          echo "PASS — patch Dockerfile: $file"
+          echo "── Generated Dockerfile ──"
+          cat "$file"
+
+      - name: Upload dry-run reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dry-run-reports-${{ github.run_id }}
+          path: ./vuln_reports
+          if-no-files-found: warn
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 2 · Full patch + verify
+  # Runs the complete scan → patch Dockerfile build → post-patch Scout verify
+  # loop. Only runs when explicitly requested or on push to main.
+  # Skipped on PRs by default to avoid long-running jobs on every PR.
+  # ─────────────────────────────────────────────────────────────────────────────
+  full-patch:
+    name: "Full patch: scan → patch → verify"
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    if: |
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && inputs.full_patch == true)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Patch image (full pipeline)
+        id: patch
+        uses: qasimnauman/patch-docker-image@v1
+        with:
+          dockerfile-path: ${{ inputs.dockerfile_path || './Dockerfile' }}
+          severities: ${{ inputs.severities || 'CRITICAL,HIGH,MEDIUM,LOW' }}
+          report-dir: ./vuln_reports
+          dh-user: ${{ secrets.DOCKERHUB_USERNAME }}
+          dh-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # ── Validations ──────────────────────────────────────────────────────────
+
+      - name: "Validate: patched_image output is set"
+        if: always()
+        run: |
+          set -euo pipefail
+          img="${{ steps.patch.outputs.patched_image }}"
+          if [[ -z "$img" ]]; then
+            echo "::error::FAIL — patched_image output is empty (action may have exited before completing)"
+            exit 1
+          fi
+          echo "PASS — patched_image = $img"
+
+      - name: "Validate: patched image exists in Docker daemon"
+        run: |
+          set -euo pipefail
+          img="${{ steps.patch.outputs.patched_image }}"
+          if ! docker image inspect "$img" >/dev/null 2>&1; then
+            echo "::error::FAIL — image '$img' not found in local Docker daemon"
+            exit 1
+          fi
+          digest=$(docker image inspect "$img" --format '{{.Id}}')
+          echo "PASS — image present: ${digest:0:24}..."
+
+      - name: "Validate: post-patch Scout verification report written"
+        if: always()
+        run: |
+          set -euo pipefail
+          count=$(find ./vuln_reports -name "post_patch_scout_*.json" -type f | wc -l)
+          if [[ "$count" -lt 1 ]]; then
+            echo "::error::FAIL — no post-patch verification report found (verify loop may not have run)"
+            exit 1
+          fi
+          echo "PASS — $count post-patch verification report(s) found"
+
+      - name: "Validate: patch loop ran at least one iteration"
+        if: always()
+        run: |
+          set -euo pipefail
+          count=$(find ./vuln_reports -maxdepth 1 -type d -name "iteration_*" | wc -l)
+          if [[ "$count" -lt 1 ]]; then
+            echo "::error::FAIL — no iteration_N directories found (patch loop did not execute)"
+            exit 1
+          fi
+          echo "PASS — $count patch iteration(s) ran"
+          find ./vuln_reports -type f | sort
+
+      - name: Upload full-patch reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-patch-reports-${{ github.run_id }}
+          path: ./vuln_reports
+          if-no-files-found: warn
