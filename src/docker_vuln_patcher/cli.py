@@ -291,15 +291,24 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
                 [*cmd_prefix, image_ref, "--format", "json", "--output", str(tmp_out)],
                 capture_output=True,
             )
+            log.debug(
+                "Scout attempt [exit=%d] %s | stderr=%r | stdout=%r",
+                r.returncode,
+                attempt_key,
+                (r.stderr or "").strip()[:400],
+                (r.stdout or "").strip()[:200],
+            )
             if tmp_out.exists() and tmp_out.stat().st_size > 0:
                 blob = try_parse_json(tmp_out.read_text(encoding="utf-8", errors="replace"))
                 if blob:
                     raw_output = blob
                     outer_break = True
                     break
-            err1 = ((r.stderr or "").strip().splitlines() or [""])[0]
-            if err1:
-                attempt_errors.append(f"{attempt_key}: {err1}")
+            err1 = (r.stderr or "").strip()
+            if err1 or r.returncode != 0:
+                attempt_errors.append(
+                    f"{attempt_key} [exit={r.returncode}]: {err1[:300] or '(no stderr)'}"
+                )
 
             # ── Strategy 2: capture stdout ──
             attempt_key2 = f"{' '.join(cmd_prefix)} {image_ref} --format json (stdout)"
@@ -307,6 +316,13 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
             r2 = run_command(
                 [*cmd_prefix, image_ref, "--format", "json"],
                 capture_output=True,
+            )
+            log.debug(
+                "Scout attempt [exit=%d] %s | stderr=%r | stdout=%r",
+                r2.returncode,
+                attempt_key2,
+                (r2.stderr or "").strip()[:400],
+                (r2.stdout or "").strip()[:200],
             )
             for stream in (r2.stdout, r2.stderr):
                 blob = try_parse_json(stream or "")
@@ -316,9 +332,11 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
                     break
             if outer_break:
                 break
-            err2 = ((r2.stderr or "").strip().splitlines() or [""])[0]
-            if err2:
-                attempt_errors.append(f"{attempt_key2}: {err2}")
+            err2 = (r2.stderr or "").strip()
+            if err2 or r2.returncode != 0:
+                attempt_errors.append(
+                    f"{attempt_key2} [exit={r2.returncode}]: {err2[:300] or '(no stderr)'}"
+                )
 
     if not raw_output:
         log.error(

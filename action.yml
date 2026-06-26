@@ -82,19 +82,27 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        # Verify that the installed Scout supports --format (older pre-installed
-        # versions on GitHub runners do not). Re-install if the flag is absent.
-        if docker scout cves --help 2>&1 | grep -q -- '--format'; then
-          echo "Docker Scout already installed with --format support."
-          docker scout version 2>&1 | head -1 || true
-        else
-          echo "Docker Scout missing or outdated — installing latest release."
-          if ! command -v curl >/dev/null 2>&1; then
-            sudo apt-get update -qq && sudo apt-get install -y -qq curl
-          fi
-          curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
-          echo "Installed: $(docker scout version 2>&1 | head -1)"
+        PLUGIN_DIR="$HOME/.docker/cli-plugins"
+
+        # Always install the latest Scout release to the user plugin dir so we
+        # get a known-good version regardless of what the runner pre-installs.
+        if ! command -v curl >/dev/null 2>&1; then
+          sudo apt-get update -qq && sudo apt-get install -y -qq curl
         fi
+        mkdir -p "$PLUGIN_DIR"
+        curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
+
+        # Add the plugin dir to PATH for every subsequent step so that
+        # `docker-scout` works as a standalone binary (the Python tool falls
+        # back to this when the Docker CLI plugin mechanism silently fails).
+        echo "$PLUGIN_DIR" >> "$GITHUB_PATH"
+        export PATH="$PLUGIN_DIR:$PATH"
+
+        # Verify the install using the direct binary path (avoids any Docker
+        # CLI plugin-discovery issue that can cause `docker scout version` to
+        # return empty on GitHub runners).
+        echo "Scout version: $("$PLUGIN_DIR/docker-scout" version 2>&1 | head -1 || echo 'could not determine')"
+        echo "Scout --format support: $(docker-scout cves --help 2>&1 | grep -o '\-\-format' | head -1 || echo 'flag not found')"
 
     - name: Docker login for Docker Scout
       shell: bash
@@ -132,6 +140,7 @@ runs:
           --report-dir "${{ inputs.report-dir }}"
           --patched-suffix="${{ inputs.patched-suffix }}"
           --image-output-file "$image_output_file"
+          --debug
         )
 
         [[ "${{ inputs.non-interactive }}" == "true" ]] && cmd+=(--non-interactive)
