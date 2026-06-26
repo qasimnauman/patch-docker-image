@@ -267,85 +267,99 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
         log.error("Neither 'docker scout' nor 'docker-scout' is available on PATH.")
         sys.exit(1)
 
+    # Format priority: sarif is a stable, always-present JSON format across Scout
+    # versions.  json was removed/renamed in Scout v1.22+, so try it second.
+    # cyclonedx is a further fallback — also always JSON.
+    candidate_formats = ["sarif", "json", "cyclonedx"]
+
     # Try local:// first (explicit local daemon lookup), then plain tag as fallback
     # for older Scout versions that do not understand the local:// scheme.
     image_refs = [f"local://{image}", image]
 
     raw_output = ""
+    detected_format = ""
     attempt_errors: list[str] = []
     attempts_desc: list[str] = []
 
-    outer_break = False
-    for image_ref in image_refs:
-        if outer_break:
+    found = False
+    for fmt in candidate_formats:
+        if found:
             break
-        for cmd_prefix in scout_cmd_variants:
-            if outer_break:
+        for image_ref in image_refs:
+            if found:
                 break
-
-            # ── Strategy 1: write directly to file (avoids stdout buffering issues) ──
-            tmp_out = report_dir / f"{prefix}_{safe_name}_raw.json"
-            attempt_key = f"{' '.join(cmd_prefix)} {image_ref} --format json --output"
-            attempts_desc.append(attempt_key)
-            r = run_command(
-                [*cmd_prefix, image_ref, "--format", "json", "--output", str(tmp_out)],
-                capture_output=True,
-            )
-            log.debug(
-                "Scout attempt [exit=%d] %s | stderr=%r | stdout=%r",
-                r.returncode,
-                attempt_key,
-                (r.stderr or "").strip()[:400],
-                (r.stdout or "").strip()[:200],
-            )
-            if tmp_out.exists() and tmp_out.stat().st_size > 0:
-                blob = try_parse_json(tmp_out.read_text(encoding="utf-8", errors="replace"))
-                if blob:
-                    raw_output = blob
-                    outer_break = True
+            for cmd_prefix in scout_cmd_variants:
+                if found:
                     break
-            err1 = (r.stderr or "").strip()
-            if err1 or r.returncode != 0:
-                attempt_errors.append(
-                    f"{attempt_key} [exit={r.returncode}]: {err1[:300] or '(no stderr)'}"
-                )
+                cmd_label = " ".join(cmd_prefix)
 
-            # ── Strategy 2: capture stdout ──
-            attempt_key2 = f"{' '.join(cmd_prefix)} {image_ref} --format json (stdout)"
-            attempts_desc.append(attempt_key2)
-            r2 = run_command(
-                [*cmd_prefix, image_ref, "--format", "json"],
-                capture_output=True,
-            )
-            log.debug(
-                "Scout attempt [exit=%d] %s | stderr=%r | stdout=%r",
-                r2.returncode,
-                attempt_key2,
-                (r2.stderr or "").strip()[:400],
-                (r2.stdout or "").strip()[:200],
-            )
-            for stream in (r2.stdout, r2.stderr):
-                blob = try_parse_json(stream or "")
-                if blob:
-                    raw_output = blob
-                    outer_break = True
-                    break
-            if outer_break:
-                break
-            err2 = (r2.stderr or "").strip()
-            if err2 or r2.returncode != 0:
-                attempt_errors.append(
-                    f"{attempt_key2} [exit={r2.returncode}]: {err2[:300] or '(no stderr)'}"
+                # ── Strategy A: write to file (avoids stdout buffering issues) ──
+                tmp_out = report_dir / f"{prefix}_{safe_name}_{fmt}_raw.json"
+                key_a = f"{cmd_label} {image_ref} --format {fmt} --output"
+                attempts_desc.append(key_a)
+                r = run_command(
+                    [*cmd_prefix, image_ref, "--format", fmt, "--output", str(tmp_out)],
+                    capture_output=True,
                 )
+                log.debug(
+                    "Scout [exit=%d] %s | stderr=%r | stdout=%r",
+                    r.returncode, key_a,
+                    (r.stderr or "").strip()[:400],
+                    (r.stdout or "").strip()[:200],
+                )
+                if tmp_out.exists() and tmp_out.stat().st_size > 0:
+                    blob = try_parse_json(tmp_out.read_text(encoding="utf-8", errors="replace"))
+                    if blob:
+                        raw_output = blob
+                        detected_format = fmt
+                        found = True
+                        break
+                err = (r.stderr or "").strip()
+                if err or r.returncode != 0:
+                    attempt_errors.append(
+                        f"{key_a} [exit={r.returncode}]: {err[:300] or '(no stderr)'}"
+                    )
+
+                # ── Strategy B: capture stdout ──
+                key_b = f"{cmd_label} {image_ref} --format {fmt} (stdout)"
+                attempts_desc.append(key_b)
+                r2 = run_command(
+                    [*cmd_prefix, image_ref, "--format", fmt],
+                    capture_output=True,
+                )
+                log.debug(
+                    "Scout [exit=%d] %s | stderr=%r | stdout=%r",
+                    r2.returncode, key_b,
+                    (r2.stderr or "").strip()[:400],
+                    (r2.stdout or "").strip()[:200],
+                )
+                for stream in (r2.stdout, r2.stderr):
+                    blob = try_parse_json(stream or "")
+                    if blob:
+                        raw_output = blob
+                        detected_format = fmt
+                        found = True
+                        break
+                if found:
+                    break
+                err2 = (r2.stderr or "").strip()
+                if err2 or r2.returncode != 0:
+                    attempt_errors.append(
+                        f"{key_b} [exit={r2.returncode}]: {err2[:300] or '(no stderr)'}"
+                    )
 
     if not raw_output:
         log.error(
-            "Docker Scout returned no parseable JSON output. Attempted: %s",
-            "; ".join(attempts_desc),
+            "Docker Scout returned no parseable JSON output. Attempted formats: %s. "
+            "Strategies: %s",
+            ", ".join(candidate_formats),
+            "; ".join(attempts_desc[:4]),
         )
         if attempt_errors:
-            log.error("Scout errors: %s", " | ".join(attempt_errors[:6]))
+            log.error("Scout errors (first 4): %s", " | ".join(attempt_errors[:4]))
         sys.exit(1)
+
+    log.info("Scout report format detected: %s", detected_format)
 
     report_path.write_text(raw_output, encoding="utf-8")
     log.info("Scout report saved: %s", report_path)
@@ -381,6 +395,7 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
         return match.group(1).strip() if match else ""
 
     if "packages" in data:
+        # Scout legacy JSON format
         for pkg in data.get("packages", []):
             pkg_name = pkg.get("name", "")
             pkg_version = pkg.get("version", "")
@@ -397,6 +412,7 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
                     )
                 )
     elif "vulnerabilities" in data:
+        # Scout GitLab/generic JSON format
         for vuln in data.get("vulnerabilities", []):
             location = vuln.get("location", {}) or {}
             dep = location.get("dependency", {}) or {}
@@ -425,6 +441,85 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
                     description=(vuln.get("description", "") or "")[:120],
                 )
             )
+    elif "runs" in data:
+        # SARIF 2.1.0 format (default for Docker Scout v1.22+)
+        for run in data.get("runs", []):
+            driver = (run.get("tool", {}) or {}).get("driver", {}) or {}
+            # Build a lookup from ruleId → rule properties
+            rules_by_id: dict[str, dict] = {}
+            for rule in driver.get("rules", []):
+                rid = rule.get("id", "")
+                if rid:
+                    rules_by_id[rid] = rule
+
+            for result in run.get("results", []):
+                rule_id = result.get("ruleId", "")
+                rule = rules_by_id.get(rule_id, {})
+                props = (rule.get("properties", {}) or {})
+
+                pkg_name = props.get("affected_package", "")
+                installed_ver = props.get("affected_package_version", "")
+                fixed_ver = props.get("fixed_version", "")
+                sev_raw = props.get("cvss_severity", props.get("severity", "UNKNOWN"))
+                pkg_type = (props.get("package_type", "") or "").lower()
+                desc = (rule.get("shortDescription", {}) or {}).get("text", "") or ""
+
+                if not pkg_name:
+                    continue
+
+                cves.append(
+                    CVE(
+                        vuln_id=rule_id,
+                        pkg_name=pkg_name,
+                        installed_version=installed_ver,
+                        fixed_version=fixed_ver,
+                        severity=normalize_severity(sev_raw),
+                        package_type=pkg_type,
+                        description=desc[:120],
+                    )
+                )
+    elif "components" in data or "metadata" in data:
+        # CycloneDX JSON format
+        for vuln in data.get("vulnerabilities", []):
+            vid = vuln.get("id", "")
+            sev_raw = "UNKNOWN"
+            ratings = vuln.get("ratings", [])
+            if ratings:
+                sev_raw = ratings[0].get("severity", "UNKNOWN")
+
+            fixed_ver = ""
+            for affect in vuln.get("affects", []):
+                for ver_entry in affect.get("versions", []):
+                    if ver_entry.get("status") == "unaffected":
+                        fixed_ver = ver_entry.get("version", "")
+                        break
+                if fixed_ver:
+                    break
+
+            for affect in vuln.get("affects", []):
+                ref = affect.get("ref", "")
+                comp = next(
+                    (c for c in data.get("components", []) if c.get("bom-ref") == ref),
+                    {},
+                )
+                pkg_name = comp.get("name", "")
+                installed_ver = comp.get("version", "")
+                pkg_type = (comp.get("type", "") or "").lower()
+
+                if not pkg_name:
+                    continue
+
+                cves.append(
+                    CVE(
+                        vuln_id=vid,
+                        pkg_name=pkg_name,
+                        installed_version=installed_ver,
+                        fixed_version=fixed_ver,
+                        severity=normalize_severity(sev_raw),
+                        package_type=pkg_type,
+                        description=(vuln.get("description", "") or "")[:120],
+                    )
+                )
     else:
         log.warning("Unrecognized Scout JSON schema. No CVEs extracted.")
 
