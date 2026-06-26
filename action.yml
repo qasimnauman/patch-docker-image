@@ -57,11 +57,28 @@ inputs:
     description: Docker Hub token or password used to authenticate Docker Scout.
     required: false
     default: ""
+  create-pr:
+    description: |
+      Open a pull request in the current repository containing the verified
+      patch Dockerfile and a CVE summary table after a successful zero-CVE scan.
+      Requires the calling workflow to have:
+        permissions:
+          contents: write
+          pull-requests: write
+    required: false
+    default: "false"
+  pr-branch-prefix:
+    description: Prefix for the auto-created patch branch name.
+    required: false
+    default: "docker-security-patch"
 
 outputs:
   patched_image:
     description: The final verified patched image tag produced by the tool.
     value: ${{ steps.run-patcher.outputs.patched_image }}
+  pr-url:
+    description: URL of the pull request created (empty when create-pr is false or no CVEs were found).
+    value: ${{ steps.create-pr.outputs.pr_url }}
 
 runs:
   using: composite
@@ -159,3 +176,146 @@ runs:
           patched_image="$(cat "$image_output_file")"
         fi
         echo "patched_image=${patched_image}" >> "$GITHUB_OUTPUT"
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # Optional: open a PR with the verified patch Dockerfile + CVE summary.
+    # Only runs when create-pr=true, not in dry-run mode, and only when the
+    # patcher actually produced a patched Dockerfile (i.e. CVEs were found).
+    # ──────────────────────────────────────────────────────────────────────────
+    - name: Create vulnerability patch PR
+      id: create-pr
+      if: ${{ inputs.create-pr == 'true' && inputs.dry-run != 'true' }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+
+        report_dir="${{ inputs.report-dir }}"
+        dockerfile_path="${{ inputs.dockerfile-path }}"
+        patched_image="${{ steps.run-patcher.outputs.patched_image }}"
+
+        # ── Locate artifacts ─────────────────────────────────────────────────
+        # Pick the Dockerfile from the highest-numbered iteration (most patched).
+        patched_df=$(find "$report_dir" -name "Dockerfile.*.patched" -type f 2>/dev/null \
+                       | sort -V | tail -1 || true)
+
+        if [[ -z "$patched_df" ]]; then
+          echo "INFO: No patched Dockerfile found — image was already clean. Skipping PR."
+          echo "pr_url=" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        patch_plan=$(find "$report_dir" -name "patch_plan_*.json" -type f 2>/dev/null \
+                       | head -1 || true)
+
+        # ── Configure git ─────────────────────────────────────────────────────
+        git config user.name  "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+        branch="${{ inputs.pr-branch-prefix }}/run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT:-1}"
+        base_branch="${GITHUB_REF_NAME:-main}"
+
+        git checkout -b "$branch"
+
+        # ── Stage files ───────────────────────────────────────────────────────
+        cp "$patched_df" ./Dockerfile.patched
+        git add ./Dockerfile.patched
+
+        if [[ -n "$patch_plan" ]]; then
+          cp "$patch_plan" ./patch_plan.json
+          git add ./patch_plan.json
+        fi
+
+        # ── Generate PR body via Python ───────────────────────────────────────
+        pr_body_file="$(mktemp --suffix=.md)"
+
+        PATCH_PLAN_PATH="$patch_plan" \
+        PATCHED_IMAGE="$patched_image" \
+        DOCKERFILE_PATH="$dockerfile_path" \
+        GITHUB_RUN_ID="${GITHUB_RUN_ID:-}" \
+        python3 - > "$pr_body_file" << 'PYEOF'
+        import json, os
+
+        patched_image  = os.environ.get("PATCHED_IMAGE", "")
+        patch_plan_path = os.environ.get("PATCH_PLAN_PATH", "")
+        dockerfile     = os.environ.get("DOCKERFILE_PATH", "Dockerfile")
+        run_id         = os.environ.get("GITHUB_RUN_ID", "")
+
+        rows = []
+        total = 0
+        if patch_plan_path and os.path.exists(patch_plan_path):
+            try:
+                with open(patch_plan_path) as f:
+                    plan = json.load(f)
+                total = len(plan)
+                for item in plan[:30]:
+                    sev = item.get("severity", "")
+                    rows.append(
+                        f"| `{item.get('cve_id','')}` "
+                        f"| {item.get('package','')} "
+                        f"| `{item.get('from','')}` "
+                        f"| `{item.get('to','')}` "
+                        f"| **{sev}** |"
+                    )
+            except Exception as e:
+                rows = [f"| _(could not parse patch plan: {e})_ | | | | |"]
+
+        cve_section = (
+            "| CVE ID | Package | From | To | Severity |\n"
+            "|--------|---------|------|----|----------|\n"
+            + "\n".join(rows)
+            + (f"\n\n_{total - 30} additional CVEs not shown — see `patch_plan.json`._"
+               if total > 30 else "")
+        ) if rows else "_No CVE data available._"
+
+        print(f"""\
+## Docker Security Patch
+
+> Automatically generated by [patch-docker-image](https://github.com/qasimnauman/patch-docker-image) \
+after a successful **zero-CVE** post-patch Docker Scout verification scan \
+(workflow run `{run_id}`).
+
+### What this PR contains
+
+| File | Description |
+|------|-------------|
+| `Dockerfile.patched` | Drop-in replacement for `{dockerfile}` with all fixable CVEs resolved |
+| `patch_plan.json` | Machine-readable list of every CVE addressed |
+
+### Verified patched image
+
+```
+{patched_image}
+```
+
+### CVEs addressed ({total} total)
+
+{cve_section}
+
+### How to apply
+
+1. **Review** `Dockerfile.patched` — inspect the generated `RUN` patch layers.
+2. **Replace** your `{dockerfile}` with `Dockerfile.patched`, or cherry-pick the `RUN` layers.
+3. **Merge** this PR to record the security fix in your repo history.
+
+---
+*The patched image tag above is only available in the runner's Docker daemon \
+for the duration of this workflow run. Re-build from `Dockerfile.patched` to reproduce it.*
+""")
+PYEOF
+
+        # ── Commit and push ───────────────────────────────────────────────────
+        git commit -m "fix: automated docker security patches (workflow run ${GITHUB_RUN_ID:-local})"
+        git push origin "$branch"
+
+        # ── Open the PR ───────────────────────────────────────────────────────
+        df_basename="$(basename "$dockerfile_path")"
+        pr_url=$(gh pr create \
+          --title "Docker Security Patch: fix vulnerabilities in ${df_basename}" \
+          --body-file "$pr_body_file" \
+          --base  "$base_branch" \
+          --head  "$branch")
+
+        echo "pr_url=${pr_url}" >> "$GITHUB_OUTPUT"
+        echo "Pull request created: ${pr_url}"
