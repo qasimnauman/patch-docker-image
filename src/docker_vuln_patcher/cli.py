@@ -221,8 +221,15 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
     """
     Run Docker Scout CVE scan and save JSON output.
 
-    To avoid parser/schema drift, this implementation intentionally allows only
-    formats known to contain vulnerabilities in a parseable structure.
+    Tries multiple invocation strategies in priority order so that the tool
+    works across Docker Scout versions and both plugin/standalone installs:
+
+      1. --format json --output <file>   (best: avoids stdout parsing entirely)
+      2. --format json  (capture stdout)
+      3. Repeat 1-2 with plain image ref instead of local:// (older Scout compat)
+
+    The 'gitlab' format is intentionally omitted — it is not a standard Docker
+    Scout format and is not reliably available across versions.
     """
     report_dir.mkdir(parents=True, exist_ok=True)
     safe_name = safe_name_for_path(image)
@@ -239,13 +246,18 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
             return ""
         return text[json_start:]
 
-    raw_output = ""
-    attempted: list[str] = []
-    attempt_errors: list[str] = []
-    # Prefer gitlab because it is JSON and maps well to our parser.
-    candidate_formats = ["gitlab", "json"]
-    artifact_ref = f"local://{image}"
-    scout_cmd_variants = []
+    def try_parse_json(raw: str) -> str:
+        """Return raw if it parses as JSON, else ''."""
+        blob = extract_json_blob(raw)
+        if not blob:
+            return ""
+        try:
+            json.loads(blob)
+            return blob
+        except json.JSONDecodeError:
+            return ""
+
+    scout_cmd_variants: list[list[str]] = []
     if shutil.which("docker"):
         scout_cmd_variants.append(["docker", "scout", "cves"])
     if shutil.which("docker-scout"):
@@ -255,59 +267,66 @@ def run_docker_scout(image: str, report_dir: Path, prefix: str = "scout") -> Pat
         log.error("Neither 'docker scout' nor 'docker-scout' is available on PATH.")
         sys.exit(1)
 
-    for fmt in candidate_formats:
+    # Try local:// first (explicit local daemon lookup), then plain tag as fallback
+    # for older Scout versions that do not understand the local:// scheme.
+    image_refs = [f"local://{image}", image]
+
+    raw_output = ""
+    attempt_errors: list[str] = []
+    attempts_desc: list[str] = []
+
+    outer_break = False
+    for image_ref in image_refs:
+        if outer_break:
+            break
         for cmd_prefix in scout_cmd_variants:
-            attempted.append(f"{' '.join(cmd_prefix)} --format {fmt}")
-            result = run_command(
-                [*cmd_prefix, artifact_ref, "--format", fmt],
-                capture_output=True,
-            )
-
-            for candidate in (result.stdout, result.stderr):
-                blob = extract_json_blob(candidate)
-                if not blob:
-                    continue
-                try:
-                    json.loads(blob)
-                    raw_output = blob
-                    break
-                except json.JSONDecodeError:
-                    continue
-
-            if raw_output:
+            if outer_break:
                 break
 
-            stderr_preview = ((result.stderr or "").strip().splitlines() or [""])[0]
-            if stderr_preview:
-                attempt_errors.append(f"{' '.join(cmd_prefix)} ({fmt}): {stderr_preview}")
-
-            file_target = report_dir / f"{prefix}_{safe_name}_{fmt}.json"
-            result2 = run_command(
-                [*cmd_prefix, artifact_ref, "--format", fmt, "--output", str(file_target)],
+            # ── Strategy 1: write directly to file (avoids stdout buffering issues) ──
+            tmp_out = report_dir / f"{prefix}_{safe_name}_raw.json"
+            attempt_key = f"{' '.join(cmd_prefix)} {image_ref} --format json --output"
+            attempts_desc.append(attempt_key)
+            r = run_command(
+                [*cmd_prefix, image_ref, "--format", "json", "--output", str(tmp_out)],
                 capture_output=True,
             )
-            if file_target.exists() and file_target.stat().st_size > 0:
-                try:
-                    file_blob = file_target.read_text(encoding="utf-8", errors="replace")
-                    json.loads(file_blob)
-                    raw_output = file_blob
+            if tmp_out.exists() and tmp_out.stat().st_size > 0:
+                blob = try_parse_json(tmp_out.read_text(encoding="utf-8", errors="replace"))
+                if blob:
+                    raw_output = blob
+                    outer_break = True
                     break
-                except json.JSONDecodeError:
-                    raw_output = ""
-            stderr_preview2 = ((result2.stderr or "").strip().splitlines() or [""])[0]
-            if stderr_preview2:
-                attempt_errors.append(f"{' '.join(cmd_prefix)} ({fmt} --output): {stderr_preview2}")
+            err1 = ((r.stderr or "").strip().splitlines() or [""])[0]
+            if err1:
+                attempt_errors.append(f"{attempt_key}: {err1}")
 
-        if raw_output:
-            break
+            # ── Strategy 2: capture stdout ──
+            attempt_key2 = f"{' '.join(cmd_prefix)} {image_ref} --format json (stdout)"
+            attempts_desc.append(attempt_key2)
+            r2 = run_command(
+                [*cmd_prefix, image_ref, "--format", "json"],
+                capture_output=True,
+            )
+            for stream in (r2.stdout, r2.stderr):
+                blob = try_parse_json(stream or "")
+                if blob:
+                    raw_output = blob
+                    outer_break = True
+                    break
+            if outer_break:
+                break
+            err2 = ((r2.stderr or "").strip().splitlines() or [""])[0]
+            if err2:
+                attempt_errors.append(f"{attempt_key2}: {err2}")
 
     if not raw_output:
         log.error(
-            "Docker Scout returned no parseable JSON output for attempts: %s",
-            ", ".join(attempted),
+            "Docker Scout returned no parseable JSON output. Attempted: %s",
+            "; ".join(attempts_desc),
         )
         if attempt_errors:
-            log.error("Scout command errors: %s", " | ".join(attempt_errors[:4]))
+            log.error("Scout errors: %s", " | ".join(attempt_errors[:6]))
         sys.exit(1)
 
     report_path.write_text(raw_output, encoding="utf-8")
@@ -865,7 +884,26 @@ def parse_args() -> argparse.Namespace:
         help="Directory for scout reports, patch plan, and generated Dockerfile.",
     )
     parser.add_argument("--debug", action="store_true", help="Enable debug logging.")
+    parser.add_argument(
+        "--image-output-file",
+        default=None,
+        help=(
+            "Optional file path where the final patched image tag is written on success. "
+            "Used by the GitHub Action to surface the 'patched_image' output."
+        ),
+    )
     return parser.parse_args()
+
+
+def _write_image_output(path: Optional[str], tag: str) -> None:
+    """Write the final patched image tag to a file for action output capture."""
+    if not path:
+        return
+    try:
+        Path(path).write_text(tag, encoding="utf-8")
+        log.debug("Wrote patched image tag to %s: %s", path, tag)
+    except OSError as exc:
+        log.warning("Could not write image output file '%s': %s", path, exc)
 
 
 def main() -> int:
@@ -912,6 +950,7 @@ def main() -> int:
 
     if not baseline_fixable:
         log.info("No fixable CVEs found for selected severities.")
+        _write_image_output(args.image_output_file, args.image)
         return 0
 
     save_patch_plan(baseline_fixable, report_dir, args.image)
@@ -965,6 +1004,10 @@ def main() -> int:
             print(f"\n{BOLD}Generated Dockerfile (dry-run, iteration {iteration}): {generated_dockerfile_path}{RESET}\n")
             print(generated_dockerfile)
             log.info("Dry-run complete.")
+            _write_image_output(
+                args.image_output_file,
+                derive_patched_tag(args.image, args.patched_suffix),
+            )
             return 0
 
         if not patchable_cves:
@@ -1047,6 +1090,7 @@ def main() -> int:
         remaining_fixes=0,
         pushed=args.push and patched_tag is not None,
     )
+    _write_image_output(args.image_output_file, patched_tag or args.image)
     return 0
 
 

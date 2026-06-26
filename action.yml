@@ -7,7 +7,7 @@ branding:
 inputs:
   dockerfile-path:
     description: Path to the Dockerfile to patch.
-    required: true
+    required: false
     default: ./Dockerfile
   context-path:
     description: Optional build context path used with dockerfile-path.
@@ -33,6 +33,10 @@ inputs:
     description: Only generate artifacts and skip build, verify, push.
     required: false
     default: "false"
+  push:
+    description: Push the verified patched image to the registry after a clean scan.
+    required: false
+    default: "false"
   non-interactive:
     description: Fail instead of prompting when credentials are missing.
     required: false
@@ -54,6 +58,11 @@ inputs:
     required: false
     default: ""
 
+outputs:
+  patched_image:
+    description: The final verified patched image tag produced by the tool.
+    value: ${{ steps.run-patcher.outputs.patched_image }}
+
 runs:
   using: composite
   steps:
@@ -66,9 +75,26 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        project_root="$GITHUB_ACTION_PATH"
-        python -m pip install --upgrade pip
-        python -m pip install "$project_root"
+        python -m pip install --upgrade pip --quiet
+        python -m pip install "$GITHUB_ACTION_PATH" --quiet
+
+    - name: Install Docker Scout
+      shell: bash
+      run: |
+        set -euo pipefail
+        # Verify that the installed Scout supports --format (older pre-installed
+        # versions on GitHub runners do not). Re-install if the flag is absent.
+        if docker scout cves --help 2>&1 | grep -q -- '--format'; then
+          echo "Docker Scout already installed with --format support."
+          docker scout version 2>&1 | head -1 || true
+        else
+          echo "Docker Scout missing or outdated — installing latest release."
+          if ! command -v curl >/dev/null 2>&1; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq curl
+          fi
+          curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
+          echo "Installed: $(docker scout version 2>&1 | head -1)"
+        fi
 
     - name: Docker login for Docker Scout
       shell: bash
@@ -80,22 +106,23 @@ runs:
         if [[ -n "$DH_USER" && -n "$DH_PASSWORD" ]]; then
           echo "$DH_PASSWORD" | docker login --username "$DH_USER" --password-stdin
         else
-          echo "ERROR: Docker Scout requires Docker Hub authentication. Set dh-user and dh-password inputs."
+          echo "ERROR: Docker Scout requires Docker Hub authentication. Provide dh-user and dh-password."
           exit 1
         fi
 
     - name: Run patch and verification flow
+      id: run-patcher
       shell: bash
-      env: {}
       run: |
         set -euo pipefail
 
-        # CLI still requires --image; derive an internal local tag from workflow context.
         owner="$(echo "${GITHUB_REPOSITORY_OWNER:-local}" | tr '[:upper:]' '[:lower:]')"
         repo="$(echo "${GITHUB_REPOSITORY##*/}" | tr '[:upper:]' '[:lower:]')"
         run_id="${GITHUB_RUN_ID:-local}"
         attempt="${GITHUB_RUN_ATTEMPT:-1}"
         derived_image="${owner}/${repo}:${run_id}-${attempt}"
+
+        image_output_file="$(mktemp)"
 
         cmd=(docker-vuln-patcher
           --image "$derived_image"
@@ -104,24 +131,22 @@ runs:
           --severities "${{ inputs.severities }}"
           --report-dir "${{ inputs.report-dir }}"
           --patched-suffix="${{ inputs.patched-suffix }}"
+          --image-output-file "$image_output_file"
         )
 
-        if [[ "${{ inputs.non-interactive }}" == "true" ]]; then
-          cmd+=(--non-interactive)
-        fi
-
-        if [[ "${{ inputs.use-buildx }}" == "true" ]]; then
-          cmd+=(--use-buildx)
-        fi
-
-        if [[ "${{ inputs.dry-run }}" == "true" ]]; then
-          cmd+=(--dry-run)
-        fi
+        [[ "${{ inputs.non-interactive }}" == "true" ]] && cmd+=(--non-interactive)
+        [[ "${{ inputs.use-buildx }}"      == "true" ]] && cmd+=(--use-buildx)
+        [[ "${{ inputs.dry-run }}"         == "true" ]] && cmd+=(--dry-run)
+        [[ "${{ inputs.push }}"            == "true" ]] && cmd+=(--push)
 
         while IFS= read -r build_arg; do
-          if [[ -n "$build_arg" ]]; then
-            cmd+=(--build-arg "$build_arg")
-          fi
+          [[ -n "$build_arg" ]] && cmd+=(--build-arg "$build_arg")
         done <<< "${{ inputs.build-args }}"
 
         "${cmd[@]}"
+
+        patched_image=""
+        if [[ -s "$image_output_file" ]]; then
+          patched_image="$(cat "$image_output_file")"
+        fi
+        echo "patched_image=${patched_image}" >> "$GITHUB_OUTPUT"
