@@ -442,29 +442,81 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
                 )
             )
     elif "runs" in data:
-        # SARIF 2.1.0 format (default for Docker Scout v1.22+)
-        for run in data.get("runs", []):
+        # SARIF 2.1.0 format (Docker Scout v1.22+).
+        #
+        # Scout splits data across TWO levels:
+        #   rule.properties  → CVE-wide metadata: cvss_severity, cvss_score
+        #   result.properties → per-location package data: affected_package,
+        #                        affected_package_version, fixed_version,
+        #                        package_type
+        # The result.locations[].physicalLocation.artifactLocation.uri field
+        # holds the PURL (pkg:type/namespace/name@version) as a last-resort
+        # source for package name, version, and type.
+        runs = data.get("runs", [])
+        log.debug("SARIF: %d run(s)", len(runs))
+
+        for run in runs:
             driver = (run.get("tool", {}) or {}).get("driver", {}) or {}
-            # Build a lookup from ruleId → rule properties
+
+            # Rule-level lookup: CVE-wide info (severity/CVSS)
             rules_by_id: dict[str, dict] = {}
             for rule in driver.get("rules", []):
                 rid = rule.get("id", "")
                 if rid:
                     rules_by_id[rid] = rule
 
-            for result in run.get("results", []):
+            results = run.get("results", [])
+            if results:
+                sample = results[0]
+                log.debug(
+                    "SARIF first result: ruleId=%r result.properties=%r locations=%d",
+                    sample.get("ruleId"),
+                    sample.get("properties"),
+                    len(sample.get("locations", [])),
+                )
+                first_rule = rules_by_id.get(sample.get("ruleId", ""), {})
+                log.debug("SARIF first rule.properties=%r", first_rule.get("properties"))
+
+            for result in results:
                 rule_id = result.get("ruleId", "")
                 rule = rules_by_id.get(rule_id, {})
-                props = (rule.get("properties", {}) or {})
 
-                pkg_name = props.get("affected_package", "")
-                installed_ver = props.get("affected_package_version", "")
-                fixed_ver = props.get("fixed_version", "")
-                sev_raw = props.get("cvss_severity", props.get("severity", "UNKNOWN"))
-                pkg_type = (props.get("package_type", "") or "").lower()
+                # ── Package-specific data lives in result.properties ──────────
+                res_props = result.get("properties", {}) or {}
+                rule_props = rule.get("properties", {}) or {}
+
+                pkg_name     = res_props.get("affected_package", "")
+                installed_ver = res_props.get("affected_package_version", "")
+                fixed_ver    = res_props.get("fixed_version", "")
+                pkg_type     = (res_props.get("package_type", "") or "").lower()
+
+                # ── PURL fallback from locations ──────────────────────────────
+                if not pkg_name:
+                    for loc in result.get("locations", []):
+                        purl = (
+                            (loc.get("physicalLocation", {}) or {})
+                            .get("artifactLocation", {})
+                            .get("uri", "")
+                        )
+                        if purl.startswith("pkg:"):
+                            pkg_name      = pkg_name or package_from_purl(purl)
+                            installed_ver = installed_ver or purl.split("@", 1)[-1].split("?")[0]
+                            pkg_type      = pkg_type or package_type_from_purl(purl)
+                            break
+
+                # ── Severity: result props → rule props → UNKNOWN ────────────
+                sev_raw = (
+                    res_props.get("cvss_severity")
+                    or res_props.get("severity")
+                    or rule_props.get("cvss_severity")
+                    or rule_props.get("severity")
+                    or "UNKNOWN"
+                )
+
                 desc = (rule.get("shortDescription", {}) or {}).get("text", "") or ""
 
                 if not pkg_name:
+                    log.debug("SARIF: skipping result with no package name (ruleId=%r)", rule_id)
                     continue
 
                 cves.append(
@@ -521,7 +573,25 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
                     )
                 )
     else:
-        log.warning("Unrecognized Scout JSON schema. No CVEs extracted.")
+        top_keys = list(data.keys())[:6]
+        log.warning(
+            "Unrecognized Scout JSON schema — no CVEs extracted. "
+            "Top-level keys: %s",
+            top_keys,
+        )
+
+    if not cves and data:
+        # Emit the top-level structure so users can file a bug report with context.
+        top_keys = list(data.keys())[:6]
+        runs_len  = len(data.get("runs", [])) if "runs" in data else None
+        log.warning(
+            "Scout report was parsed but yielded 0 CVEs. "
+            "Schema keys=%s runs=%s. "
+            "This may indicate a format mismatch — check the uploaded vuln_reports artifact "
+            "and open an issue with the scout JSON sample.",
+            top_keys,
+            runs_len,
+        )
 
     log.info("Parsed %d CVE(s).", len(cves))
     return ScanReport(image=image, cves=cves)
