@@ -513,106 +513,157 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
                     json.dumps(first_rule)[:1500],
                 )
 
+            # ── Helper: parse Scout's structured message.text table ─────────
+            # Docker Scout v1.23+ embeds a key:value table in result.message.text:
+            #   "Severity         :LOW\nPackage          :pkg:npm/foo@1.0\n..."
+            # Returns a dict with lower-cased, stripped keys.
+            def _parse_msg_table(text: str) -> dict[str, str]:
+                out: dict[str, str] = {}
+                for line in (text or "").splitlines():
+                    if ":" in line:
+                        key, _, val = line.partition(":")
+                        key_clean = key.strip().lower().replace(" ", "_")
+                        val_clean = val.strip()
+                        if key_clean and val_clean:
+                            out[key_clean] = val_clean
+                return out
+
+            # ── Helper: extract package data from a PURL string ───────────────
+            def _apply_purl(
+                purl: str,
+                pkg: str,
+                ver: str,
+                typ: str,
+            ) -> tuple[str, str, str]:
+                if not purl.startswith("pkg:"):
+                    return pkg, ver, typ
+                pkg = pkg or package_from_purl(purl)
+                if not ver and "@" in purl:
+                    ver = purl.split("@", 1)[-1].split("?")[0]
+                typ = typ or package_type_from_purl(purl)
+                return pkg, ver, typ
+
             for result in results:
-                rule_id   = result.get("ruleId", "")
-                rule      = rules_by_id.get(rule_id, {})
-                res_props = result.get("properties", {}) or {}
+                rule_id    = result.get("ruleId", "")
+                rule       = rules_by_id.get(rule_id, {})
+                res_props  = result.get("properties", {}) or {}
                 rule_props = rule.get("properties", {}) or {}
 
-                # ── Package name ─────────────────────────────────────────────
-                # Try every field name variant seen across Scout versions.
-                pkg_name = _first(
+                # ── Source A: result.properties (older Scout / future versions) ─
+                pkg_name      = _first(
                     res_props.get("affected_package", ""),
                     res_props.get("affected_package_name", ""),
                     res_props.get("package_name", ""),
                     res_props.get("package", ""),
                     res_props.get("name", ""),
+                )
+                installed_ver = _first(
+                    res_props.get("affected_package_version", ""),
+                    res_props.get("installed_version", ""),
+                    res_props.get("version", ""),
+                )
+                fixed_ver     = _first(
+                    res_props.get("fixed_version", ""),
+                    res_props.get("fix_version", ""),
+                    res_props.get("patched_version", ""),
+                    res_props.get("remediation_version", ""),
+                )
+                pkg_type      = _first(
+                    res_props.get("package_type", ""),
+                    res_props.get("ecosystem", ""),
+                    res_props.get("type", ""),
+                ).lower()
+                sev_raw       = _first(
+                    res_props.get("cvss_severity", ""),
+                    res_props.get("cvssV3_severity", ""),
+                    res_props.get("severity", ""),
+                )
+
+                # ── Source B: rule.properties ─────────────────────────────────
+                # Scout v1.23 puts ALL data here (result.properties is empty).
+                #
+                # Known fields (from live run debug output):
+                #   purls            → list[str] of PURLs, e.g. ["pkg:npm/foo@1.0"]
+                #   fixed_version    → "2.0.2"
+                #   affected_version → version range (not exact; use PURL for exact)
+                #   cvssV3_severity  → "LOW" / "MEDIUM" / "HIGH" / "CRITICAL"
+                #   security-severity→ numeric CVSS string
+                pkg_name = pkg_name or _first(
                     rule_props.get("affected_package", ""),
                     rule_props.get("affected_package_name", ""),
                     rule_props.get("package_name", ""),
                     rule_props.get("package", ""),
                 )
-
-                # ── Installed version ─────────────────────────────────────────
-                installed_ver = _first(
-                    res_props.get("affected_package_version", ""),
-                    res_props.get("installed_version", ""),
-                    res_props.get("version", ""),
-                    rule_props.get("affected_package_version", ""),
-                    rule_props.get("installed_version", ""),
-                    rule_props.get("version", ""),
-                )
-
-                # ── Fixed version ─────────────────────────────────────────────
-                fixed_ver = _first(
-                    res_props.get("fixed_version", ""),
-                    res_props.get("fix_version", ""),
-                    res_props.get("patched_version", ""),
-                    res_props.get("remediation_version", ""),
+                fixed_ver     = fixed_ver or _first(
                     rule_props.get("fixed_version", ""),
                     rule_props.get("fix_version", ""),
                     rule_props.get("patched_version", ""),
                 )
-
-                # ── Package type ──────────────────────────────────────────────
-                pkg_type = _first(
-                    res_props.get("package_type", ""),
-                    res_props.get("ecosystem", ""),
-                    res_props.get("type", ""),
-                    rule_props.get("package_type", ""),
-                    rule_props.get("ecosystem", ""),
-                ).lower()
-
-                # ── Severity ──────────────────────────────────────────────────
-                sev_raw = _first(
-                    res_props.get("cvss_severity", ""),
-                    res_props.get("severity", ""),
+                sev_raw       = sev_raw or _first(
+                    rule_props.get("cvssV3_severity", ""),
                     rule_props.get("cvss_severity", ""),
                     rule_props.get("severity", ""),
-                ) or result.get("level", "UNKNOWN")
+                )
 
-                # Map SARIF native levels to our severity vocabulary
-                _sarif_level = {"error": "HIGH", "warning": "MEDIUM", "note": "LOW", "none": "LOW"}
-                if sev_raw.lower() in _sarif_level and sev_raw.upper() not in SEVERITY_ORDER:
-                    sev_raw = _sarif_level[sev_raw.lower()]
+                # rule_props.purls is the canonical package identity in v1.23
+                purls_field = rule_props.get("purls", []) or []
+                if isinstance(purls_field, str):
+                    purls_field = [purls_field]
+                for purl_str in purls_field:
+                    if isinstance(purl_str, str):
+                        pkg_name, installed_ver, pkg_type = _apply_purl(
+                            purl_str, pkg_name, installed_ver, pkg_type
+                        )
+                        break  # first PURL is enough
 
-                # ── PURL fallback (Source C + D) ──────────────────────────────
+                # ── Source C: result.message.text structured table ────────────
+                # Scout v1.23 always includes a labeled table in message.text:
+                #   "Package          :pkg:npm/brace-expansion@2.0.1"
+                #   "Fixed version    :2.0.2"
+                #   "Severity         :LOW"
+                msg_table = _parse_msg_table(result.get("message", {}).get("text", ""))
+                msg_pkg_purl = msg_table.get("package", "")
+                pkg_name, installed_ver, pkg_type = _apply_purl(
+                    msg_pkg_purl, pkg_name, installed_ver, pkg_type
+                )
+                fixed_ver = fixed_ver or msg_table.get("fixed_version", "")
+                sev_raw   = sev_raw   or msg_table.get("severity", "")
+
+                # ── Source D: locations (artifactLocation PURL, logicalLocations)
                 for loc in result.get("locations", []):
                     phy = loc.get("physicalLocation", {}) or {}
-
-                    # Source C: artifactLocation.uri is usually a PURL
                     purl = phy.get("artifactLocation", {}).get("uri", "")
-                    if purl.startswith("pkg:"):
-                        pkg_name      = pkg_name or package_from_purl(purl)
-                        installed_ver = installed_ver or purl.split("@", 1)[-1].split("?")[0]
-                        pkg_type      = pkg_type or package_type_from_purl(purl)
-
-                    # Source D: logicalLocations carry name + fullyQualifiedName
+                    pkg_name, installed_ver, pkg_type = _apply_purl(
+                        purl, pkg_name, installed_ver, pkg_type
+                    )
                     for ll in (loc.get("logicalLocations", []) or []):
-                        ll_name = ll.get("name", "")
-                        ll_fqn  = ll.get("fullyQualifiedName", "")
-                        if not pkg_name and ll_name:
-                            pkg_name = ll_name
-                        if not installed_ver and "@" in ll_fqn:
-                            installed_ver = ll_fqn.split("@", 1)[-1]
-
-                    # region.snippet.text sometimes holds "pkg_name version"
+                        if not pkg_name:
+                            pkg_name = ll.get("name", "")
+                        if not installed_ver:
+                            fqn = ll.get("fullyQualifiedName", "")
+                            if "@" in fqn:
+                                installed_ver = fqn.split("@", 1)[-1]
                     snippet = phy.get("region", {}).get("snippet", {}).get("text", "")
                     if snippet and not pkg_name:
                         parts = snippet.split()
                         pkg_name      = pkg_name or (parts[0] if parts else "")
                         installed_ver = installed_ver or (parts[1] if len(parts) > 1 else "")
 
-                # ── fixed_version fallback (Source E): parse help/description ──
+                # ── Source E: rule help / description text (fixed_version only) ─
                 if not fixed_ver:
                     help_text = _first(
                         (rule.get("help", {}) or {}).get("text", ""),
                         (rule.get("help", {}) or {}).get("markdown", ""),
                         (rule.get("fullDescription", {}) or {}).get("text", ""),
-                        result.get("message", {}).get("text", ""),
                     )
                     if help_text:
                         fixed_ver = fixed_from_solution(help_text)
+
+                # ── Map SARIF native level → severity ─────────────────────────
+                _sarif_level = {"error": "HIGH", "warning": "MEDIUM", "note": "LOW", "none": "LOW"}
+                sev_final = sev_raw or result.get("level", "UNKNOWN")
+                if sev_final.lower() in _sarif_level and sev_final.upper() not in SEVERITY_ORDER:
+                    sev_final = _sarif_level[sev_final.lower()]
 
                 desc = (rule.get("shortDescription", {}) or {}).get("text", "") or ""
 
@@ -632,7 +683,7 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
                         pkg_name=pkg_name,
                         installed_version=installed_ver,
                         fixed_version=fixed_ver,
-                        severity=normalize_severity(sev_raw),
+                        severity=normalize_severity(sev_final),
                         package_type=pkg_type,
                         description=desc[:120],
                     )
