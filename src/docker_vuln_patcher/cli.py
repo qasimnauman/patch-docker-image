@@ -389,10 +389,36 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
         return without_scheme.split("/", 1)[0].lower().strip()
 
     def fixed_from_solution(solution: str) -> str:
+        """Extract a fixed/patched version string from Scout help/description text.
+
+        Handles phrasings produced by different Scout versions, e.g.:
+          "Upgrade to 1.1.1w"  |  "update to version 1.2.3"
+          "Fixed in 1.1.1w"    |  "fixed in version 1.2.3"
+          "resolved in 2.0"    |  "Upgrade openssl to 1.1.1w"
+        """
         if not solution:
             return ""
-        match = re.search(r"\bto\s+([^\s,;]+)", solution)
-        return match.group(1).strip() if match else ""
+        patterns = [
+            # "upgrade/update [pkg] to [version]"
+            r"\bupg(?:rade)?\s+(?:to\s+version\s+|to\s+)([^\s,;\)]+)",
+            r"\bupdate\s+(?:to\s+version\s+|to\s+)([^\s,;\)]+)",
+            # "to version X" / "to X" (general)
+            r"\bto\s+version\s+([^\s,;\)]+)",
+            r"\bto\s+([0-9][^\s,;\)]*)",
+            # "fixed in version X" / "fixed in X"
+            r"\bfixed\s+in\s+(?:version\s+)?([^\s,;\)]+)",
+            # "resolved in X"
+            r"\bresolved\s+in\s+(?:version\s+)?([^\s,;\)]+)",
+            # "patched in X"
+            r"\bpatched\s+in\s+(?:version\s+)?([^\s,;\)]+)",
+        ]
+        for pat in patterns:
+            m = re.search(pat, solution, re.IGNORECASE)
+            if m:
+                candidate = m.group(1).strip().rstrip(".,;)")
+                if candidate:
+                    return candidate
+        return ""
 
     if "packages" in data:
         # Scout legacy JSON format
@@ -444,21 +470,27 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
     elif "runs" in data:
         # SARIF 2.1.0 format (Docker Scout v1.22+).
         #
-        # Scout splits data across TWO levels:
-        #   rule.properties  → CVE-wide metadata: cvss_severity, cvss_score
-        #   result.properties → per-location package data: affected_package,
-        #                        affected_package_version, fixed_version,
-        #                        package_type
-        # The result.locations[].physicalLocation.artifactLocation.uri field
-        # holds the PURL (pkg:type/namespace/name@version) as a last-resort
-        # source for package name, version, and type.
+        # Docker Scout's SARIF layout has varied across minor versions.  This
+        # parser tries every known field-name variant and data location so it
+        # works regardless of which version produced the report:
+        #
+        #   Source A – result.properties  (per-location / per-package)
+        #   Source B – rule.properties    (per-CVE metadata)
+        #   Source C – locations[0].physicalLocation.artifactLocation.uri (PURL)
+        #   Source D – locations[0].logicalLocations[0] (name + fullyQualifiedName)
+        #   Source E – rule.help.text / rule.fullDescription.text (fixed version
+        #              extracted via regex as absolute last resort)
+
+        def _first(*values: str) -> str:
+            """Return the first non-empty string from the candidates."""
+            return next((v for v in values if v and str(v).strip()), "")
+
         runs = data.get("runs", [])
         log.debug("SARIF: %d run(s)", len(runs))
 
         for run in runs:
             driver = (run.get("tool", {}) or {}).get("driver", {}) or {}
 
-            # Rule-level lookup: CVE-wide info (severity/CVSS)
             rules_by_id: dict[str, dict] = {}
             for rule in driver.get("rules", []):
                 rid = rule.get("id", "")
@@ -466,57 +498,132 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
                     rules_by_id[rid] = rule
 
             results = run.get("results", [])
+            log.debug("SARIF: %d result(s) in this run", len(results))
+
             if results:
-                sample = results[0]
+                # Dump the first result and its rule as raw JSON so any
+                # future field-name mismatch is instantly visible in the log.
                 log.debug(
-                    "SARIF first result: ruleId=%r result.properties=%r locations=%d",
-                    sample.get("ruleId"),
-                    sample.get("properties"),
-                    len(sample.get("locations", [])),
+                    "SARIF first result (raw): %s",
+                    json.dumps(results[0])[:1500],
                 )
-                first_rule = rules_by_id.get(sample.get("ruleId", ""), {})
-                log.debug("SARIF first rule.properties=%r", first_rule.get("properties"))
+                first_rule = rules_by_id.get(results[0].get("ruleId", ""), {})
+                log.debug(
+                    "SARIF first rule (raw): %s",
+                    json.dumps(first_rule)[:1500],
+                )
 
             for result in results:
-                rule_id = result.get("ruleId", "")
-                rule = rules_by_id.get(rule_id, {})
-
-                # ── Package-specific data lives in result.properties ──────────
+                rule_id   = result.get("ruleId", "")
+                rule      = rules_by_id.get(rule_id, {})
                 res_props = result.get("properties", {}) or {}
                 rule_props = rule.get("properties", {}) or {}
 
-                pkg_name     = res_props.get("affected_package", "")
-                installed_ver = res_props.get("affected_package_version", "")
-                fixed_ver    = res_props.get("fixed_version", "")
-                pkg_type     = (res_props.get("package_type", "") or "").lower()
-
-                # ── PURL fallback from locations ──────────────────────────────
-                if not pkg_name:
-                    for loc in result.get("locations", []):
-                        purl = (
-                            (loc.get("physicalLocation", {}) or {})
-                            .get("artifactLocation", {})
-                            .get("uri", "")
-                        )
-                        if purl.startswith("pkg:"):
-                            pkg_name      = pkg_name or package_from_purl(purl)
-                            installed_ver = installed_ver or purl.split("@", 1)[-1].split("?")[0]
-                            pkg_type      = pkg_type or package_type_from_purl(purl)
-                            break
-
-                # ── Severity: result props → rule props → UNKNOWN ────────────
-                sev_raw = (
-                    res_props.get("cvss_severity")
-                    or res_props.get("severity")
-                    or rule_props.get("cvss_severity")
-                    or rule_props.get("severity")
-                    or "UNKNOWN"
+                # ── Package name ─────────────────────────────────────────────
+                # Try every field name variant seen across Scout versions.
+                pkg_name = _first(
+                    res_props.get("affected_package", ""),
+                    res_props.get("affected_package_name", ""),
+                    res_props.get("package_name", ""),
+                    res_props.get("package", ""),
+                    res_props.get("name", ""),
+                    rule_props.get("affected_package", ""),
+                    rule_props.get("affected_package_name", ""),
+                    rule_props.get("package_name", ""),
+                    rule_props.get("package", ""),
                 )
+
+                # ── Installed version ─────────────────────────────────────────
+                installed_ver = _first(
+                    res_props.get("affected_package_version", ""),
+                    res_props.get("installed_version", ""),
+                    res_props.get("version", ""),
+                    rule_props.get("affected_package_version", ""),
+                    rule_props.get("installed_version", ""),
+                    rule_props.get("version", ""),
+                )
+
+                # ── Fixed version ─────────────────────────────────────────────
+                fixed_ver = _first(
+                    res_props.get("fixed_version", ""),
+                    res_props.get("fix_version", ""),
+                    res_props.get("patched_version", ""),
+                    res_props.get("remediation_version", ""),
+                    rule_props.get("fixed_version", ""),
+                    rule_props.get("fix_version", ""),
+                    rule_props.get("patched_version", ""),
+                )
+
+                # ── Package type ──────────────────────────────────────────────
+                pkg_type = _first(
+                    res_props.get("package_type", ""),
+                    res_props.get("ecosystem", ""),
+                    res_props.get("type", ""),
+                    rule_props.get("package_type", ""),
+                    rule_props.get("ecosystem", ""),
+                ).lower()
+
+                # ── Severity ──────────────────────────────────────────────────
+                sev_raw = _first(
+                    res_props.get("cvss_severity", ""),
+                    res_props.get("severity", ""),
+                    rule_props.get("cvss_severity", ""),
+                    rule_props.get("severity", ""),
+                ) or result.get("level", "UNKNOWN")
+
+                # Map SARIF native levels to our severity vocabulary
+                _sarif_level = {"error": "HIGH", "warning": "MEDIUM", "note": "LOW", "none": "LOW"}
+                if sev_raw.lower() in _sarif_level and sev_raw.upper() not in SEVERITY_ORDER:
+                    sev_raw = _sarif_level[sev_raw.lower()]
+
+                # ── PURL fallback (Source C + D) ──────────────────────────────
+                for loc in result.get("locations", []):
+                    phy = loc.get("physicalLocation", {}) or {}
+
+                    # Source C: artifactLocation.uri is usually a PURL
+                    purl = phy.get("artifactLocation", {}).get("uri", "")
+                    if purl.startswith("pkg:"):
+                        pkg_name      = pkg_name or package_from_purl(purl)
+                        installed_ver = installed_ver or purl.split("@", 1)[-1].split("?")[0]
+                        pkg_type      = pkg_type or package_type_from_purl(purl)
+
+                    # Source D: logicalLocations carry name + fullyQualifiedName
+                    for ll in (loc.get("logicalLocations", []) or []):
+                        ll_name = ll.get("name", "")
+                        ll_fqn  = ll.get("fullyQualifiedName", "")
+                        if not pkg_name and ll_name:
+                            pkg_name = ll_name
+                        if not installed_ver and "@" in ll_fqn:
+                            installed_ver = ll_fqn.split("@", 1)[-1]
+
+                    # region.snippet.text sometimes holds "pkg_name version"
+                    snippet = phy.get("region", {}).get("snippet", {}).get("text", "")
+                    if snippet and not pkg_name:
+                        parts = snippet.split()
+                        pkg_name      = pkg_name or (parts[0] if parts else "")
+                        installed_ver = installed_ver or (parts[1] if len(parts) > 1 else "")
+
+                # ── fixed_version fallback (Source E): parse help/description ──
+                if not fixed_ver:
+                    help_text = _first(
+                        (rule.get("help", {}) or {}).get("text", ""),
+                        (rule.get("help", {}) or {}).get("markdown", ""),
+                        (rule.get("fullDescription", {}) or {}).get("text", ""),
+                        result.get("message", {}).get("text", ""),
+                    )
+                    if help_text:
+                        fixed_ver = fixed_from_solution(help_text)
 
                 desc = (rule.get("shortDescription", {}) or {}).get("text", "") or ""
 
                 if not pkg_name:
-                    log.debug("SARIF: skipping result with no package name (ruleId=%r)", rule_id)
+                    log.debug(
+                        "SARIF: skipping result with no package name (ruleId=%r "
+                        "res_props_keys=%s rule_props_keys=%s)",
+                        rule_id,
+                        list(res_props.keys())[:8],
+                        list(rule_props.keys())[:8],
+                    )
                     continue
 
                 cves.append(
@@ -530,6 +637,13 @@ def parse_scout_report(report_path: Path, image: str) -> ScanReport:
                         description=desc[:120],
                     )
                 )
+
+        fixable_count = sum(1 for c in cves if c.fixed_version)
+        log.debug(
+            "SARIF parse complete: %d CVE(s) extracted, %d with non-empty fixed_version",
+            len(cves),
+            fixable_count,
+        )
     elif "components" in data or "metadata" in data:
         # CycloneDX JSON format
         for vuln in data.get("vulnerabilities", []):
