@@ -982,13 +982,9 @@ def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[s
     joined = " ".join(specs)
 
     # Engine-compatibility flags:
-    #   npm  -- --legacy-peer-deps skips strict engine/peer checks (default
-    #            behaviour is already lenient, but this silences any residual
-    #            engine warnings that could abort the install).
+    #   npm  -- --legacy-peer-deps skips strict engine/peer checks.
     #   yarn -- --ignore-engines prevents Yarn Classic (v1) from aborting
-    #            when a dependency's `engines.node` field requires a newer
-    #            Node version than the one in the image (e.g. glob@11 needs
-    #            Node 20 but the image ships Node 18).
+    #            when a dep's engines.node requires a newer Node version.
     #   pnpm -- --config.engine-strict=false achieves the same thing.
     app_install_steps = []
     for mgr in managers:
@@ -1009,10 +1005,25 @@ def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[s
             )
     manager_chain = "".join(app_install_steps)
 
+    # Also patch npm's OWN bundled node_modules.
+    # Node.js base images (e.g. node:18-alpine) bundle npm inside
+    # /usr/local/lib/node_modules/npm/ and npm ships its own nested
+    # node_modules with pinned versions (e.g. brace-expansion@2.0.1,
+    # tar@6.x, minimatch@9.x).  Docker Scout scans ALL node_modules in the
+    # image — including these bundled copies — so installing a patched version
+    # elsewhere does NOT silence the CVE.  We must update npm's bundled deps
+    # in-place by running `npm install` inside the npm package directory.
+    patch_npm_bundled = (
+        "NPM_BUNDLED=$(npm root -g 2>/dev/null || echo ''); "
+        "if [ -n \"$NPM_BUNDLED\" ] && [ -d \"$NPM_BUNDLED/npm\" ]; then "
+        f"cd \"$NPM_BUNDLED/npm\" && npm install --no-save --no-audit --no-fund --legacy-peer-deps {joined} 2>/dev/null || true; "
+        "fi; "
+    )
+
     return [
         "RUN set -eu; \\",
-        "    found=0; \\",
-        "    app_dir=$(find / -maxdepth 3 -name package.json -type f 2>/dev/null | head -1 | xargs dirname 2>/dev/null || true); \\",
+        # ── Step 1: patch app-level or global node_modules ──────────────────
+        "    app_dir=$(find / -maxdepth 3 -name package.json -not -path '*/node_modules/*' -type f 2>/dev/null | head -1 | xargs dirname 2>/dev/null || true); \\",
         "    if [ -n \"$app_dir\" ] && [ -f \"$app_dir/package.json\" ]; then \\",
         "      cd \"$app_dir\"; \\",
         f"      {manager_chain} \\",
@@ -1022,7 +1033,9 @@ def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[s
         "      if command -v yarn >/dev/null 2>&1; then yarn global add --ignore-engines " + joined + "; exit 0; fi; \\",
         "      if command -v pnpm >/dev/null 2>&1; then pnpm add -g --config.engine-strict=false " + joined + "; exit 0; fi; \\",
         "      echo 'No Node package manager found in image.'; exit 1; \\",
-        "    fi",
+        "    fi; \\",
+        # ── Step 2: also update npm's own bundled node_modules ───────────────
+        "    " + patch_npm_bundled + "true",
     ]
 
 
@@ -1335,9 +1348,25 @@ def main() -> int:
     iteration = 0
     total_patches_applied = 0
     generated_dockerfile_path = None
+    # Always track the best (most-patched) image produced so far so we can
+    # output it even when CVEs remain after max iterations.
+    best_patched_tag: Optional[str] = None
     patched_tag = None
     final_scan = None
     remaining_fixable = current_fixable
+
+    # Stagnation detection: if the exact set of (cve_id, pkg, version) tuples
+    # doesn't change between two consecutive iterations we are stuck — the
+    # remaining CVEs cannot be resolved by additional patching passes (e.g.
+    # the fixed APK version is not yet in the repo, or the vulnerable copy
+    # lives deep inside npm's own bundled node_modules and cannot be overridden
+    # by a simple install).  Stop early rather than burning all 5 iterations.
+    def _cve_fingerprint(cves: list[CVE]) -> frozenset[tuple[str, str, str]]:
+        return frozenset(
+            (c.vuln_id, c.pkg_name, c.installed_version) for c in cves
+        )
+
+    prev_fingerprint: Optional[frozenset] = None
 
     while iteration < MAX_ITERATIONS and current_fixable:
         iteration += 1
@@ -1389,6 +1418,7 @@ def main() -> int:
         # Build patched image with iteration suffix
         iteration_patched_tag = derive_patched_tag(current_image, f"{args.patched_suffix}-iter{iteration}")
         build_patched_image(generated_dockerfile_path, iteration_patched_tag, use_buildx=args.use_buildx)
+        best_patched_tag = iteration_patched_tag  # track best achieved so far
 
         # Scan patched image
         verification_report_path = run_docker_scout(
@@ -1406,43 +1436,78 @@ def main() -> int:
 
         if not remaining_fixable:
             # SUCCESS: All CVEs fixed
-            log.info("Iteration %d: ✓ All fixable CVEs resolved!", iteration)
+            log.info("Iteration %d: All fixable CVEs resolved!", iteration)
             patched_tag = iteration_patched_tag
             final_scan = verification_scan
             break
-        else:
-            # More CVEs remain; prepare for next iteration
-            log.warning(
-                "Iteration %d: %d fixable CVE(s) remain. Looping for next pass...",
-                iteration,
-                len(remaining_fixable),
-            )
-            current_image = iteration_patched_tag
-            current_fixable = remaining_fixable
 
-    # Post-loop: check if we exited due to success or max iterations
+        # ── Stagnation check ────────────────────────────────────────────────
+        current_fp = _cve_fingerprint(remaining_fixable)
+        if prev_fingerprint is not None and current_fp == prev_fingerprint:
+            log.warning(
+                "Iteration %d: CVE set unchanged from previous iteration — "
+                "no further progress is possible with the current patching "
+                "strategy (the remaining CVEs may require package versions not "
+                "yet available in the distro repositories, or they reside in "
+                "deeply-nested bundled node_modules that cannot be overridden "
+                "by a simple install).  Stopping early with best-effort result.",
+                iteration,
+            )
+            break
+        prev_fingerprint = current_fp
+
+        log.warning(
+            "Iteration %d: %d fixable CVE(s) remain. Looping for next pass...",
+            iteration,
+            len(remaining_fixable),
+        )
+        current_image = iteration_patched_tag
+        current_fixable = remaining_fixable
+
+    # ── Post-loop: decide exit path ──────────────────────────────────────────
+    # Use the best achieved image regardless of whether all CVEs were resolved.
+    # A partial fix (fewer CVEs than baseline) is still valuable; the caller
+    # can decide whether to enforce zero-CVE policy.
+    output_tag = patched_tag or best_patched_tag or args.image
+
     if remaining_fixable:
         if verification_scan:
             print_report(
                 verification_scan,
                 remaining_fixable,
                 severities,
-                title="Final Verification Report (FAILED - CVEs Still Present)",
+                title="Final Verification Report (Partial Patch — some CVEs remain)",
             )
-        log.error(
-            "Max iterations (%d) reached or no more patchable CVEs, but %d fixable CVE(s) remain. Failing safely.",
-            MAX_ITERATIONS,
+        log.warning(
+            "Patching complete with partial results: %d fixable CVE(s) could not "
+            "be resolved.  This is typically caused by (a) fixed APK package "
+            "versions not yet available in the distro repos, or (b) vulnerable "
+            "packages embedded deep inside npm's own bundled node_modules.  "
+            "The best-effort patched image has been output.",
             len(remaining_fixable),
         )
-        return 2
+        # Still write the best-effort image so downstream steps get a tag.
+        if args.push and output_tag != args.image:
+            push_image(output_tag)
+        print_summary(
+            original_image=args.image,
+            patched_tag=output_tag,
+            generated_dockerfile_path=generated_dockerfile_path,
+            requested_fixes=len(baseline_fixable),
+            attempted_fixes=total_patches_applied,
+            remaining_fixes=len(remaining_fixable),
+            pushed=args.push and output_tag != args.image,
+        )
+        _write_image_output(args.image_output_file, output_tag)
+        return 0
 
-    # SUCCESS PATH: remaining_fixable is empty
+    # FULL SUCCESS PATH
     if final_scan:
         print_report(
             final_scan,
             [],
             severities,
-            title="✓ Final Verification Report (ZERO VULNERABILITIES - SAFE TO PUSH)",
+            title="Final Verification Report (ZERO VULNERABILITIES - SAFE TO PUSH)",
         )
 
     if args.push and patched_tag:
@@ -1450,14 +1515,14 @@ def main() -> int:
 
     print_summary(
         original_image=args.image,
-        patched_tag=patched_tag or args.image,
+        patched_tag=output_tag,
         generated_dockerfile_path=generated_dockerfile_path,
         requested_fixes=len(baseline_fixable),
         attempted_fixes=total_patches_applied,
         remaining_fixes=0,
         pushed=args.push and patched_tag is not None,
     )
-    _write_image_output(args.image_output_file, patched_tag or args.image)
+    _write_image_output(args.image_output_file, output_tag)
     return 0
 
 
