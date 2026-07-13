@@ -980,14 +980,33 @@ def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[s
         return []
 
     joined = " ".join(specs)
+
+    # Engine-compatibility flags:
+    #   npm  -- --legacy-peer-deps skips strict engine/peer checks (default
+    #            behaviour is already lenient, but this silences any residual
+    #            engine warnings that could abort the install).
+    #   yarn -- --ignore-engines prevents Yarn Classic (v1) from aborting
+    #            when a dependency's `engines.node` field requires a newer
+    #            Node version than the one in the image (e.g. glob@11 needs
+    #            Node 20 but the image ships Node 18).
+    #   pnpm -- --config.engine-strict=false achieves the same thing.
     app_install_steps = []
     for mgr in managers:
         if mgr == "npm":
-            app_install_steps.append(f"if command -v npm >/dev/null 2>&1; then npm install --no-audit --no-fund {joined}; exit 0; fi; ")
+            app_install_steps.append(
+                f"if command -v npm >/dev/null 2>&1; then "
+                f"npm install --no-audit --no-fund --legacy-peer-deps {joined}; exit 0; fi; "
+            )
         elif mgr == "yarn":
-            app_install_steps.append(f"if command -v yarn >/dev/null 2>&1; then yarn add {joined}; exit 0; fi; ")
+            app_install_steps.append(
+                f"if command -v yarn >/dev/null 2>&1; then "
+                f"yarn add --ignore-engines {joined}; exit 0; fi; "
+            )
         elif mgr == "pnpm":
-            app_install_steps.append(f"if command -v pnpm >/dev/null 2>&1; then pnpm add {joined}; exit 0; fi; ")
+            app_install_steps.append(
+                f"if command -v pnpm >/dev/null 2>&1; then "
+                f"pnpm add --config.engine-strict=false {joined}; exit 0; fi; "
+            )
     manager_chain = "".join(app_install_steps)
 
     return [
@@ -999,9 +1018,9 @@ def build_node_upgrade_run(packages_to_version: dict[str, str], managers: list[s
         f"      {manager_chain} \\",
         "      echo 'No Node package manager found in image.'; exit 1; \\",
         "    else \\",
-        "      if command -v npm >/dev/null 2>&1; then npm install -g --no-audit --no-fund " + joined + "; exit 0; fi; \\",
-        "      if command -v yarn >/dev/null 2>&1; then yarn global add " + joined + "; exit 0; fi; \\",
-        "      if command -v pnpm >/dev/null 2>&1; then pnpm add -g " + joined + "; exit 0; fi; \\",
+        "      if command -v npm >/dev/null 2>&1; then npm install -g --no-audit --no-fund --legacy-peer-deps " + joined + "; exit 0; fi; \\",
+        "      if command -v yarn >/dev/null 2>&1; then yarn global add --ignore-engines " + joined + "; exit 0; fi; \\",
+        "      if command -v pnpm >/dev/null 2>&1; then pnpm add -g --config.engine-strict=false " + joined + "; exit 0; fi; \\",
         "      echo 'No Node package manager found in image.'; exit 1; \\",
         "    fi",
     ]
